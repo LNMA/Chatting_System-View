@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>SignIn</servlet-name>
+    <servlet-class>com.louay.projects.view.service.register.SignIn</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignIn</servlet-name>
+    <url-pattern>/SignIn</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SignUpClient</servlet-name>
+    <servlet-class>com.louay.projects.view.service.register.SignUpClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignUpClient</servlet-name>
+    <url-pattern>/SignUpClient</url-pattern>
+  </servlet-mapping>
+
+  <error-page>
+    <exception-type>java.lang.Exception</exception-type>
+    <location>/util/error.jsp</location>
+  </error-page>
+
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
+</web-app>

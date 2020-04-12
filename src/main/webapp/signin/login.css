@@ -1,0 +1,26 @@
+.mainBody {
+    background: url(../signin/img/registration.png) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 40em;
+}
+
+.formSignIn {
+    width: 45%;
+    height: auto;
+    margin: 10% 29%;
+    background-color: white;
+    border-radius: 3% 3%;
+    position: absolute;
+}
+
+.internalForm {
+    margin-left: 19%;
+}
+
+.formHead {
+    font-size: 25px;
+    font-weight: 900;
+}

@@ -1,0 +1,13 @@
+.mainBackground {
+    background: #d2d1e0;
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 2%;
+    padding-bottom: 50%;
+}
+
+.aside {
+    float: left;
+    width: 22%;
+    margin-right: 2%;
+}

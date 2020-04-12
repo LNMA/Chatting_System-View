@@ -1,0 +1,28 @@
+.mainBody {
+    background: url(../signup/img/signup.png) no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.formSignUp {
+    width: 70%;
+    height: auto;
+    margin: 6% 14% 5%;
+    background-color: white;
+    border-radius: 3% 3%;
+
+}
+
+.internalForm {
+    margin-left: 8%;
+}
+
+.formHead {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: 900;
+}
