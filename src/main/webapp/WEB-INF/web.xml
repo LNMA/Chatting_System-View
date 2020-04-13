@@ -31,12 +31,12 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>AddUsersFriendImgFile</servlet-name>
-    <servlet-class>com.louay.projects.view.service.client.AddUsersFriendImgFile</servlet-class>
+    <servlet-name>ViewMyFriend</servlet-name>
+    <servlet-class>com.louay.projects.view.service.client.ViewMyFriend</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddUsersFriendImgFile</servlet-name>
-    <url-pattern>/AddUsersFriendImgFile</url-pattern>
+    <servlet-name>ViewMyFriend</servlet-name>
+    <url-pattern>/ViewMyFriend</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -46,6 +46,15 @@
   <servlet-mapping>
     <servlet-name>Logout</servlet-name>
     <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddTextPost</servlet-name>
+    <servlet-class>com.louay.projects.view.service.post.AddTextPost</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddTextPost</servlet-name>
+    <url-pattern>/AddTextPost</url-pattern>
   </servlet-mapping>
 
   
@@ -58,9 +67,15 @@
     <url-pattern>/ErrorServlet</url-pattern>
   </servlet-mapping>
   <error-page>
+    <error-code>404</error-code>
+    <location>/ErrorServlet</location>
+  </error-page>
+  <error-page>
     <exception-type>java.lang.Exception</exception-type>
     <location>/ErrorServlet</location>
   </error-page>
+
+
 
   <session-config>
     <session-timeout>60</session-timeout>

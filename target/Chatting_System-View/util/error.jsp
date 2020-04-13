@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-        @import url(../libr/bootstrap-4.4.1/css/bootstrap.min.css);
-        @import url(../libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(<%= request.getContextPath() %>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
+        @import url(<%= request.getContextPath() %>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
     </style>
     <script src="../libr/jQuery-3.4.1/jquery.min.js"></script>
     <script src="../libr/popper-1.16/popper.js"></script>

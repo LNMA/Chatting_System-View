@@ -1,16 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page errorPage="../util/error.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.louay.projects.model.chains.util.PictureDirection" %>
+<%@ page errorPage="../util/error.jsp" %>
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.time.LocalDateTime" %>
-<jsp:useBean id="context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext"
-             scope="application">
-    <%
-        context.scan("com.louay.projects.model", "com.louay.projects.controller");
-        context.refresh();
-    %>
-</jsp:useBean>
 
 <%! String usernameSession;%>
 <%! String passwordSession;%>
@@ -28,27 +20,22 @@
     }
 %>
 
-<%
-    @SuppressWarnings(value = "unchecked")
-    List<PictureDirection> list = (List<PictureDirection>) session.getAttribute("friendList");
-%>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<style>
-        @import url(../libr/bootstrap-4.4.1/css/bootstrap.min.css);
-        @import url(../client/home-client.css);
-        @import url(../libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+    <style>
+        @import url(<%=request.getContextPath()%>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
+        @import url(<%=request.getContextPath()%>/client/home-client.css);
+        @import url(<%=request.getContextPath()%>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
     </style>
-    <script src="../libr/jQuery-3.4.1/jquery.min.js"></script>
-    <script src="../libr/popper-1.16/popper.js"></script>
-    <script src="../libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="../libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
-    <script src="../client/home-client.js"></script>
+    <script src="<%=request.getContextPath()%>/libr/jQuery-3.4.1/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/libr/popper-1.16/popper.js"></script>
+    <script src="<%=request.getContextPath()%>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
+    <script src="<%=request.getContextPath()%>/client/home-client.js"></script>
     <title>User Friend `by Louay Amr'</title>
 </head>
 <body>
@@ -66,26 +53,21 @@
     </aside>
 
     <article class="mr-3">
-        <%
-            String fileName;
-            for (PictureDirection dir: list) {
-                fileName = "/client/friendImag/"+dir.getFileName();
 
-        %>
-
-
-        <section class="float-right col-md-9">
-            <div class="card">
-                <div class="card-body">
-                    <div class="form-row">
-                        <img src="<%= request.getContextPath()+fileName %>" class="rounded-circle" width="164" height="164"/>
-                        <p class="font-weight-bolder h5" style="margin-left: 13%; margin-top: 7%"><%= dir.getUsername() %></p>
+        <c:forEach items="${pictureList}" var="picture">
+            <section class="float-right col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-row">
+                            <img src="data:image/png;base64,${picture.getPictureBase64()}" class="rounded-circle"
+                                 width="164" height="164"/>
+                            <p class="font-weight-bolder h5"
+                               style="margin-left: 13%; margin-top: 7%">${picture.getUsername()} </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-       <% } %>
+            </section>
+        </c:forEach>
 
     </article>
 
