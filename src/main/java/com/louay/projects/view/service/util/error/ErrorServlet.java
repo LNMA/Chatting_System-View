@@ -1,6 +1,5 @@
 package com.louay.projects.view.service.util.error;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +9,7 @@ import java.io.PrintWriter;
 public class ErrorServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Exception exception = (Exception) req.getAttribute("javax.servlet.error.exception");
         String exceptionMessage = (String) req.getAttribute("javax.servlet.error.message");
         Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
@@ -66,7 +65,7 @@ public class ErrorServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Exception exception = (Exception) req.getAttribute("javax.servlet.error.exception");
         String exceptionMessage = (String) req.getAttribute("javax.servlet.error.message");
         Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
@@ -119,5 +118,10 @@ public class ErrorServlet extends HttpServlet {
                 "</html>");
         out.flush();
         out.close();
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "Error Occurred!";
     }
 }

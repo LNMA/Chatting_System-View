@@ -24,7 +24,7 @@ public class SignIn extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String username = req.getParameter("username").toLowerCase();
         String password = req.getParameter("password");
         String rememberMe = req.getParameter("rememberMe");
@@ -51,11 +51,14 @@ public class SignIn extends HttpServlet {
             session.setAttribute("isSign", null);
 
             resp.sendRedirect("signin\\login.jsp");
+
         }else {
             session.setAttribute("isSign", false);
             resp.sendRedirect("signin\\login.jsp");
         }
     }
+
+
 
     @Override
     public String getServletInfo() {

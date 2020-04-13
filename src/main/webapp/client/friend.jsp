@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page errorPage="../util/error.jsp" %>
-<%@page import="com.louay.projects.controller.service.*" %>
-<%@ page import="java.util.Set" %>
-<%@ page import="com.louay.projects.model.chains.communications.AccountPicture" %>
-<%@ page import="com.louay.projects.model.chains.users.Users" %>
-<%@ page import="com.louay.projects.model.chains.users.Admin" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.louay.projects.model.chains.util.PictureDirection" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.time.LocalDateTime" %>
 <jsp:useBean id="context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext"
              scope="application">
     <%
@@ -13,13 +12,25 @@
     %>
 </jsp:useBean>
 
+<%! String usernameSession;%>
+<%! String passwordSession;%>
 <%
-    String username = request.getParameter("username");
-    Users users = context.getBean(Admin.class);
-    users.setUsername(username);
-    FindFriendByUsernameController friendByName = (FindFriendByUsernameController) context.getBean("findFriendByName");
-    Set<AccountPicture> friend = friendByName.execute(users);
+    usernameSession = (String) session.getAttribute("username");
+    passwordSession = (String) session.getAttribute("password");
 
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(session.getCreationTime());
+    LocalDateTime sessionCreate = LocalDateTime.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+
+    if (usernameSession == null || passwordSession == null || (sessionCreate.plusMinutes(59).compareTo(LocalDateTime.now()) > 0)) {
+        response.sendRedirect("..\\signin\\login.jsp");
+    }
+%>
+
+<%
+    @SuppressWarnings(value = "unchecked")
+    List<PictureDirection> list = (List<PictureDirection>) session.getAttribute("friendList");
 %>
 
 
@@ -56,11 +67,10 @@
 
     <article class="mr-3">
         <%
-            for (AccountPicture pic: friend) {
-                int size = (int)pic.getPicture().length();
-                byte [] img = pic.getPicture().getBytes(1, size);
-                response.setContentType("image/png");
-                response.setContentLength(img.length);
+            String fileName;
+            for (PictureDirection dir: list) {
+                fileName = "/client/friendImag/"+dir.getFileName();
+
         %>
 
 
@@ -68,18 +78,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-row">
-                        <img src="<%= response.getOutputStream().write(img) %>" class="rounded-circle" width="164" height="164"/>
-                        <p class="font-weight-bolder h5" style="margin-left: 25%; margin-top: 7%"><%= pic.getUsername() %></p>
+                        <img src="<%= request.getContextPath()+fileName %>" class="rounded-circle" width="164" height="164"/>
+                        <p class="font-weight-bolder h5" style="margin-left: 13%; margin-top: 7%"><%= dir.getUsername() %></p>
                     </div>
                 </div>
             </div>
         </section>
 
-       <%
-            response.getOutputStream().flush();
-            };
-            response.getOutputStream().close();
-       %>
+       <% } %>
 
     </article>
 

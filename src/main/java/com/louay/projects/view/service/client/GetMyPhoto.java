@@ -27,7 +27,7 @@ public class GetMyPhoto extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session =req.getSession(false);
         if (session.getAttribute("username") == null){
             resp.sendRedirect("signin\\login.jsp");
@@ -47,8 +47,17 @@ public class GetMyPhoto extends HttpServlet {
             }
 
             resp.setContentType("image");
-            resp.setContentLength(imgByte.length);
-            resp.getOutputStream().write(imgByte);
+            if (imgByte != null ) {
+                resp.setContentLength(imgByte.length);
+                resp.getOutputStream().write(imgByte);
+                resp.getOutputStream().flush();
+                resp.getOutputStream().close();
+            }
         }
+    }
+
+    @Override
+    public String getServletInfo() {
+        return "View users image";
     }
 }

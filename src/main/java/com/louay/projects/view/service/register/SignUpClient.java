@@ -2,10 +2,9 @@ package com.louay.projects.view.service.register;
 
 import com.louay.projects.controller.service.SignUpClientController;
 import com.louay.projects.controller.service.impl.SignUpClientControllerImpl;
-import com.louay.projects.model.chains.communications.AccountPicture;
 import com.louay.projects.model.chains.users.Client;
 import com.louay.projects.model.constants.UserType;
-import com.louay.projects.model.util.date.NowDate;;
+import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
@@ -29,8 +28,8 @@ public class SignUpClient extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username").toLowerCase();
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String username = req.getParameter("username");
         String password = req.getParameter("password");
         String fName = req.getParameter("firstName");
         String lName = req.getParameter("lastName");
@@ -49,7 +48,7 @@ public class SignUpClient extends HttpServlet {
         } else {
 
             Client user = this.context.getBean(Client.class);
-            user.setUsername(username);
+            user.setUsername(username.toLowerCase());
             user.setPassword(password);
             user.setDateCreate(NowDate.getNowTimestamp());
             user.setAccountPermission(UserType.CLIENT.getType());
