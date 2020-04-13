@@ -1,5 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page errorPage="../util/error.jsp" %>
+<jsp:useBean id="context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext"
+             scope="application">
+    <%
+        context.scan("com.louay.projects.model", "com.louay.projects.controller");
+        context.refresh();
+    %>
+</jsp:useBean>
+
+<%! String usernameSession;%>
+<%! String passwordSession;%>
+<%
+    usernameSession = (String) session.getAttribute("username");
+    passwordSession = (String) session.getAttribute("password");
+    if (usernameSession == null || passwordSession == null) {
+        response.sendRedirect("signin\\login.jsp");
+    }
+%>
 
 
 <!DOCTYPE html>
@@ -27,8 +44,8 @@
 
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
-        <p class="text-light mt-3 font-weight-bold col-md-1">Home</p>
-        <p class="text-light mt-3 font-weight-bold col-md-1">Friend</p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover" href="../signin/login.jsp">Home</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover" href="../client/friend.jsp">Friend</a></p>
         <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
         </p>
 
@@ -70,8 +87,8 @@
     <aside class="aside ml-2">
 
         <div class="form-row">
-            <img src="../client/img/person-white-48dp.svg" class="rounded-circle" width="128" height="128"/>
-            <p class="mt-5 mb-0 ml-1 font-weight-bolder h5"> Username</p>
+            <img src="../GetMyPhoto" class="rounded-circle" width="128" height="128"/>
+            <p class="mt-5 mb-0 ml-1 font-weight-bolder h5"> <%= usernameSession %>></p>
         </div>
         <hr>
         <div class="form-row ml-2">

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="GlassFish 4.1.2" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 4.1.2" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-    <option name="BROWSER_ID" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+    <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/Chatting_System-View/signin/login.jsp" />
     <option name="UPDATING_POLICY" value="restart-server" />
     <deployment>
       <artifact name="Chatting_System-View:war exploded">
@@ -13,10 +13,10 @@
       <option name="COMPATIBILITY" value="false" />
       <option name="VIRTUAL_SERVER" />
       <option name="USERNAME" value="admin" />
-      <option name="CREDENTIAL_ALIAS" />
+      <option name="CREDENTIAL_ALIAS" value="57f52f1f-7462-4aca-912b-5d46e1b0c4ca" />
     </server-settings>
     <output_file path="$PROJECT_DIR$/server event.txt" is_save="true" />
-    <log_file alias="external log" path="$PROJECT_DIR$/server log.txt" />
+    <log_file alias="External Log" path="$PROJECT_DIR$/server log.txt" />
     <predefined_log_file enabled="true" id="GlassFish" />
     <RunnerSettings RunnerId="Debug">
       <option name="DEBUG_PORT" value="9009" />

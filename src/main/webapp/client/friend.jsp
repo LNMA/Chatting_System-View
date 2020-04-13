@@ -1,12 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page errorPage="../util/error.jsp" %>
 <%@page import="com.louay.projects.controller.service.*" %>
-<%@page import="com.louay.projects.model.chains.*" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="com.louay.projects.model.chains.communications.AccountPicture" %>
 <%@ page import="com.louay.projects.model.chains.users.Users" %>
 <%@ page import="com.louay.projects.model.chains.users.Admin" %>
-<%@ page import="java.io.OutputStream" %>
 <jsp:useBean id="context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext"
              scope="application">
     <%
@@ -22,8 +20,8 @@
     FindFriendByUsernameController friendByName = (FindFriendByUsernameController) context.getBean("findFriendByName");
     Set<AccountPicture> friend = friendByName.execute(users);
 
-
 %>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -1,5 +1,25 @@
+<%@ page import="com.louay.projects.controller.service.GetMyImgController" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="com.louay.projects.model.chains.communications.AccountPicture" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page errorPage="../util/error.jsp" %>
+<jsp:useBean id="context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext"
+             scope="application">
+    <%
+        context.scan("com.louay.projects.model", "com.louay.projects.controller");
+        context.refresh();
+    %>
+</jsp:useBean>
+
+<%! String usernameSession;%>
+<%! String passwordSession;%>
+<%
+    usernameSession = (String) session.getAttribute("username");
+    passwordSession = (String) session.getAttribute("password");
+    if (usernameSession == null || passwordSession == null) {
+        response.sendRedirect("signin\\login.jsp");
+    }
+%>
 
 
 <!DOCTYPE html>
@@ -70,7 +90,7 @@
     <aside class="aside ml-2">
 
         <div class="form-row">
-            <img src="../client/img/person-white-48dp.svg" class="rounded-circle" width="128" height="128"/>
+            <img src="../GetMyPhoto" class="rounded-circle" width="128" height="128"/>
             <p class="mt-5 mb-0 ml-1 font-weight-bolder h5"> Username</p>
         </div>
         <hr>

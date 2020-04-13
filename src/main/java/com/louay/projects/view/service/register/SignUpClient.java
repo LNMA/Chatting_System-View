@@ -2,6 +2,7 @@ package com.louay.projects.view.service.register;
 
 import com.louay.projects.controller.service.SignUpClientController;
 import com.louay.projects.controller.service.impl.SignUpClientControllerImpl;
+import com.louay.projects.model.chains.communications.AccountPicture;
 import com.louay.projects.model.chains.users.Client;
 import com.louay.projects.model.constants.UserType;
 import com.louay.projects.model.util.date.NowDate;;

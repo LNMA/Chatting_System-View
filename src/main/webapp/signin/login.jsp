@@ -230,7 +230,16 @@
 
 <%
     } else {
-        response.sendRedirect("..\\client\\home-client.jsp");
+        Users users = context.getBean(Admin.class);
+        users.setUsername(usernameSession);
+        users.setPassword(passwordSession);
+        SignInController signInController = (SignInController) context.getBean("isSignUp");
+        boolean isSignUp = signInController.isSignUp(users);
+        if (isSignUp) {
+            response.sendRedirect("..\\client\\home-client.jsp");
+        }else {
+            throw new IllegalStateException("It's seem something wrong in login process, please try again.");
+        }
     }
 %>
 
