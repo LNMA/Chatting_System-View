@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.util.Calendar" %>
@@ -23,8 +24,11 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(59).compareTo(LocalDateTime.now()) > 0){
-        response.sendRedirect("..\\signin\\login.jsp");
+    if (sessionCreate.plusMinutes(58).compareTo(LocalDateTime.now()) > 0){
+        session = request.getSession(true);
+        session.setAttribute("username", usernameSession);
+        session.setAttribute("password", passwordSession);
+        response.sendRedirect(contextPath+"\\signin\\login.jsp");
     }
 
 %>
@@ -97,7 +101,7 @@
     <aside class="aside ml-2">
 
         <div class="form-row">
-            <img src="<%= contextPath %>/GetMyPhoto" class="rounded-circle" width="128" height="128"/>
+            <img src="<%= contextPath %>/GetUserPhoto" class="rounded-circle" width="128" height="128"/>
             <p class="mt-5 mb-0 ml-1 font-weight-bolder h5"> <%= usernameSession %></p>
         </div>
         <hr>
@@ -148,14 +152,20 @@
             </div>
         </section>
 
-        <section class="col-md-9 mt-3 float-right">
-            <div class="card">
-                <div class="card-header">
-                </div>
-                <div class="card-body">
-                </div>
-            </div>
-        </section>
+        <jsp:include page="/GetUserTextPost"></jsp:include>
+        <c:forEach items="${userTextPost}" var="post">
+                <section class="col-md-9 mt-3 float-right">
+                    <div class="card">
+                        <div class="card-header text-muted">
+                                Was posted at : ${post.getPostDate()}
+                        </div>
+                        <div class="card-body">
+                                ${post.getPost()}
+                        </div>
+                    </div>
+                </section>
+            </c:forEach>
+
 
     </article>
 

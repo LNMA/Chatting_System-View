@@ -9,42 +9,42 @@ import java.io.PrintWriter;
 public class ErrorServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Exception exception = (Exception) req.getAttribute("javax.servlet.error.exception");
-        String exceptionMessage = (String) req.getAttribute("javax.servlet.error.message");
-        Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
-        String servletName = (String) req.getAttribute("javax.servlet.error.servlet_name");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
+        String exceptionMessage = (String) request.getAttribute("javax.servlet.error.message");
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        String servletName = (String) request.getAttribute("javax.servlet.error.servlet_name");
 
         if (servletName == null) {
             servletName = "Unknown";
         }
         String requestUri = (String)
-                req.getAttribute("javax.servlet.error.request_uri");
+                request.getAttribute("javax.servlet.error.request_uri");
 
         if (requestUri == null) {
             requestUri = "Unknown";
         }
 
-        PrintWriter out = resp.getWriter();
-        resp.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
         out.print("<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
                 "    <meta charset=\"utf-8\">\n" +
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n" +
                 "    <style>\n" +
-                "        @import url(" + req.getContextPath() + "/libr/bootstrap-4.4.1/css/bootstrap.min.css);\n" +
-                "        @import url(" + req.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);\n" +
+                "        @import url(" + request.getContextPath() + "/libr/bootstrap-4.4.1/css/bootstrap.min.css);\n" +
+                "        @import url(" + request.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);\n" +
                 "    </style>\n" +
-                "    <script src=\"" + req.getContextPath() + "/libr/jQuery-3.4.1/jquery.min.js\"></script>\n" +
-                "    <script src=\"" + req.getContextPath() + "/libr/popper-1.16/popper.js\"></script>\n" +
-                "    <script src=\"" + req.getContextPath() + "/bootstrap-4.4.1/js/bootstrap.bundle.min.js\"></script>\n" +
-                "    <script src=\"" + req.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/libr/jQuery-3.4.1/jquery.min.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/libr/popper-1.16/popper.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/bootstrap-4.4.1/js/bootstrap.bundle.min.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js\"></script>\n" +
                 "    <title>Error! `by Louay Amr`</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
                 "<div class=\"float-right\">\n" +
-                "    <img src=\"" + req.getContextPath() + "/util/img/broken_robot.png\" height=\"420\" width=\"420\" style=\"margin-top: 27%\">\n" +
+                "    <img src=\"" + request.getContextPath() + "/util/img/broken_robot.png\" height=\"420\" width=\"420\" style=\"margin-top: 27%\">\n" +
                 "</div>\n" +
                 "<div class=\"float-left ml-5 col-md-7\" style=\"margin-top: 10%;\">\n" +
                 "    <p class=\"font-weight-bold text-left text-warning h2\">Chatting system</p>\n" +
@@ -64,42 +64,42 @@ public class ErrorServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Exception exception = (Exception) req.getAttribute("javax.servlet.error.exception");
-        String exceptionMessage = (String) req.getAttribute("javax.servlet.error.message");
-        Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
-        String servletName = (String) req.getAttribute("javax.servlet.error.servlet_name");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Exception exception = (Exception) request.getAttribute("javax.servlet.error.exception");
+        String exceptionMessage = (String) request.getAttribute("javax.servlet.error.message");
+        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
+        String servletName = (String) request.getAttribute("javax.servlet.error.servlet_name");
 
         if (servletName == null) {
             servletName = "Unknown";
         }
         String requestUri = (String)
-                req.getAttribute("javax.servlet.error.request_uri");
+                request.getAttribute("javax.servlet.error.request_uri");
 
         if (requestUri == null) {
             requestUri = "Unknown";
         }
 
-        PrintWriter out = resp.getWriter();
-        resp.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        response.setContentType("text/html");
         out.print("<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
                 "    <meta charset=\"utf-8\">\n" +
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n" +
                 "    <style>\n" +
-                "        @import url(" + req.getContextPath() + "/libr/bootstrap-4.4.1/css/bootstrap.min.css);\n" +
-                "        @import url(" + req.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);\n" +
+                "        @import url(" + request.getContextPath() + "/libr/bootstrap-4.4.1/css/bootstrap.min.css);\n" +
+                "        @import url(" + request.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);\n" +
                 "    </style>\n" +
-                "    <script src=\"" + req.getContextPath() + "/libr/jQuery-3.4.1/jquery.min.js\"></script>\n" +
-                "    <script src=\"" + req.getContextPath() + "/libr/popper-1.16/popper.js\"></script>\n" +
-                "    <script src=\"" + req.getContextPath() + "/bootstrap-4.4.1/js/bootstrap.bundle.min.js\"></script>\n" +
-                "    <script src=\"" + req.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/libr/jQuery-3.4.1/jquery.min.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/libr/popper-1.16/popper.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/bootstrap-4.4.1/js/bootstrap.bundle.min.js\"></script>\n" +
+                "    <script src=\"" + request.getContextPath() + "/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js\"></script>\n" +
                 "    <title>Error! `by Louay Amr`</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
                 "<div class=\"float-right\">\n" +
-                "    <img src=\"" + req.getContextPath() + "/util/img/broken_robot.png\" height=\"420\" width=\"420\" style=\"margin-top: 27%\">\n" +
+                "    <img src=\"" + request.getContextPath() + "/util/img/broken_robot.png\" height=\"420\" width=\"420\" style=\"margin-top: 27%\">\n" +
                 "</div>\n" +
                 "<div class=\"float-left ml-5 col-md-7\" style=\"margin-top: 10%;\">\n" +
                 "    <p class=\"font-weight-bold text-left text-warning h2\">Chatting system</p>\n" +

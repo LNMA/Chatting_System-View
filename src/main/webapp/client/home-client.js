@@ -1,7 +1,7 @@
 $(document).on('click', '#inputStringPost', function () {
     'use strict';
-    var post = '<form class=\"form-group\" action=\"<%= contextPath %>/AddTextPost\" method=\"post\">' +
-        '                        <textarea class=\"form-control\" data-toggle=\"collapse\"  placeholder=\"What\'s in your mind?\"></textarea>' +
+    var post = '<form class=\"form-group\" action=\"../AddUserTextPost\" method=\"post\">' +
+        '                        <textarea class=\"form-control\" data-toggle=\"collapse\" name=\"post\"  placeholder=\"What\'s in your mind?\"></textarea>' +
         '                        <button class=\"btn btn-primary mt-2 col-md-1\" type=\"submit\" name=\"post\" value=\"Post\">Post</button>' +
         '                    </form>' +
         '                </div>';
@@ -19,7 +19,7 @@ $(document).on('dblclick', '#inputStringPost', function () {
 
 $(document).on('click', '#inputImg', function () {
     'use strict';
-    var post = '<form class=\"form-group\">\n' +
+    var post = '<form class=\"form-group\" action=\"../AddUserImgPost\" method=\"post\" enctype=\"multipart/form-data\">\n' +
         '                        <div class=\"custom-file\">\n' +
         '                            <input type=\"file\" class=\"custom-file-input\" id=\"filename\" name=\"filename\">\n' +
         '                            <label class=\"custom-file-label\" for=\"filename\">Choose file...</label>' +

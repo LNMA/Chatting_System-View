@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.register;
 
 
-import com.louay.projects.controller.service.SignInController;
+import com.louay.projects.controller.service.register.SignInController;
 import com.louay.projects.model.chains.users.Admin;
 import com.louay.projects.model.chains.users.Users;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -24,10 +24,10 @@ public class SignIn extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = req.getParameter("username").toLowerCase();
-        String password = req.getParameter("password");
-        String rememberMe = req.getParameter("rememberMe");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String username = request.getParameter("username").toLowerCase();
+        String password = request.getParameter("password");
+        String rememberMe = request.getParameter("rememberMe");
 
         Users users = context.getBean(Admin.class);
         users.setUsername(username);
@@ -36,25 +36,25 @@ public class SignIn extends HttpServlet {
         SignInController signInController = (SignInController) context.getBean("isSignUp");
         boolean isSignUp = signInController.isSignUp(users);
 
-        HttpSession session = req.getSession();
+        HttpSession session = request.getSession();
         if (isSignUp){
             if (rememberMe != null){
                 if ("remember".equals(rememberMe)){
                     Cookie usernameCookie = new Cookie("username", username);
-                    resp.addCookie(usernameCookie);
+                    response.addCookie(usernameCookie);
                     Cookie passwordCookie = new Cookie("password", password);
-                    resp.addCookie(passwordCookie);
+                    response.addCookie(passwordCookie);
                 }
             }
             session.setAttribute("username", username);
             session.setAttribute("password", password);
             session.setAttribute("isSign", null);
 
-            resp.sendRedirect("signin\\login.jsp");
+            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
 
         }else {
             session.setAttribute("isSign", false);
-            resp.sendRedirect("signin\\login.jsp");
+            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
     }
 

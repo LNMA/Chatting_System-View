@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.register;
 
-import com.louay.projects.controller.service.SignUpClientController;
-import com.louay.projects.controller.service.impl.SignUpClientControllerImpl;
+
+import com.louay.projects.controller.service.register.SignUpClientController;
 import com.louay.projects.model.chains.users.Client;
 import com.louay.projects.model.constants.UserType;
 import com.louay.projects.model.util.date.NowDate;
@@ -28,22 +28,22 @@ public class SignUpClient extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String fName = req.getParameter("firstName");
-        String lName = req.getParameter("lastName");
-        String gender = req.getParameter("gender");
-        java.sql.Date birthday = java.sql.Date.valueOf(req.getParameter("birthday"));
-        String telephone = req.getParameter("telephone");
-        String email = req.getParameter("email");
-        String country = req.getParameter("country");
-        String state = req.getParameter("state");
-        String address = req.getParameter("address");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String fName = request.getParameter("firstName");
+        String lName = request.getParameter("lastName");
+        String gender = request.getParameter("gender");
+        java.sql.Date birthday = java.sql.Date.valueOf(request.getParameter("birthday"));
+        String telephone = request.getParameter("telephone");
+        String email = request.getParameter("email");
+        String country = request.getParameter("country");
+        String state = request.getParameter("state");
+        String address = request.getParameter("address");
 
         if (username == null || password == null || fName == null || lName == null || gender == null || birthday == null
                 || telephone == null || email == null || country == null) {
-            resp.sendRedirect("signup\\signupbd.html");
+            response.sendRedirect("signup\\signupbd.html");
 
         } else {
 
@@ -63,14 +63,14 @@ public class SignUpClient extends HttpServlet {
             user.setState(state);
             user.setAddress(address);
 
-            SignUpClientController controller = (SignUpClientControllerImpl) this.context.getBean("signUpControl");
+            SignUpClientController controller = (SignUpClientController) this.context.getBean("signUpControl");
 
             boolean isFine = controller.execute(user);
 
             if (isFine) {
-                resp.sendRedirect("signup\\signupsccs.html");
+                response.sendRedirect(request.getContextPath()+"\\signup\\signupsccs.html");
             } else {
-                resp.sendRedirect("signup\\signupbd.html");
+                response.sendRedirect(request.getContextPath()+"\\signup\\signupbd.html");
             }
         }
     }

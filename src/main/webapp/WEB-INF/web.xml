@@ -22,12 +22,12 @@
   </servlet-mapping>
   
   <servlet>
-    <servlet-name>GetMyPhoto</servlet-name>
-    <servlet-class>com.louay.projects.view.service.client.GetMyPhoto</servlet-class>
+    <servlet-name>GetUserPhoto</servlet-name>
+    <servlet-class>com.louay.projects.view.service.client.GetUserPhoto</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>GetMyPhoto</servlet-name>
-    <url-pattern>/GetMyPhoto</url-pattern>
+    <servlet-name>GetUserPhoto</servlet-name>
+    <url-pattern>/GetUserPhoto</url-pattern>
   </servlet-mapping>
 
   <servlet>
@@ -49,12 +49,30 @@
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>AddTextPost</servlet-name>
-    <servlet-class>com.louay.projects.view.service.post.AddTextPost</servlet-class>
+    <servlet-name>AddUserTextPost</servlet-name>
+    <servlet-class>com.louay.projects.view.service.post.AddUserTextPost</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>AddTextPost</servlet-name>
-    <url-pattern>/AddTextPost</url-pattern>
+    <servlet-name>AddUserTextPost</servlet-name>
+    <url-pattern>/AddUserTextPost</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>GetUserTextPost</servlet-name>
+    <servlet-class>com.louay.projects.view.service.post.GetUserTextPost</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserTextPost</servlet-name>
+    <url-pattern>/GetUserTextPost</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddUserImgPost</servlet-name>
+    <servlet-class>com.louay.projects.view.service.post.AddUserImgPost</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddUserImgPost</servlet-name>
+    <url-pattern>/AddUserImgPost</url-pattern>
   </servlet-mapping>
 
   

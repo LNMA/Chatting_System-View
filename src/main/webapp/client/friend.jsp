@@ -9,14 +9,14 @@
 <%
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
-
+    String contextPath = request.getContextPath();
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(session.getCreationTime());
     LocalDateTime sessionCreate = LocalDateTime.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 
     if (usernameSession == null || passwordSession == null || (sessionCreate.plusMinutes(59).compareTo(LocalDateTime.now()) > 0)) {
-        response.sendRedirect("..\\signin\\login.jsp");
+        response.sendRedirect(contextPath+"\\signin\\login.jsp");
     }
 %>
 
@@ -27,15 +27,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-        @import url(<%=request.getContextPath()%>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
-        @import url(<%=request.getContextPath()%>/client/home-client.css);
-        @import url(<%=request.getContextPath()%>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(<%=contextPath%>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
+        @import url(<%=contextPath%>/client/home-client.css);
+        @import url(<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
     </style>
-    <script src="<%=request.getContextPath()%>/libr/jQuery-3.4.1/jquery.min.js"></script>
-    <script src="<%=request.getContextPath()%>/libr/popper-1.16/popper.js"></script>
-    <script src="<%=request.getContextPath()%>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
-    <script src="<%=request.getContextPath()%>/client/home-client.js"></script>
+    <script src="<%=contextPath%>/libr/jQuery-3.4.1/jquery.min.js"></script>
+    <script src="<%=contextPath%>/libr/popper-1.16/popper.js"></script>
+    <script src="<%=contextPath%>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
+    <script src="<%=contextPath%>/client/home-client.js"></script>
     <title>User Friend `by Louay Amr'</title>
 </head>
 <body>

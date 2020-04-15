@@ -1,7 +1,7 @@
 $(document).on('click', '#inputStringPost', function () {
     'use strict';
-    var post = '<form class=\"form-group\" action=\"<%= contextPath %>/AddTextPost\" method=\"post\">' +
-        '                        <textarea class=\"form-control\" data-toggle=\"collapse\"  placeholder=\"What\'s in your mind?\"></textarea>' +
+    var post = '<form class=\"form-group\" action=\"../AddUserTextPost\" method=\"post\">' +
+        '                        <textarea class=\"form-control\" data-toggle=\"collapse\" name=\"post\"  placeholder=\"What\'s in your mind?\"></textarea>' +
         '                        <button class=\"btn btn-primary mt-2 col-md-1\" type=\"submit\" name=\"post\" value=\"Post\">Post</button>' +
         '                    </form>' +
         '                </div>';

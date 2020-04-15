@@ -10,13 +10,13 @@ import java.io.IOException;
 public class Logout extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        req.logout();
-        req.getSession(false).removeAttribute("username");
-        req.getSession(false).removeAttribute("password");
-        req.getSession(false).invalidate();
-        resp.sendRedirect("signin\\login.jsp");
+        request.logout();
+        request.getSession(false).removeAttribute("username");
+        request.getSession(false).removeAttribute("password");
+        request.getSession(false).invalidate();
+        response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
     }
 
     @Override

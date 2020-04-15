@@ -1,6 +1,6 @@
-<%@ page import="com.louay.projects.controller.service.SignInController" %>
 <%@ page import="com.louay.projects.model.chains.users.Users" %>
 <%@ page import="com.louay.projects.model.chains.users.Admin" %>
+<%@ page import="com.louay.projects.controller.service.register.SignInController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="../util/error.jsp" %>
 <jsp:useBean id="context" class="org.springframework.context.annotation.AnnotationConfigApplicationContext"
@@ -78,7 +78,7 @@
 
         <div id="topAlert"></div>
 
-        <% if (session.getAttribute("isSign") != null){ %>
+        <% if (session.getAttribute("isSign") != null) { %>
         <div class="container">
             <div class="alert alert-danger alert-dismissible" data-dismiss="alert" id="myAlert">
                 <button type="button" class="close">&times;</button>
@@ -169,14 +169,14 @@
 
         <div id="topAlert"></div>
 
-        <% if (session.getAttribute("isSign") != null){ %>
-           <div class="container">
-                    <div class="alert alert-danger alert-dismissible" data-dismiss="alert" id="myAlert">
-                        <button type="button" class="close">&times;</button>
-                        <strong>Error!</strong> Username or password seem wrong, try again.
-                    </div>
+        <% if (session.getAttribute("isSign") != null) { %>
+        <div class="container">
+            <div class="alert alert-danger alert-dismissible" data-dismiss="alert" id="myAlert">
+                <button type="button" class="close">&times;</button>
+                <strong>Error!</strong> Username or password seem wrong, try again.
             </div>
-            <%}%>
+        </div>
+        <%}%>
 
         <div class="formSignIn">
             <div class="internalForm">
@@ -237,9 +237,8 @@
         boolean isSignUp = signInController.isSignUp(users);
         if (isSignUp) {
             response.sendRedirect("..\\client\\home-client.jsp");
-        }else {
+        } else {
             throw new IllegalStateException("It's seem something wrong in login process, please try again.");
         }
     }
 %>
-
