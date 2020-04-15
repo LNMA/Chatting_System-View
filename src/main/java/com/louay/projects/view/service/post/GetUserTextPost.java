@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.post;
 
 import com.louay.projects.controller.service.client.GetUserTextPostController;
-import com.louay.projects.model.chains.communications.AccountTextPost;
+import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -32,7 +32,8 @@ public class GetUserTextPost extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }else {
             AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
-            accountTextPost.setIdUsername((String) session.getAttribute("username"));
+            accountTextPost.setUsername((String) session.getAttribute("username"));
+
             GetUserTextPostController getUserTextPostController = (GetUserTextPostController) this.context.getBean("getUserTextPost");
             LinkedHashSet<AccountTextPost> linkedHashSet = getUserTextPostController.getUserTextPost(accountTextPost);
             response.setContentType("text/html;charset=UTF-8");

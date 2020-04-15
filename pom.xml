@@ -6,7 +6,7 @@
 
     <groupId>com.louay.projects.view</groupId>
     <artifactId>Chatting_System-View</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>war</packaging>
 
     <name>Chatting_System-View Maven Webapp</name>
@@ -27,7 +27,7 @@
         <dependency>
             <groupId>com.louay.projects.controller</groupId>
             <artifactId>Chatting_System-Controller</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>

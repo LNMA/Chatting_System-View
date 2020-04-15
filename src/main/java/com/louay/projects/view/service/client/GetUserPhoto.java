@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.client;
 
 import com.louay.projects.controller.service.client.GetMyImgController;
-import com.louay.projects.model.chains.communications.AccountPicture;
+import com.louay.projects.model.chains.communications.account.AccountPicture;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -33,9 +33,9 @@ public class GetUserPhoto extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }else {
             String username = (String) session.getAttribute("username");
-            AccountPicture user = context.getBean(AccountPicture.class);
+            AccountPicture user = this.context.getBean(AccountPicture.class);
             user.setUsername(username);
-            GetMyImgController getMyImgController = (GetMyImgController) context.getBean("getMyImg");
+            GetMyImgController getMyImgController = (GetMyImgController) this.context.getBean("getMyImg");
             Set<AccountPicture> img = getMyImgController.getUserPhoto(user);
 
             byte [] imgByte = null;

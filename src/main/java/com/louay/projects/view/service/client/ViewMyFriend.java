@@ -48,7 +48,7 @@ public class ViewMyFriend extends HttpServlet implements Serializable {
         Users users = context.getBean(Admin.class);
         users.setUsername(usernameSession);
         users.setPassword(passwordSession);
-        ViewMyFriendController friendByName = (ViewMyFriendController) context.getBean("findFriendByName");
+        ViewMyFriendController friendByName = (ViewMyFriendController) this.context.getBean("findFriendByName");
         List<PictureBase64> list = friendByName.execute(users);
 
         request.setAttribute("pictureList", list);
