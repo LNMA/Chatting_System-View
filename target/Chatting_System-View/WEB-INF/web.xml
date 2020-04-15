@@ -1,92 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
 
-  <servlet>
-    <servlet-name>SignIn</servlet-name>
-    <servlet-class>com.louay.projects.view.service.register.SignIn</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SignIn</servlet-name>
-    <url-pattern>/SignIn</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>SignUpClient</servlet-name>
-    <servlet-class>com.louay.projects.view.service.register.SignUpClient</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SignUpClient</servlet-name>
-    <url-pattern>/SignUpClient</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>GetUserPhoto</servlet-name>
-    <servlet-class>com.louay.projects.view.service.client.GetUserPhoto</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GetUserPhoto</servlet-name>
-    <url-pattern>/GetUserPhoto</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>SignIn</servlet-name>
+        <servlet-class>com.louay.projects.view.service.register.SignIn</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignIn</servlet-name>
+        <url-pattern>/SignIn</url-pattern>
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>ViewMyFriend</servlet-name>
-    <servlet-class>com.louay.projects.view.service.client.ViewMyFriend</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ViewMyFriend</servlet-name>
-    <url-pattern>/ViewMyFriend</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>Logout</servlet-name>
-    <servlet-class>com.louay.projects.view.service.register.Logout</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Logout</servlet-name>
-    <url-pattern>/Logout</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>SignUpClient</servlet-name>
+        <servlet-class>com.louay.projects.view.service.register.SignUpClient</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpClient</servlet-name>
+        <url-pattern>/SignUpClient</url-pattern>
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>AddUserTextPost</servlet-name>
-    <servlet-class>com.louay.projects.view.service.post.AddUserTextPost</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AddUserTextPost</servlet-name>
-    <url-pattern>/AddUserTextPost</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>GetUserPhoto</servlet-name>
+        <servlet-class>com.louay.projects.view.service.client.GetUserPhoto</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserPhoto</servlet-name>
+        <url-pattern>/GetUserPhoto</url-pattern>
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>GetUserTextPost</servlet-name>
-    <servlet-class>com.louay.projects.view.service.post.GetUserTextPost</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GetUserTextPost</servlet-name>
-    <url-pattern>/GetUserTextPost</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>ViewMyFriend</servlet-name>
+        <servlet-class>com.louay.projects.view.service.client.ViewMyFriend</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewMyFriend</servlet-name>
+        <url-pattern>/ViewMyFriend</url-pattern>
+    </servlet-mapping>
 
-  
-  <servlet>
-    <servlet-name>ErrorServlet</servlet-name>
-    <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ErrorServlet</servlet-name>
-    <url-pattern>/ErrorServlet</url-pattern>
-  </servlet-mapping>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/ErrorServlet</location>
-  </error-page>
-  <error-page>
-    <exception-type>java.lang.Exception</exception-type>
-    <location>/ErrorServlet</location>
-  </error-page>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.louay.projects.view.service.register.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUserTextPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.AddUserTextPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUserTextPost</servlet-name>
+        <url-pattern>/AddUserTextPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserTextPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.GetUserTextPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserTextPost</servlet-name>
+        <url-pattern>/GetUserTextPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUserImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.AddUserImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUserImgPost</servlet-name>
+        <url-pattern>/AddUserImgPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ErrorServlet</servlet-name>
+        <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ErrorServlet</servlet-name>
+        <url-pattern>/ErrorServlet</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/ErrorServlet</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/ErrorServlet</location>
+    </error-page>
 
 
-
-  <session-config>
-    <session-timeout>60</session-timeout>
-  </session-config>
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
 </web-app>

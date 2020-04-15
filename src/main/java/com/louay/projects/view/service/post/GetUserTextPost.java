@@ -35,7 +35,7 @@ public class GetUserTextPost extends HttpServlet {
             accountTextPost.setIdUsername((String) session.getAttribute("username"));
             GetUserTextPostController getUserTextPostController = (GetUserTextPostController) this.context.getBean("getUserTextPost");
             LinkedHashSet<AccountTextPost> linkedHashSet = getUserTextPostController.getUserTextPost(accountTextPost);
-
+            response.setContentType("text/html;charset=UTF-8");
             request.setAttribute("userTextPost", linkedHashSet);
         }
     }

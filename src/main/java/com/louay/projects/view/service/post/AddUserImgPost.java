@@ -1,17 +1,24 @@
 package com.louay.projects.view.service.post;
 
+
+import com.louay.projects.controller.service.client.AddUserImgPostController;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@MultipartConfig(
+        maxFileSize = 16 * 1024 * 1024,
+        maxRequestSize = 65 * 1024 * 1024,
+        //TODO modify file path
+        location = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
+        fileSizeThreshold = 1024 * 1024
+)
 public class AddUserImgPost extends HttpServlet {
 
     private final static Logger LOGGER = Logger.getLogger(AddUserImgPost.class.getCanonicalName());
@@ -28,50 +35,41 @@ public class AddUserImgPost extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        final String path = request.getParameter("destination");
-        final Part filePart = request.getPart("file");
-        final String fileName = getFileName(filePart);
+        HttpSession session =request.getSession(false);
+        if (session.getAttribute("username") == null){
+            response.sendRedirect("signin\\login.jsp");
+        }else {
+            response.setContentType("text/html;charset=UTF-8");
 
-        OutputStream out = null;
-        InputStream filecontent = null;
-        final PrintWriter writer = response.getWriter();
+            final Part filePart = request.getPart("filename");
+            final String fileName = getFileName(filePart);
 
-        try {
-            out = new FileOutputStream(new File(path + File.separator + fileName));
-            filecontent = filePart.getInputStream();
+            if (filePart.getContentType().contains("image")) {
+                System.out.println(filePart.getContentType());
+                System.out.println(filePart.getSubmittedFileName());
+                System.out.println(filePart.getHeaderNames());
+                System.out.println(fileName);
 
+                try (InputStream in = filePart.getInputStream()) {
 
+                    final byte[] bytes = new byte[(int) filePart.getSize()];
+                    int byteRead;
 
-            int read = 0;
-            final byte[] bytes = new byte[1024];
+                    int i = 0;
+                    while ((byteRead = in.read()) != -1) {
+                        bytes[i] = (byte) byteRead;
+                        i++;
+                    }
+                    in.close();
 
-            while ((read = filecontent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            writer.println("New file " + fileName + " created at " + path);
-            LOGGER.log(Level.INFO, "File{0}being uploaded to {1}", new Object[]{fileName, path});
+                    AddUserImgPostController addUserImgPostController = (AddUserImgPostController) this.context.getBean("addUserImgPost");
+                    addUserImgPostController.addImgPost((String) request.getSession(false).getAttribute("username"), fileName, bytes);
 
-
-
-        } catch (FileNotFoundException fne) {
-            writer.println("You either did not specify a file to upload or are trying to upload a file to a protected " +
-                    "or nonexistent location.");
-            writer.println("<br/> ERROR: " + fne.getMessage());
-
-            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}", new Object[]{fne.getMessage()});
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (filecontent != null) {
-                filecontent.close();
-            }
-            if (writer != null) {
-                writer.close();
+                } catch (FileNotFoundException fne) {
+                    System.out.println(fne.getMessage());
+                }
             }
         }
-
     }
 
     private String getFileName(final Part part) {

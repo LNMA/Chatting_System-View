@@ -21,8 +21,8 @@ $(document).on('click', '#inputImg', function () {
     'use strict';
     var post = '<form class=\"form-group\" action=\"../AddUserImgPost\" method=\"post\" enctype=\"multipart/form-data\">\n' +
         '                        <div class=\"custom-file\">\n' +
-        '                            <input type=\"file\" class=\"custom-file-input\" id=\"filename\" name=\"filename\">\n' +
-        '                            <label class=\"custom-file-label\" for=\"filename\">Choose file...</label>' +
+        '                            <input type=\"file\" class=\"custom-file-input\" id=\"inputFile\" name=\"filename\">\n' +
+        '                            <label class=\"custom-file-label\" for=\"inputFile\">Choose file...</label>' +
         '                        </div>\n' +
         '                        <script>\n' +
         '                            // Add the following code if you want the name of the file appear on select \n' +
@@ -31,7 +31,7 @@ $(document).on('click', '#inputImg', function () {
         '                                $(this).siblings(\".custom-file-label\").addClass(\"selected\").html(fileName); \n' +
         '                            }); \n' +
         '                        </script>\n' +
-        '                        <button class=\"btn btn-primary mt-2 col-md-1\" type=\"submit\" value=\"post\" name=\"post\">Post</button>\n' +
+        '                        <button class=\"btn btn-primary mt-2 col-md-1\" type=\"submit\" value=\"post\">Post</button>\n' +
         '                    </form>\n';
 
     $('#addPost').removeAttr('hidden');
