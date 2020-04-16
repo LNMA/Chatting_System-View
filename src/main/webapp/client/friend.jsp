@@ -38,16 +38,16 @@
     <script src="<%=contextPath%>/client/home-client.js"></script>
     <title>User Friend `by Louay Amr'</title>
 </head>
-<body>
+<body class="mainBackground" >
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light static-top mb-0 shadow text-left "
+    <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
          style="background-color: #3e3c4e ;height: 6em; width: 100%">
         <p class="text-light h3 font-weight-bold">User Friend</p>
     </nav>
 </header>
 
-<main class="mainBackground">
+<main class="mt-3">
 
     <aside class="aside ml-2">
     </aside>
@@ -72,13 +72,14 @@
     </article>
 
 </main>
-
-<footer>
-    <nav class="navbar navbar-dark position-relative mb-0 .fixed-bottom"
-         style="background-color: #d3c7cd; height: 11em; width: 100%;">
+<footer >
+    <nav class="navbar"
+         style="background-color: #d3c7cd; height: 11em; width: 100%;margin-top: 50%">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
+
+
 
 </body>
 </html>
