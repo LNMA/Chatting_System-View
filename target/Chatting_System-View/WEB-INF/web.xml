@@ -77,6 +77,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetUserCirclePost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.GetUserCirclePost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserCirclePost</servlet-name>
+        <url-pattern>/GetUserCirclePost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

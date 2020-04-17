@@ -70,6 +70,8 @@ public class AddUserImgPost extends HttpServlet {
                 }
             }
         }
+
+        response.sendRedirect(request.getContextPath()+"\\client\\home-client.jsp");
     }
 
     private String getFileName(final Part part) {
