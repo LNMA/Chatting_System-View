@@ -37,7 +37,7 @@ public class AddUserImgPost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session =request.getSession(false);
         if (session.getAttribute("username") == null){
-            response.sendRedirect("signin\\login.jsp");
+            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }else {
             response.setContentType("text/html;charset=UTF-8");
 

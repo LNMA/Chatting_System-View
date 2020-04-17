@@ -48,7 +48,7 @@
 <header>
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
          style="background-color: #3e3c4e ;height: 6em; width: 100%">
-        <p class="text-light h3 font-weight-bold">User Friend</p>
+        <p class="text-light h3 font-weight-bold">Edit Post</p>
     </nav>
 </header>
 
@@ -59,20 +59,42 @@
 
     <article class="mr-3">
 
-        <c:forEach items="${pictureList}" var="picture">
-            <section class="float-right col-md-9">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-row">
-                            <img src="data:image/png;base64,${picture.getPictureBase64()}" class="rounded-circle"
-                                 width="164" height="164"/>
-                            <p class="font-weight-bolder h5"
-                               style="margin-left: 13%; margin-top: 7%">${picture.getUsername()} </p>
-                        </div>
-                    </div>
+        <section class="col-md-9" style="margin-left: 14%">
+            <div class="card">
+                <div class="card-body" id="editTxtPost">
+                    <form class="form-group" action="../AddUserTextPost" method="post">
+                        <textarea class="form-control" data-toggle="collapse" name="post" ></textarea>
+                        <button class="btn btn-warning mt-2 col-md-1" type="submit" name="post" value="Post">Edit</button>
+                    </form>
                 </div>
-            </section>
-        </c:forEach>
+            </div>
+        </section>
+
+
+        <section class="col-md-9" style="margin-left: 14%">
+            <div class="card">
+                <div class="card-body">
+                    <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
+                    <br>
+                    <br>
+                    <form class="form-group" action="../AddUserImgPost" method="post" enctype="multipart/form-data">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="editImgPost" name="filename">
+                            <label class="custom-file-label" for="editImgPost">Choose file...</label>
+                        </div>
+                        <script>
+                            // Add the following code if you want the name of the file appear on select \n' +
+                            $(".custom-file-input").on("change", function() {
+                                var fileName = $(this).val().split("\\").pop();
+                                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                            });
+                        </script>
+                        <button class="btn btn-warning mt-2 col-md-1" type="submit" value="post">Edit</button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
 
     </article>
 

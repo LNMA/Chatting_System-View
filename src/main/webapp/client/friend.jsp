@@ -9,14 +9,19 @@
 <%
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
-    String contextPath = request.getContextPath();
+    StringBuilder contextPath = new StringBuilder(request.getContextPath());
+
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(session.getCreationTime());
     LocalDateTime sessionCreate = LocalDateTime.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
+            calendar.get(Calendar.SECOND));
 
-    if (usernameSession == null || passwordSession == null || (sessionCreate.plusMinutes(59).compareTo(LocalDateTime.now()) > 0)) {
-        response.sendRedirect(contextPath+"\\signin\\login.jsp");
+    if (sessionCreate.plusMinutes(58).compareTo(LocalDateTime.now()) > 0) {
+        session = request.getSession(true);
+        session.setAttribute("username", usernameSession);
+        session.setAttribute("password", passwordSession);
+        response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
 %>
 
