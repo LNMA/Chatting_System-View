@@ -2,9 +2,9 @@ package com.louay.projects.view.service.post;
 
 import com.louay.projects.controller.service.client.DeleteUserPostController;
 import com.louay.projects.model.chains.communications.Post;
-import com.louay.projects.model.chains.communications.PostClassName;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
+import com.louay.projects.model.chains.communications.constant.PostClassName;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;

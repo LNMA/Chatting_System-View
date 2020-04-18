@@ -1,14 +1,19 @@
 package com.louay.projects.view.service.post;
 
-
-import com.louay.projects.controller.service.client.AddUserImgPostController;
+import com.louay.projects.controller.service.client.EditUserImgPostController;
+import com.louay.projects.model.chains.communications.Post;
+import com.louay.projects.model.chains.communications.account.AccountImgPost;
+import com.louay.projects.model.chains.communications.constant.PostClassName;
+import com.louay.projects.model.chains.communications.group.GroupImgPost;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,9 +24,8 @@ import java.util.logging.Logger;
         location = "C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
         fileSizeThreshold = 1024 * 1024
 )
-public class AddUserImgPost extends HttpServlet {
-
-    private final static Logger LOGGER = Logger.getLogger(AddUserImgPost.class.getCanonicalName());
+public class EditUserImgPost extends HttpServlet {
+    private final static Logger LOGGER = Logger.getLogger(EditUserImgPost.class.getCanonicalName());
 
     private AnnotationConfigApplicationContext context;
 
@@ -39,16 +43,18 @@ public class AddUserImgPost extends HttpServlet {
         if (session.getAttribute("username") == null) {
             response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
-        response.setContentType("text/html;charset=UTF-8");
+
+        String idPost = request.getParameter("idPost");
+        PostClassName postClassName = PostClassName.valueOf(request.getParameter("postClassName"));
+
+        Post post = initPost(postClassName);
+        post.setIdPost(Long.valueOf(idPost));
+        post.setUsername((String) session.getAttribute("username"));
 
         final Part filePart = request.getPart("filename");
         final String fileName = getFileName(filePart);
 
         if (filePart.getContentType().contains("image")) {
-            System.out.println(filePart.getContentType());
-            System.out.println(filePart.getSubmittedFileName());
-            System.out.println(filePart.getHeaderNames());
-            System.out.println(fileName);
 
             try (InputStream in = filePart.getInputStream()) {
 
@@ -62,15 +68,30 @@ public class AddUserImgPost extends HttpServlet {
                 }
                 in.close();
 
-                AddUserImgPostController addUserImgPostController = (AddUserImgPostController) this.context.getBean("addUserImgPost");
-                addUserImgPostController.addImgPost((String) request.getSession(false).getAttribute("username"), fileName, bytes);
+                EditUserImgPostController editUserImgPostController =
+                        (EditUserImgPostController) this.context.getBean("editUserImgPost");
 
+                editUserImgPostController.editImgPost(postClassName, post, fileName, bytes);
             } catch (FileNotFoundException fne) {
                 System.out.println(fne.getMessage());
             }
         }
-
         response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
+    }
+
+    private Post initPost(PostClassName postClassName) {
+        Post post;
+        if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
+            post = this.context.getBean(AccountImgPost.class);
+
+        } else if (postClassName == PostClassName.GROUP_IMG_POST) {
+            post = this.context.getBean(GroupImgPost.class);
+
+        } else {
+            throw new UnsupportedOperationException("only edit img post are allow.");
+        }
+
+        return post;
     }
 
     private String getFileName(final Part part) {

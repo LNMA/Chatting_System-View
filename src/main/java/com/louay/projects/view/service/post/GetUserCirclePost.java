@@ -1,9 +1,9 @@
 package com.louay.projects.view.service.post;
 
 import com.louay.projects.controller.service.client.GetUserCirclePostController;
+import com.louay.projects.model.chains.accounts.Admin;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
-import com.louay.projects.model.chains.users.Admin;
-import com.louay.projects.model.chains.users.Users;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -27,7 +27,7 @@ public class GetUserCirclePost extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session =request.getSession(false);
         if (session.getAttribute("username") == null){
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");

@@ -2,8 +2,8 @@ package com.louay.projects.view.service.register;
 
 
 import com.louay.projects.controller.service.register.SignInController;
-import com.louay.projects.model.chains.users.Admin;
-import com.louay.projects.model.chains.users.Users;
+import com.louay.projects.model.chains.accounts.Admin;
+import com.louay.projects.model.chains.accounts.Users;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;

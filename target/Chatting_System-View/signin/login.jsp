@@ -1,5 +1,5 @@
-<%@ page import="com.louay.projects.model.chains.users.Users" %>
-<%@ page import="com.louay.projects.model.chains.users.Admin" %>
+<%@ page import="com.louay.projects.model.chains.accounts.Users" %>
+<%@ page import="com.louay.projects.model.chains.accounts.Admin" %>
 <%@ page import="com.louay.projects.controller.service.register.SignInController" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="../util/error.jsp" %>

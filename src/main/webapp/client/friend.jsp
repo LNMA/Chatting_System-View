@@ -17,7 +17,7 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(58).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
@@ -59,12 +59,13 @@
 
     <article class="mr-3">
 
+        <jsp:include page="/ViewMyFriend"></jsp:include>
         <c:forEach items="${pictureList}" var="picture">
             <section class="float-right col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-row">
-                            <img src="data:image/png;base64,${picture.getPictureBase64()}" class="rounded-circle"
+                            <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
                                  width="164" height="164"/>
                             <p class="font-weight-bolder h5"
                                style="margin-left: 13%; margin-top: 7%">${picture.getUsername()} </p>

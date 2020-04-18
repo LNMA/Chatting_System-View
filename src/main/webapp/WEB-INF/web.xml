@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>GetUserPhoto</servlet-name>
-        <servlet-class>com.louay.projects.view.service.client.GetUserPhoto</servlet-class>
+        <servlet-class>com.louay.projects.view.service.user.GetUserPhoto</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetUserPhoto</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>ViewMyFriend</servlet-name>
-        <servlet-class>com.louay.projects.view.service.client.ViewMyFriend</servlet-class>
+        <servlet-class>com.louay.projects.view.service.user.ViewMyFriend</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewMyFriend</servlet-name>
@@ -92,6 +92,33 @@
     <servlet-mapping>
         <servlet-name>GetUserEditPost</servlet-name>
         <url-pattern>/GetUserEditPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditUserTextPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.EditUserTextPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUserTextPost</servlet-name>
+        <url-pattern>/EditUserTextPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditUserImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.EditUserImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditUserImgPost</servlet-name>
+        <url-pattern>/EditUserImgPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchAccountGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.search.SearchAccountGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchAccountGroup</servlet-name>
+        <url-pattern>/SearchAccountGroup</url-pattern>
     </servlet-mapping>
 
     <servlet>

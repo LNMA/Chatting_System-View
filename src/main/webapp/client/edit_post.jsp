@@ -17,14 +17,13 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(58).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
 %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +42,7 @@
     <script src="<%=contextPath%>/client/home-client.js"></script>
     <title>User Friend `by Louay Amr'</title>
 </head>
-<body class="mainBackground" >
+<body class="mainBackground">
 
 <header>
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
@@ -59,53 +58,66 @@
 
     <article class="mr-3">
 
-        <section class="col-md-9" style="margin-left: 14%">
-            <div class="card">
-                <div class="card-body" id="editTxtPost">
-                    <form class="form-group" action="../AddUserTextPost" method="post">
-                        <textarea class="form-control" data-toggle="collapse" name="post" ></textarea>
-                        <button class="btn btn-warning mt-2 col-md-1" type="submit" name="post" value="Post">Edit</button>
-                    </form>
-                </div>
-            </div>
-        </section>
+        <jsp:include page="/GetUserEditPost"></jsp:include>
+        <c:forEach items="${editPostSet}" var="post">
 
-
-        <section class="col-md-9" style="margin-left: 14%">
-            <div class="card">
-                <div class="card-body">
-                    <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
-                    <br>
-                    <br>
-                    <form class="form-group" action="../AddUserImgPost" method="post" enctype="multipart/form-data">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="editImgPost" name="filename">
-                            <label class="custom-file-label" for="editImgPost">Choose file...</label>
+            <c:if test="${post.getType() eq 'TEXT_POST'}">
+                <section class="col-md-9" style="margin-left: 14%">
+                    <div class="card">
+                        <div class="card-body" id="editTxtPost">
+                            <form class="form-group" action="<%= contextPath %>/EditUserTextPost" method="post">
+                                <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
+                                <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                <textarea class="form-control" data-toggle="collapse"
+                                          name="post">${post.getPost()}</textarea>
+                                <button class="btn btn-warning mt-2 col-md-1" type="submit" name="post" value="Post">
+                                    Edit
+                                </button>
+                            </form>
                         </div>
-                        <script>
-                            // Add the following code if you want the name of the file appear on select \n' +
-                            $(".custom-file-input").on("change", function() {
-                                var fileName = $(this).val().split("\\").pop();
-                                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                            });
-                        </script>
-                        <button class="btn btn-warning mt-2 col-md-1" type="submit" value="post">Edit</button>
-                    </form>
-                </div>
-            </div>
+                    </div>
+                </section>
+            </c:if>
 
-        </section>
+            <c:if test="${post.getType() eq 'IMG_POST'}">
+                <section class="col-md-9" style="margin-left: 14%">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
+                            <br>
+                            <br>
+                            <form class="form-group" action="<%= contextPath %>/EditUserImgPost" method="post"
+                                  enctype="multipart/form-data">
+                                <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
+                                <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="editImgPost" name="filename" accept="image/*">
+                                    <label class="custom-file-label" for="editImgPost">Choose file...</label>
+                                </div>
+                                <script>
+                                    // Add the following code if you want the name of the file appear on select \n' +
+                                    $(".custom-file-input").on("change", function () {
+                                        var fileName = $(this).val().split("\\").pop();
+                                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                                    });
+                                </script>
+                                <button class="btn btn-warning mt-2 col-md-1" type="submit" value="post">Edit</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </c:if>
+        </c:forEach>
 
     </article>
 
 </main>
-<footer >
+<footer>
     <nav class="navbar"
          style="background-color: #d3c7cd; height: 11em; width: 100%;margin-top: 50%">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
-
 
 
 </body>
