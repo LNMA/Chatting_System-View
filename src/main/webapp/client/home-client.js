@@ -21,7 +21,7 @@ $(document).on('click', '#inputImg', function () {
     'use strict';
     var post = '<form class=\"form-group\" action=\"../AddUserImgPost\" method=\"post\" enctype=\"multipart/form-data\">\n' +
         '                        <div class=\"custom-file\">\n' +
-        '                            <input type=\"file\" class=\"custom-file-input\" id=\"inputFile\" name=\"filename\">\n' +
+        '                            <input type=\"file\" class=\"custom-file-input\" id=\"inputFile\" name=\"filename\" accept=\"image/*\">\n' +
         '                            <label class=\"custom-file-label\" for=\"inputFile\">Choose file...</label>' +
         '                        </div>\n' +
         '                        <script>\n' +

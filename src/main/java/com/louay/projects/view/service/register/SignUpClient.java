@@ -2,8 +2,9 @@ package com.louay.projects.view.service.register;
 
 
 import com.louay.projects.controller.service.register.SignUpClientController;
-import com.louay.projects.model.chains.users.Client;
-import com.louay.projects.model.constants.UserType;
+
+import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.model.chains.accounts.constant.UserType;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

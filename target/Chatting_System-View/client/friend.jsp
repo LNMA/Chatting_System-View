@@ -9,14 +9,19 @@
 <%
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
-    String contextPath = request.getContextPath();
+    StringBuilder contextPath = new StringBuilder(request.getContextPath());
+
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(session.getCreationTime());
     LocalDateTime sessionCreate = LocalDateTime.of(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+            calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
+            calendar.get(Calendar.SECOND));
 
-    if (usernameSession == null || passwordSession == null || (sessionCreate.plusMinutes(59).compareTo(LocalDateTime.now()) > 0)) {
-        response.sendRedirect(contextPath+"\\signin\\login.jsp");
+    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
+        session = request.getSession(true);
+        session.setAttribute("username", usernameSession);
+        session.setAttribute("password", passwordSession);
+        response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
 %>
 
@@ -38,28 +43,29 @@
     <script src="<%=contextPath%>/client/home-client.js"></script>
     <title>User Friend `by Louay Amr'</title>
 </head>
-<body>
+<body class="mainBackground" >
 
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light static-top mb-0 shadow text-left "
+    <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
          style="background-color: #3e3c4e ;height: 6em; width: 100%">
         <p class="text-light h3 font-weight-bold">User Friend</p>
     </nav>
 </header>
 
-<main class="mainBackground">
+<main class="mt-3">
 
     <aside class="aside ml-2">
     </aside>
 
     <article class="mr-3">
 
+        <jsp:include page="/ViewMyFriend"></jsp:include>
         <c:forEach items="${pictureList}" var="picture">
             <section class="float-right col-md-9">
                 <div class="card">
                     <div class="card-body">
                         <div class="form-row">
-                            <img src="data:image/png;base64,${picture.getPictureBase64()}" class="rounded-circle"
+                            <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
                                  width="164" height="164"/>
                             <p class="font-weight-bolder h5"
                                style="margin-left: 13%; margin-top: 7%">${picture.getUsername()} </p>
@@ -72,13 +78,14 @@
     </article>
 
 </main>
-
-<footer>
-    <nav class="navbar navbar-dark position-relative mb-0 .fixed-bottom"
-         style="background-color: #d3c7cd; height: 11em; width: 100%;">
+<footer >
+    <nav class="navbar"
+         style="background-color: #d3c7cd; height: 11em; width: 100%;margin-top: 50%">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
+
+
 
 </body>
 </html>

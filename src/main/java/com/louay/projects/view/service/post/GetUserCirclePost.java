@@ -1,7 +1,9 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.GetUserTextPostController;
-import com.louay.projects.model.chains.communications.account.AccountTextPost;
+import com.louay.projects.controller.service.client.GetUserCirclePostController;
+import com.louay.projects.model.chains.accounts.Admin;
+import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.model.chains.communications.Post;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -11,10 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.LinkedHashSet;
+import java.util.TreeSet;
 
-public class GetUserTextPost extends HttpServlet {
-
+public class GetUserCirclePost extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -30,14 +31,18 @@ public class GetUserTextPost extends HttpServlet {
         HttpSession session =request.getSession(false);
         if (session.getAttribute("username") == null){
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
-        }else {
-            AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
-            accountTextPost.setUsername((String) session.getAttribute("username"));
+        }else{
+            Users users = this.context.getBean(Admin.class);
+            users.setUsername((String) session.getAttribute("username"));
 
-            GetUserTextPostController getUserTextPostController = (GetUserTextPostController) this.context.getBean("getUserTextPost");
-            LinkedHashSet<AccountTextPost> linkedHashSet = getUserTextPostController.getUserTextPost(accountTextPost);
-            response.setContentType("text/html;charset=UTF-8");
-            request.setAttribute("userTextPost", linkedHashSet);
+            GetUserCirclePostController getUserCirclePostController =
+                    (GetUserCirclePostController) this.context.getBean("getUserCirclePost");
+
+
+            TreeSet<Post> postTreeSet = getUserCirclePostController.getUserCirclesPost(users);
+
+            request.setAttribute("userCirclePost", postTreeSet);
+
         }
     }
 }
