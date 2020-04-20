@@ -1,6 +1,6 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.GetUserCirclePostController;
+import com.louay.projects.controller.service.post.GetUserCirclePostController;
 import com.louay.projects.model.chains.accounts.Admin;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;

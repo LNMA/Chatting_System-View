@@ -1,6 +1,7 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.AddUserTextPostController;
+import com.louay.projects.controller.service.post.AddUserTextPostController;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -36,7 +37,8 @@ public class AddUserTextPost extends HttpServlet {
                 response.sendRedirect("signin\\login.jsp");
             }
             AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
-            accountTextPost.setUsername((String) session.getAttribute("username"));
+            Users users = accountTextPost.getUser();
+            users.setUsername((String) session.getAttribute("username"));
             accountTextPost.setPost(post.toString());
             accountTextPost.setDatePost(NowDate.getNowTimestamp());
             AddUserTextPostController addUserTextPost = (AddUserTextPostController) this.context.getBean("addUserTextPost");

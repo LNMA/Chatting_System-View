@@ -16,3 +16,12 @@
 .navLinkHover:hover{
     color: white;
 }
+
+.msg-background{
+    background: white fixed;
+    background-size: cover;
+    border-radius: 0.5em 0.5em;
+    width: 63em;
+    height: 60em;
+
+}

@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.post;
 
 
-import com.louay.projects.controller.service.client.AddUserImgPostController;
+import com.louay.projects.controller.service.post.AddUserImgPostController;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -45,10 +45,6 @@ public class AddUserImgPost extends HttpServlet {
         final String fileName = getFileName(filePart);
 
         if (filePart.getContentType().contains("image")) {
-            System.out.println(filePart.getContentType());
-            System.out.println(filePart.getSubmittedFileName());
-            System.out.println(filePart.getHeaderNames());
-            System.out.println(fileName);
 
             try (InputStream in = filePart.getInputStream()) {
 

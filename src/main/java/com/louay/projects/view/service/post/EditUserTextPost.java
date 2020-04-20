@@ -1,6 +1,7 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.EditUserTextPostController;
+import com.louay.projects.controller.service.post.EditUserTextPostController;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
@@ -39,7 +40,8 @@ public class EditUserTextPost extends HttpServlet {
 
         Post post = initPost(postClassName, newPost);
         post.setIdPost(Long.valueOf(idPost));
-        post.setUsername((String) session.getAttribute("username"));
+        Users users = post.getUser();
+        users.setUsername((String) session.getAttribute("username"));
 
         EditUserTextPostController editUserPostController = (EditUserTextPostController) this.context.getBean("editUserTextPost");
         editUserPostController.editTextPost(postClassName, post);

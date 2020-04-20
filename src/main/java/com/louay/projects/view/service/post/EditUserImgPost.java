@@ -1,6 +1,7 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.EditUserImgPostController;
+import com.louay.projects.controller.service.post.EditUserImgPostController;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
@@ -49,7 +50,8 @@ public class EditUserImgPost extends HttpServlet {
 
         Post post = initPost(postClassName);
         post.setIdPost(Long.valueOf(idPost));
-        post.setUsername((String) session.getAttribute("username"));
+        Users users = post.getUser();
+        users.setUsername((String) session.getAttribute("username"));
 
         final Part filePart = request.getPart("filename");
         final String fileName = getFileName(filePart);

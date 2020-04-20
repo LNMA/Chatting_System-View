@@ -23,8 +23,10 @@
 
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../signin/login.jsp" target="_self" class="navLinkHover nav-link">Home</a></p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../client/friend.jsp" target="_self" class="navLinkHover nav-link">Friend</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../signin/login.jsp" target="_self"
+                                                                class="navLinkHover nav-link">Home</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../client/friend.jsp" target="_self"
+                                                                class="navLinkHover nav-link">Friend</a></p>
         <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
         </p>
 
@@ -63,65 +65,112 @@
 
 <main>
 
-    <main class="mt-3">
+    <aside class="aside ml-2 mb-5">
 
-        <aside class="aside ml-2">
-        </aside>
+        <div class="form-row">
+            <img src="../GetUserPhoto" class="rounded-circle" width="128" height="128"/>
+            <p class="mt-5 mb-0 ml-1 font-weight-bolder h5"><%= usernameSession %>
+            </p>
+        </div>
+        <hr>
+        <div class="form-row ml-2">
+            <img src="../client/img/send-black-48dp.svg" width="24" height="24">
+            <p class="ml-3">Messages Sent</p>
+        </div>
+        <div class="form-row ml-2">
+            <img src="../client/img/person_add-black-48dp.svg" width="24" height="24">
+            <p class="ml-3">Request Sent</p>
+        </div>
+        <div class="form-row ml-2">
+            <img src="../client/img/group-black-48dp.svg" width="24" height="24">
+            <p class="ml-3">My Group</p>
+        </div>
+        <hr>
+        <div class="form-text text-muted font-weight-bold ml-2">
+            <p>Explore</p>
+        </div>
+        <div class="form-row ml-2">
+            <img src="../client/img/photo_library-black-48dp.svg" width="24" height="24">
+            <p class="ml-3">My Photo Album</p>
+        </div>
+        <div class="form-row ml-2">
+            <img src="../client/img/email-black-48dp.svg" width="24" height="24">
+            <p class="ml-3">Message</p>
+        </div>
+    </aside>
 
-        <article class="mr-3">
 
-            <section class="col-md-9" style="margin-left: 14%">
-                <div class="card">
-                    <div class="card-body" id="editTxtPost">
-                        <form class="form-group" action="../AddUserTextPost" method="post">
-                            <textarea class="form-control" data-toggle="collapse" name="post" ></textarea>
-                            <button class="btn btn-warning mt-2 col-md-1" type="submit" name="post" value="Post">Edit</button>
-                        </form>
-                    </div>
+    <article class="msg-background float-right mr-1 mt-3 row">
+
+        <section class="float-left">
+            <div class="col-1 mt-2 mb-2 ">
+                <div class="list-group" role="tablist" style="height: 40em; width: 18em; overflow: auto">
+
+                    <form class="list-group-item list-group-item-action" data-toggle="list">
+                        <input type="text" name="username" value="" readonly hidden>
+                        <p class="font-weight-lighter">
+                            <span class="badge badge-secondary">0</span>
+                            Home
+                        </p>
+                    </form>
+
                 </div>
-            </section>
+            </div>
+        </section>
 
+        <section class="float-right">
+            <div class="col-md-12 mt-2 mb-2 ">
 
-            <section class="col-md-9" style="margin-left: 14%">
-                <div class="card">
-                    <div class="card-body" id="editImgPost">
-                        <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
-                        <br>
-                        <br>
-                        <form class="form-group" action="../AddUserImgPost" method="post" enctype="multipart/form-data">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="editImgPost" name="filename">
-                                <label class="custom-file-label" for="editImgPost">Choose file...</label>
+                <div class="tab-content" id="nav-tabContent">
+
+                    <div style="height: 55em;overflow: auto">
+
+                        <div class="mt-3" style="width: 37em;">
+                            <div class="card text-white bg-dark">
+                                <div class="card-body">
+                                    <div class="card-text">
+                                        This is some text within a card body.
+                                    </div>
+                                </div>
                             </div>
-                            <script>
-                                // Add the following code if you want the name of the file appear on select \n' +
-                                $(".custom-file-input").on("change", function() {
-                                    var fileName = $(this).val().split("\\").pop();
-                                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                                });
-                            </script>
-                            <button class="btn btn-warning mt-2 col-md-1" type="submit" value="post">Edit</button>
-                        </form>
+                            <img src="../util/img/broken_robot.png" width="32" height="32" class="rounded-circle">
+                            <label class="text-muted small">Posted by: ,At:</label>
+                        </div>
+
+                        <div class="mt-3" style="width: 37em;margin-left: 4em;">
+                            <div class="card text-dark bg-light">
+                                <div class="card-body">
+                                    <div class="card-text">
+                                        This is some text within a card body
+                                    </div>
+                                </div>
+                            </div>
+                            <img src="../util/img/broken_robot.png" width="32" height="32" class="rounded-circle">
+                            <label class="text-muted small">Posted by: ,At:</label>
+                        </div>
+
                     </div>
+
+                    <form>
+                        <div class="input-group button">
+                            <input type="text" class="form-control" placeholder="Type a replay"
+                                   aria-label="Type a replay" aria-describedby="sendMessage">
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="submit" id="sendMessage">Send</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
 
-            </section>
-
-        </article>
-
-        <input type="search">
+            </div>
+        </section>
 
 
-    </main>
+    </article>
 
 
-
-    <footer>
-        <nav class="navbar navbar-dark position-relative mb-0 .fixed-bottom"
-             style="background-color: #d3c7cd; height: 11em; width: 100%;">
-            <p>Louay Amr © 2020</p>
-        </nav>
-    </footer>
 </main>
+
 </body>
 </html>
