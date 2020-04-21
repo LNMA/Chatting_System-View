@@ -131,6 +131,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>ViewNotSeenMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewNotSeenMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewNotSeenMessage</servlet-name>
+        <url-pattern>/ViewNotSeenMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewMessageContent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewMessageContent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewMessageContent</servlet-name>
+        <url-pattern>/ViewMessageContent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>
@@ -139,13 +157,18 @@
         <url-pattern>/ErrorServlet</url-pattern>
     </servlet-mapping>
     <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/ErrorServlet</location>
+    </error-page>
+    <error-page>
         <error-code>404</error-code>
         <location>/ErrorServlet</location>
     </error-page>
     <error-page>
-        <exception-type>java.lang.Exception</exception-type>
+        <error-code>500</error-code>
         <location>/ErrorServlet</location>
     </error-page>
+
 
 
     <session-config>

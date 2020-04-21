@@ -122,112 +122,77 @@
             <img src="<%= contextPath %>/client/img/photo_library-black-48dp.svg" width="24" height="24">
             <p class="ml-3">My Photo Album</p>
         </div>
-        <div class="form-row ml-2">
-            <img src="<%= contextPath %>/client/img/email-black-48dp.svg" width="24" height="24">
-            <p class="ml-3">Message</p>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/message-home.jsp">
+                <img class="mt-2" src="<%= contextPath %>/client/img/email-black-48dp.svg" width="24" height="24">
+                <p class="ml-3 mt-2">Message</p>
+            </a>
         </div>
     </aside>
 
-    <article class="msg-background float-right mr-1 mt-3 row">
+    <article class="mr-3">
 
-        <section class="float-left">
-            <div class="col-1 mt-2 mb-2 ">
-
-                <div class="list-group" role="tablist" style="height: 40em; width: 18em; overflow: auto">
-
-                    <jsp:include page="/ViewNotSeenMessage"></jsp:include>
-                    <c:forEach items="${notSeenSet}" var="set">
-
-                    <form action="<%=contextPath%>/ViewMessageContent" method="get">
-
-                        <input type="text" name="targetUser" value="${set.getSourceUser().getUsername()}" readonly hidden>
-
-                        <button class="list-group-item list-group-item-action" type="submit">
-
-                            <p class="font-weight-lighter">
-                                <span class="badge badge-secondary">${set.getNumOfNotSeen()}</span>
-                                    ${set.getTargetUser().getFirstName()} ${set.getTargetUser().getLastName()}
-                            </p>
-
+        <section class="float-right col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <div class="btn-group btn-toolbar">
+                        <button type="button" class="btn btn-outline-info " id="inputStringPost"><img
+                                src="<%= contextPath %>/client/img/post_add-black-48dp.svg" class="mb-1" width="30"
+                                height="30"/>
+                            Creat Post
                         </button>
-
-                    </form>
-
-                    </c:forEach>
-
+                        <button type="button" class="btn btn-outline-info " id="inputImg"><img
+                                src="<%= contextPath %>/client/img/photo_size_select_actual-black-48dp.svg" class="mb-1"
+                                width="30"
+                                height="30"/>
+                            Photo
+                        </button>
+                    </div>
                 </div>
+                <div class="card-body" id="addPost" hidden></div>
             </div>
-
         </section>
 
-        <section class="float-right">
-            <div class="col-md-12 mt-2 mb-2 ">
+        <jsp:include page="/GetUserCirclePost"></jsp:include>
+        <c:forEach items="${userCirclePost}" var="post">
+            <section class="col-md-9 mt-3 float-right">
+                <div class="card">
+                    <div class="card-header text-muted">
+                        Posted by ${post.getUser().getUsername()}, At : ${post.getDatePost()}
 
 
-                <c:if test="${messageTree !=null}">
-
-                <div class="tab-content" id="nav-tabContent">
-                    <div style="height: 55em;overflow: auto">
-
-                        <c:forEach items="${numOfNotSeen}" var="notSee">
-                        <p class="text-muted small">
-                            ${notSee.getNumOfNotSeen()} message ${notSee.getTargetUser().getFirstName()} ${notSee.getTargetUser().getLastName()} not see it.
-                        </p>
-                        </c:forEach>
-
-                        <c:forEach items="${messageTree}" var="message">
-
-                            <c:if test="${message.getSourceUser().getUsername() eq username}">
-                        <div class="mt-3" style="width: 37em;">
-                            <div class="card text-white bg-dark">
-                                <div class="card-body">
-                                    <div class="card-text">
-                                        ${message.getMessage()}
-                                    </div>
+                        <c:if test="${post.getUser().getUsername() eq username}">
+                            <div class="dropdown dropleft float-right">
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="../client/img/settings-black-48dp.svg" width="16" height="16" >
+                                </div>
+                                <div class="dropdown-menu">
+                                    <form action="<%= contextPath %>/DeleteUserPost" method="post">
+                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
+                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                        <input class="dropdown-item" type="submit" value="Delete">
+                                    </form>
+                                    <form action="<%= contextPath %>/client/edit_post.jsp" method="get">
+                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
+                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                        <input class="dropdown-item" type="submit" value="Edit">
+                                    </form>
                                 </div>
                             </div>
-                            <img src="<%= contextPath %>/GetUserPhoto" width="32" height="32" class="rounded-circle">
-                            <label class="text-muted small">Posted by: You, At:${message.getSentDate()}</label>
-                        </div>
-                            </c:if>
-
-                            <c:if test="${message.getSourceUser().getUsername() ne username}">
-                        <div class="mt-3" style="width: 37em;margin-left: 4em;">
-                            <div class="card text-dark bg-light">
-                                <div class="card-body">
-                                    <div class="card-text">
-                                            ${message.getMessage()}
-                                    </div>
-                                </div>
-                            </div>
-                            <img src="data:image;base64,${message.getSourceUser().getBase64()}" width="32" height="32" class="rounded-circle">
-                            <label class="text-muted small">Posted by:${message.getSourceUser().getFirstName()} ${message.getSourceUser().getLastName()} , At:${message.getSentDate()}</label>
-                        </div>
-                            </c:if>
-
-                        </c:forEach>
+                        </c:if>
 
                     </div>
-
-                    <form action="<%= contextPath %>/SendMessage" method="post">
-                        <input type="text" name="targetUser" value="<c:out value="${target}"/>" readonly hidden>
-                        <div class="input-group button">
-                            <input type="text" class="form-control" placeholder="Type a replay"
-                                    aria-describedby="sendMessage" name="message">
-                            <div class="input-group-append">
-                                <button class="btn btn-dark" type="submit" id="sendMessage">Send</button>
-                            </div>
-                        </div>
-                    </form>
-
-                    </c:if>
-
+                    <div class="card-body">
+                        <c:if test="${post.getType() eq 'TEXT_POST'}">
+                            ${post.getPost()}
+                        </c:if>
+                        <c:if test="${post.getType() eq 'IMG_POST'}">
+                            <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
+                        </c:if>
+                    </div>
                 </div>
-
-
-            </div>
-        </section>
-
+            </section>
+        </c:forEach>
 
     </article>
 
