@@ -65,12 +65,18 @@
                 <section class="col-md-9 mt-2" style="margin-left: 14%">
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-row">
-                                <img src="data:image/png;base64,${result.getBase64()}" class="rounded-circle"
+                                <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                    <input type="text" value="${result.getUsername()}" name="strange" readonly hidden>
+                                    <input type="text" value="${result.getAccountType()}" name="type" readonly hidden>
+                                    <button class="btn btn-block w-75" type="submit">
+                                        <div class="form-row">
+                                        <img src="data:image/png;base64,${result.getBase64()}" class="rounded-circle"
                                      width="164" height="164"/>
                                 <p class="font-weight-bolder h5"
-                                   style="margin-left: 13%; margin-top: 7%">${result.getUsername()} </p>
-                            </div>
+                                   style="margin-left: 13%; margin-top: 10%">${result.getFirstName()} ${result.getLastName()} </p>
+                                        </div>
+                                    </button>
+                                </form>
                         </div>
                     </div>
                 </section>
@@ -80,12 +86,18 @@
                 <section class="col-md-9 mt-2" style="margin-left: 14%">
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-row">
+                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                <input type="text" value="${result.getIdGroup()}" name="strange" readonly hidden>
+                                <input type="text" value="${result.getAccountType()}" name="type" readonly hidden>
+                                <button class="btn btn-block w-75" type="submit">
+                                <div class="form-row">
                                 <img src="data:image/png;base64,${result.getBase64()}" class="rounded-circle"
                                      width="164" height="164"/>
                                 <p class="font-weight-bolder h5"
                                    style="margin-left: 13%; margin-top: 7%">${result.getIdGroup()} </p>
                             </div>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </section>

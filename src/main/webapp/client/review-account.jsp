@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page errorPage="../util/error.jsp" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.util.Calendar" %>
 
@@ -94,104 +95,88 @@
 
 <main class="mt-3">
 
-    <aside class="aside ml-2 mb-5">
+    <article>
 
-        <div class="form-row">
-            <img src="<%= contextPath %>/GetUserPhoto" class="rounded-circle" width="128" height="128"/>
-            <p class="mt-5 mb-0 ml-1 font-weight-bolder h5"><%= usernameSession %>
-            </p>
-        </div>
-        <hr>
-        <div class="form-row ml-2">
-            <img src="<%= contextPath %>/client/img/send-black-48dp.svg" width="24" height="24">
-            <p class="ml-3">Messages Sent</p>
-        </div>
-        <div class="form-row ml-2">
-            <img src="<%= contextPath %>/client/img/person_add-black-48dp.svg" width="24" height="24">
-            <p class="ml-3">Request Sent</p>
-        </div>
-        <div class="form-row ml-2">
-            <img src="<%= contextPath %>/client/img/group-black-48dp.svg" width="24" height="24">
-            <p class="ml-3">My Group</p>
-        </div>
-        <hr>
-        <div class="form-text text-muted font-weight-bold ml-2">
-            <p>Explore</p>
-        </div>
-        <div class="form-row ml-2">
-            <img src="<%= contextPath %>/client/img/photo_library-black-48dp.svg" width="24" height="24">
-            <p class="ml-3">My Photo Album</p>
-        </div>
-        <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/message-home.jsp">
-                <img class="mt-2" src="<%= contextPath %>/client/img/email-black-48dp.svg" width="24" height="24">
-                <p class="ml-3 mt-2">Message</p>
-            </a>
-        </div>
-    </aside>
-
-    <article class="mr-3">
-
-        <section class="float-right col-md-9">
-            <div class="card">
-                <div class="card-header">
-                    <div class="btn-group btn-toolbar">
-                        <button type="button" class="btn btn-outline-info " id="inputStringPost"><img
-                                src="<%= contextPath %>/client/img/post_add-black-48dp.svg" class="mb-1" width="30"
-                                height="30"/>
-                            Creat Post
-                        </button>
-                        <button type="button" class="btn btn-outline-info " id="inputImg"><img
-                                src="<%= contextPath %>/client/img/photo_size_select_actual-black-48dp.svg" class="mb-1"
-                                width="30"
-                                height="30"/>
-                            Photo
-                        </button>
+        <jsp:include page="/ReviewAccount"></jsp:include>
+        <c:forEach items="${accountDetail}" var="account">
+        <section>
+            <div class="card col-md-10 " style="margin-left: 9%;">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-auto">
+                                <img src="data:image;base64,${account.getBase64()}" width="164" height="164" class="rounded-circle">
+                            </div>
+                            <c:if test="${account.getAccountType() eq 'USER'}">
+                            <div class="col-md-3">
+                                <p class="font-weight-bold" style="margin-top: 27%">${account.getFirstName()} ${account.getLastName()}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-info" style="margin-top: 25%">Send Message</button>
+                            </div>
+                            </c:if>
+                            <c:if test="${account.getAccountType() eq 'GROUP'}">
+                                <div class="col-md-3">
+                                    <p class="font-weight-bold" style="margin-top: 27%">${account.getIdGroup()}</p>
+                                </div>
+                            <c:if test="${account.getGroupPrivacy() ne 'private'}">
+                            <div class="col-md-6 text-right">
+                                    <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
+                                </div>
+                            </c:if>
+                            </c:if>
+                        </div>
                     </div>
+
                 </div>
-                <div class="card-body" id="addPost" hidden></div>
             </div>
         </section>
 
-        <jsp:include page="/GetUserCirclePost"></jsp:include>
-        <c:forEach items="${userCirclePost}" var="post">
-            <section class="col-md-9 mt-3 float-right">
-                <div class="card">
-                    <div class="card-header text-muted">
-                        Posted by ${post.getUser().getUsername()}, At : ${post.getDatePost()}
 
-
-                        <c:if test="${post.getUser().getUsername() eq username}">
-                            <div class="dropdown dropleft float-right">
-                                <div class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="../client/img/settings-black-48dp.svg" width="16" height="16" >
-                                </div>
-                                <div class="dropdown-menu">
-                                    <form action="<%= contextPath %>/DeleteUserPost" method="post">
-                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
-                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
-                                        <input class="dropdown-item" type="submit" value="Delete">
-                                    </form>
-                                    <form action="<%= contextPath %>/client/edit_post.jsp" method="get">
-                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
-                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
-                                        <input class="dropdown-item" type="submit" value="Edit">
-                                    </form>
-                                </div>
-                            </div>
-                        </c:if>
-
-                    </div>
-                    <div class="card-body">
-                        <c:if test="${post.getType() eq 'TEXT_POST'}">
-                            ${post.getPost()}
-                        </c:if>
-                        <c:if test="${post.getType() eq 'IMG_POST'}">
-                            <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
-                        </c:if>
-                    </div>
+        <section>
+            <div class="card col-md-6 mt-3" style="margin-left: 24%">
+                <div class="card-header">
+                    About
                 </div>
-            </section>
+                <c:if test="${account.getAccountType() eq 'USER'}">
+                <div class="card-body">
+                    <p class="text-muted">Identify</p>
+                    <hr>
+                    <p>On chatting system since: ${account.getDateCreate()}</p>
+                    <p>${account.getUsername()}</p>
+                    <p>${account.getFirstName()} ${account.getLastName()}</p>
+                    <p>${account.getGender()}</p>
+                    <p>${account.getBirthday()}</p>
+                    <p>${account.getAge()}</p>
+
+                    <p class="text-muted mt-5">Communication</p>
+                    <hr>
+                    <p>${account.getTelephone()}</p>
+                    <p>${account.getEmail()}</p>
+
+                    <p class="text-muted mt-5">Address</p>
+                    <hr>
+                    <p>${account.getCountry()}</p>
+                    <p>${account.getState()}</p>
+                    <p>${account.getAddress()}</p>
+                </div>
+                </c:if>
+                <c:if test="${account.getAccountType() eq 'GROUP'}">
+                    <div class="card-body">
+                        <p class="text-muted">Identify</p>
+                        <hr>
+                        <p>On chatting system since: ${account.getDateCreate()}</p>
+                        <p>${account.getIdGroup()}</p>
+                        <p class="text-muted mt-5">Activity</p>
+                        <hr>
+                        <p>${account.getGroupActivity()}</p>
+                    </div>
+                </c:if>
+            </div>
+        </section>
         </c:forEach>
 
     </article>
