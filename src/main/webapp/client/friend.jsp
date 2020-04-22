@@ -43,7 +43,7 @@
     <script src="<%=contextPath%>/client/home-client.js"></script>
     <title>User Friend `by Louay Amr'</title>
 </head>
-<body class="mainBackground" >
+<body class="mainBackground">
 
 <header>
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
@@ -54,22 +54,25 @@
 
 <main class="mt-3">
 
-    <aside class="aside ml-2">
-    </aside>
-
-    <article class="mr-3">
+    <article style="margin-left: 19%">
 
         <jsp:include page="/ViewMyFriend"></jsp:include>
         <c:forEach items="${pictureList}" var="picture">
-            <section class="float-right col-md-9">
+            <section class="col-md-9 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="form-row">
-                            <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
-                                 width="164" height="164"/>
-                            <p class="font-weight-bolder h5"
-                               style="margin-left: 13%; margin-top: 7%">${picture.getUsername()} </p>
-                        </div>
+                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
+                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
+                            <button class="btn btn-block w-75" type="submit">
+                                <div class="form-row">
+                                    <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
+                                         width="164" height="164"/>
+                                    <p class="font-weight-bolder h5"
+                                       style="margin-left: 13%; margin-top: 10%">${picture.getUsername()} </p>
+                                </div>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -78,13 +81,12 @@
     </article>
 
 </main>
-<footer >
+<footer style="padding-top: 10em">
     <nav class="navbar"
-         style="background-color: #d3c7cd; height: 11em; width: 100%;margin-top: 50%">
+         style="background-color: #d3c7cd; height: 11em; width: 100%">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
-
 
 
 </body>

@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Set;
 
-public class ViewNotSeenMessage extends HttpServlet {
+public class ViewListReceiveMessage extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -29,18 +29,17 @@ public class ViewNotSeenMessage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("signin\\login.jsp");
+            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
 
         AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
         Users targetUser = accountMessage.getTargetUser();
         targetUser.setUsername((String) session.getAttribute("username"));
 
-        GetNotSeenMessageController getNotSeenMessageController =
-                (GetNotSeenMessageController) this.context.getBean("getNotSeen");
+        GetNotSeenMessageController notSeenMessageCont  =
+                (GetNotSeenMessageController) this.context.getBean("getNotSeenMessageCont");
 
-        Set<AccountMessage> accountMessageSet = getNotSeenMessageController.getUsersAndNotSeenMessage(accountMessage);
-
+        Set<AccountMessage> accountMessageSet = notSeenMessageCont.getUsersAndNotSeenMessageByReceiver(accountMessage);
 
 
         request.setAttribute("notSeenSet", accountMessageSet);

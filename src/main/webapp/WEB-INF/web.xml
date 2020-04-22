@@ -131,21 +131,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ViewNotSeenMessage</servlet-name>
-        <servlet-class>com.louay.projects.view.service.message.ViewNotSeenMessage</servlet-class>
+        <servlet-name>ViewListReceiveMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewListReceiveMessage</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ViewNotSeenMessage</servlet-name>
-        <url-pattern>/ViewNotSeenMessage</url-pattern>
+        <servlet-name>ViewListReceiveMessage</servlet-name>
+        <url-pattern>/ViewListReceiveMessage</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ViewMessageContent</servlet-name>
-        <servlet-class>com.louay.projects.view.service.message.ViewMessageContent</servlet-class>
+        <servlet-name>ViewReceiveMessageContent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewReceiveMessageContent</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ViewMessageContent</servlet-name>
-        <url-pattern>/ViewMessageContent</url-pattern>
+        <servlet-name>ViewReceiveMessageContent</servlet-name>
+        <url-pattern>/ViewReceiveMessageContent</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -173,6 +173,33 @@
     <servlet-mapping>
         <servlet-name>ViewAllNotSeenMessage</servlet-name>
         <url-pattern>/ViewAllNotSeenMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewSentMessageContent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewSentMessageContent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSentMessageContent</servlet-name>
+        <url-pattern>/ViewSentMessageContent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewListSentMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewListSentMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewListSentMessage</servlet-name>
+        <url-pattern>/ViewListSentMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.GetUserImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserImgPost</servlet-name>
+        <url-pattern>/GetUserImgPost</url-pattern>
     </servlet-mapping>
 
     <servlet>

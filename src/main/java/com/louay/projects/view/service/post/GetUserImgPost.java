@@ -1,9 +1,9 @@
-package com.louay.projects.view.service.user;
+package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.ViewMyFriendController;
-import com.louay.projects.model.chains.accounts.Admin;
+import com.louay.projects.controller.service.post.GetUserCirclePostController;
 import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.model.chains.communications.Post;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -13,13 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Set;
+import java.util.TreeSet;
 
-public class ViewMyFriend extends HttpServlet implements Serializable {
-
+public class GetUserImgPost extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -37,13 +33,15 @@ public class ViewMyFriend extends HttpServlet implements Serializable {
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
 
-        Users users = context.getBean(Client.class);
-
+        Users users = this.context.getBean(Client.class);
         users.setUsername((String) session.getAttribute("username"));
 
-        ViewMyFriendController friendByName = (ViewMyFriendController) this.context.getBean("findFriendByName");
-        Set<Users> set = friendByName.execute(users);
+        GetUserCirclePostController getUserCirclePostController =
+                (GetUserCirclePostController) this.context.getBean("getUserCirclePost");
 
-        request.setAttribute("pictureList", set);
+        TreeSet<Post> imgTree = getUserCirclePostController.getUserImgPost(users);
+
+        request.setAttribute("imgTree", imgTree);
+
     }
 }

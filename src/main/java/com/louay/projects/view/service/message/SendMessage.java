@@ -26,10 +26,10 @@ public class SendMessage extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("signin\\login.jsp");
+            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
         String sender = (String) session.getAttribute("username");
         String receiver = request.getParameter("targetUser");
@@ -47,6 +47,6 @@ public class SendMessage extends HttpServlet {
         AddMessageUserController addMessageUserController = (AddMessageUserController) this.context.getBean("addMessage");
         addMessageUserController.addMessage(accountMessage);
 
-        response.sendRedirect(request.getContextPath()+"\\client\\message-home.jsp");
+        response.sendRedirect(request.getContextPath()+"\\client\\message-sent.jsp");
     }
 }

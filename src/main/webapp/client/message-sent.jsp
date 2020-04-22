@@ -136,23 +136,23 @@
 
                 <div class="list-group" role="tablist" style="height: 40em; width: 18em; overflow: auto">
 
-                    <jsp:include page="/ViewNotSeenMessage"></jsp:include>
+                    <jsp:include page="/ViewListSentMessage"></jsp:include>
                     <c:forEach items="${notSeenSet}" var="set">
 
-                    <form action="<%=contextPath%>/ViewMessageContent" method="get">
+                        <form action="<%=contextPath%>/ViewSentMessageContent" method="get">
 
-                        <input type="text" name="targetUser" value="${set.getSourceUser().getUsername()}" readonly hidden>
+                            <input type="text" name="receiveUser" value="${set.getTargetUser().getUsername()}" readonly hidden>
 
-                        <button class="list-group-item list-group-item-action" type="submit">
+                            <button class="list-group-item list-group-item-action" type="submit">
 
-                            <p class="font-weight-lighter">
-                                <span class="badge badge-secondary">${set.getNumOfNotSeen()}</span>
-                                    ${set.getTargetUser().getFirstName()} ${set.getTargetUser().getLastName()}
-                            </p>
+                                <p class="font-weight-lighter">
+                                    <span class="badge badge-secondary">${set.getNumberOfAllMessage()}</span>
+                                        ${set.getSourceUser().getFirstName()} ${set.getSourceUser().getLastName()}
+                                </p>
 
-                        </button>
+                            </button>
 
-                    </form>
+                        </form>
 
                     </c:forEach>
 
@@ -171,39 +171,39 @@
                     <div style="height: 55em;overflow: auto">
 
                         <c:forEach items="${numOfNotSeen}" var="notSee">
-                        <p class="text-muted small">
-                            ${notSee.getNumOfNotSeen()} message ${notSee.getTargetUser().getFirstName()} ${notSee.getTargetUser().getLastName()} not see it.
-                        </p>
+                            <p class="text-muted small">
+                                    ${notSee.getNumOfNotSeen()} message from him to you (${notSee.getSourceUser().getFirstName()} ${notSee.getSourceUser().getLastName()}) not see it.
+                            </p>
                         </c:forEach>
 
                         <c:forEach items="${messageTree}" var="message">
 
                             <c:if test="${message.getSourceUser().getUsername() eq username}">
-                        <div class="mt-3" style="width: 37em;">
-                            <div class="card text-white bg-dark">
-                                <div class="card-body">
-                                    <div class="card-text">
-                                        ${message.getMessage()}
+                                <div class="mt-3" style="width: 37em;">
+                                    <div class="card text-white bg-dark">
+                                        <div class="card-body">
+                                            <div class="card-text">
+                                                    ${message.getMessage()}
+                                            </div>
+                                        </div>
                                     </div>
+                                    <img src="<%= contextPath %>/GetUserPhoto" width="32" height="32" class="rounded-circle">
+                                    <label class="text-muted small">Posted by: You, At:${message.getSentDate()}</label>
                                 </div>
-                            </div>
-                            <img src="<%= contextPath %>/GetUserPhoto" width="32" height="32" class="rounded-circle">
-                            <label class="text-muted small">Posted by: You, At:${message.getSentDate()}</label>
-                        </div>
                             </c:if>
 
                             <c:if test="${message.getSourceUser().getUsername() ne username}">
-                        <div class="mt-3" style="width: 37em;margin-left: 4em;">
-                            <div class="card text-dark bg-light">
-                                <div class="card-body">
-                                    <div class="card-text">
-                                            ${message.getMessage()}
+                                <div class="mt-3" style="width: 37em;margin-left: 4em;">
+                                    <div class="card text-dark bg-light">
+                                        <div class="card-body">
+                                            <div class="card-text">
+                                                    ${message.getMessage()}
+                                            </div>
+                                        </div>
                                     </div>
+                                    <img src="data:image;base64,${message.getSourceUser().getBase64()}" width="32" height="32" class="rounded-circle">
+                                    <label class="text-muted small">Posted by:${message.getSourceUser().getFirstName()} ${message.getSourceUser().getLastName()} , At:${message.getSentDate()}</label>
                                 </div>
-                            </div>
-                            <img src="data:image;base64,${message.getSourceUser().getBase64()}" width="32" height="32" class="rounded-circle">
-                            <label class="text-muted small">Posted by:${message.getSourceUser().getFirstName()} ${message.getSourceUser().getLastName()} , At:${message.getSentDate()}</label>
-                        </div>
                             </c:if>
 
                         </c:forEach>
@@ -214,7 +214,7 @@
                         <input type="text" name="targetUser" value="<c:out value="${target}"/>" readonly hidden>
                         <div class="input-group button">
                             <input type="text" class="form-control" placeholder="Type a replay"
-                                    aria-describedby="sendMessage" name="message">
+                                   aria-describedby="sendMessage" name="message">
                             <div class="input-group-append">
                                 <button class="btn btn-dark" type="submit" id="sendMessage">Send</button>
                             </div>

@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.message;
 
 import com.louay.projects.controller.service.message.GetMessageContentController;
-import com.louay.projects.controller.service.message.GetReceiverNotSeenMessageController;
+import com.louay.projects.controller.service.message.GetNotSeenMessageController;
 import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.communications.account.AccountMessage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class ViewMessageContent extends HttpServlet {
+public class ViewReceiveMessageContent extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -32,29 +32,29 @@ public class ViewMessageContent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
-            response.sendRedirect("signin\\login.jsp");
+            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
 
-        String target = request.getParameter("targetUser");
+        String sender = request.getParameter("senderUser");
 
         AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
         Client targetUser = accountMessage.getTargetUser();
         targetUser.setUsername((String) session.getAttribute("username"));
         Client sourceUser = accountMessage.getSourceUser();
-        sourceUser.setUsername(target);
+        sourceUser.setUsername(sender);
 
-        GetReceiverNotSeenMessageController notSeenMessageController =
-                (GetReceiverNotSeenMessageController) this.context.getBean("getReceiverNotSeenMessage");
+        GetNotSeenMessageController notSeenMessageCont  =
+                (GetNotSeenMessageController) this.context.getBean("getNotSeenMessageCont");
 
-        Set<AccountMessage> accountMessageSet = notSeenMessageController.getNotSeen(accountMessage);
+        Set<AccountMessage> accountMessageSet = notSeenMessageCont.getUsersAndNotSeenMessageBySenderAndReceiver(accountMessage);
 
         GetMessageContentController controller = (GetMessageContentController) this.context.getBean("getMessage");
-        TreeSet<AccountMessage> messageTreeSet = controller.getMessages(accountMessage);
+        TreeSet<AccountMessage> messageTreeSet = controller.getReceiveMessages(accountMessage);
 
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/client/message-home.jsp");
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/client/message-receive.jsp");
 
         request.setAttribute("messageTree", messageTreeSet);
-        request.setAttribute("target", target);
+        request.setAttribute("sender", sender);
         request.setAttribute("numOfNotSeen", accountMessageSet);
 
         dispatcher.forward(request, response);
