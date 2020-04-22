@@ -203,6 +203,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetRequestReceive</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetRequestReceive</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetRequestReceive</servlet-name>
+        <url-pattern>/GetRequestReceive</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetRequestSent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetRequestSent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetRequestSent</servlet-name>
+        <url-pattern>/GetRequestSent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUserFriend</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddUserFriend</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUserFriend</servlet-name>
+        <url-pattern>/AddUserFriend</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

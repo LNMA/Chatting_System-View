@@ -111,7 +111,7 @@
                             <div class="col-md-3">
                                 <p class="font-weight-bold" style="margin-top: 27%">${account.getFirstName()} ${account.getLastName()}</p>
                             </div>
-                                <c:if test="${isFriend eq false and isThereRequest eq false}">
+                                <c:if test="${isFriend eq false and isThereRequest eq false and account.getUsername() ne username}">
                             <div class="col-md-3">
                                 <form action="<%=contextPath%>/AddRequest" method="post">
                                     <input type="text" value="${account.getUsername()}" name="id" readonly hidden>
@@ -121,6 +121,7 @@
                             </div>
                                 </c:if>
                             <div class="col-md-3">
+                                <c:if test="${account.getUsername() ne username}">
                                 <button class="btn btn-info" data-toggle="modal" data-target="#userModal" style="margin-top: 25%">Send Message</button>
 
                                 <div class="modal fade" id="userModal">
@@ -154,6 +155,7 @@
                                 </div>
 
                             </div>
+                                </c:if>
                             </c:if>
                             <c:if test="${account.getAccountType() eq 'GROUP'}">
                                 <div class="col-md-3">

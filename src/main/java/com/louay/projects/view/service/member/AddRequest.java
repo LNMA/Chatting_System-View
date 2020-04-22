@@ -44,19 +44,15 @@ public class AddRequest extends HttpServlet {
         if (accountType == AccountType.GROUP){
             requestMember = this.context.getBean(GroupRequest.class);
             GroupRequest groupRequest = (GroupRequest) requestMember;
-            Groups groups =  groupRequest.getSourceGroup();
-            groups.setIdGroup(id);
-            Users users = groupRequest.getTargetAccount();
-            users.setUsername((String) session.getAttribute("username"));
+            groupRequest.getSourceGroup().setIdGroup(id);
+            groupRequest.getTargetAccount().setUsername((String) session.getAttribute("username"));
             groupRequest.setRequestDate(NowDate.getNowTimestamp());
 
         }else if (accountType == AccountType.USER){
             requestMember = this.context.getBean(FriendRequest.class);
             FriendRequest friendRequest = (FriendRequest) requestMember;
-            Users sourceAccount = friendRequest.getSourceAccount();
-            sourceAccount.setUsername((String) session.getAttribute("username"));
-            Users targetAccount = friendRequest.getTargetAccount();
-            targetAccount.setUsername(id);
+            friendRequest.getSourceAccount().setUsername((String) session.getAttribute("username"));
+            friendRequest.getTargetAccount().setUsername(id);
             friendRequest.setRequestDate(NowDate.getNowTimestamp());
 
         }
@@ -64,7 +60,6 @@ public class AddRequest extends HttpServlet {
         AddRequestController requestController = (AddRequestController) this.context.getBean("addRequestCont");
         requestController.addRequest(requestMember);
 
-        response.sendRedirect(request.getContextPath() + "\\client\\review-account.jsp");
-
+        response.sendRedirect(request.getContextPath() + "\\client\\request-user-sent.jsp");
     }
 }

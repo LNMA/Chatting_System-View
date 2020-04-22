@@ -53,7 +53,7 @@ public class ReviewAccount extends HttpServlet {
 
         Accounts accounts = null;
         String username = (String) session.getAttribute("username");
-        if (accountType == AccountType.USER){
+        if (accountType.compareTo(AccountType.USER) == 0){
             accounts = this.context.getBean(Client.class);
             ((Client)accounts).setUsername(id);
 
@@ -62,7 +62,7 @@ public class ReviewAccount extends HttpServlet {
             request.setAttribute("isFriend", isFriend);
             request.setAttribute("isThereRequest", isThereRequest);
 
-        }else if (accountType == AccountType.GROUP){
+        }else if (accountType.compareTo(AccountType.GROUP) == 0){
             accounts = this.context.getBean(Groups.class);
             ((Groups)accounts).setIdGroup(id);
 

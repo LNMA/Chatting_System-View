@@ -66,57 +66,41 @@
 <main>
 
     <article>
+        <section style="margin-left: 19%">
 
-        <div class="row row-cols-1 row-cols-md-3 mt-4 ml-4 mr-4">
+            <div class="card col-9 mt-3">
+                <div class="card-body">
+                    <div class="form-row">
 
-            <div class="col mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <img src="../util/img/broken_robot.png" class="card-img-top">
+                        <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
+                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
+                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
+                            <button class="btn btn-block" type="submit">
+                                <div class="form-row">
+                                    <div class="col-1">
+                                        <img src="img/broken_robot.png" class="rounded-circle" width="128" height="128">
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
+                                            username</p>
+                                    </div>
+                                </div>
+
+                            </button>
+                        </form>
+
+                        <div class="col-2">
+                            <form>
+                                <button type="submit" class="btn btn-success" style="margin-top: 38%;">Accept</button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
-
-        </div>
-
-
+        </section>
 
     </article>
-
-    <button class="btn btn-info" data-toggle="modal" data-target="#userModal" style="margin-top: 25%">Send Message
-    </button>
-
-    <div class="modal fade" id="userModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">Send Message</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <div class="modal-body">
-                    <form action="<%= contextPath %>/SendMessage" method="post">
-                        <input type="text" name="targetUser" value="${account.getUsername()}" readonly hidden>
-                        <div class="input-group button">
-                            <input type="text" class="form-control" placeholder="Type a replay"
-                                   aria-describedby="sendMessage" name="message">
-                            <div class="input-group-append">
-                                <button class="btn btn-dark" type="submit" id="sendMessage">Send</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    </div>
 
 
 </main>
