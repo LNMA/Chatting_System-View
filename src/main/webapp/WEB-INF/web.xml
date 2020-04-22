@@ -158,6 +158,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddRequest</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddRequest</servlet-name>
+        <url-pattern>/AddRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewAllNotSeenMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewAllNotSeenMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewAllNotSeenMessage</servlet-name>
+        <url-pattern>/ViewAllNotSeenMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

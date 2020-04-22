@@ -39,9 +39,9 @@ public class ViewMessageContent extends HttpServlet {
 
         AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
         Client targetUser = accountMessage.getTargetUser();
-        targetUser.setUsername(target);
+        targetUser.setUsername((String) session.getAttribute("username"));
         Client sourceUser = accountMessage.getSourceUser();
-        sourceUser.setUsername((String) session.getAttribute("username"));
+        sourceUser.setUsername(target);
 
         GetReceiverNotSeenMessageController notSeenMessageController =
                 (GetReceiverNotSeenMessageController) this.context.getBean("getReceiverNotSeenMessage");

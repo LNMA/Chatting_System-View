@@ -111,20 +111,61 @@
                             <div class="col-md-3">
                                 <p class="font-weight-bold" style="margin-top: 27%">${account.getFirstName()} ${account.getLastName()}</p>
                             </div>
+                                <c:if test="${isFriend eq false and isThereRequest eq false}">
                             <div class="col-md-3">
-                                <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
+                                <form action="<%=contextPath%>/AddRequest" method="post">
+                                    <input type="text" value="${account.getUsername()}" name="id" readonly hidden>
+                                    <input type="text" value="${account.getAccountType()}" name="type" readonly hidden>
+                                    <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
+                                </form>
                             </div>
+                                </c:if>
                             <div class="col-md-3">
-                                <button class="btn btn-info" style="margin-top: 25%">Send Message</button>
+                                <button class="btn btn-info" data-toggle="modal" data-target="#userModal" style="margin-top: 25%">Send Message</button>
+
+                                <div class="modal fade" id="userModal">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Send Message</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form action="<%= contextPath %>/SendMessage" method="post">
+                                                    <input type="text" name="targetUser" value="${account.getUsername()}" readonly hidden>
+                                                    <div class="input-group button">
+                                                        <input type="text" class="form-control" placeholder="Type a replay"
+                                                               aria-describedby="sendMessage" name="message">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-dark" type="submit" id="sendMessage">Send</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             </c:if>
                             <c:if test="${account.getAccountType() eq 'GROUP'}">
                                 <div class="col-md-3">
                                     <p class="font-weight-bold" style="margin-top: 27%">${account.getIdGroup()}</p>
                                 </div>
-                            <c:if test="${account.getGroupPrivacy() ne 'private'}">
+                            <c:if test="${account.getGroupPrivacy() ne 'private' and isImInvited eq false and isImMember eq false and isRequestSent eq false}">
                             <div class="col-md-6 text-right">
+                                <form action="<%=contextPath%>/AddRequest" method="post">
+                                    <input type="text" value="${account.getIdGroup()}" name="id" readonly hidden>
+                                    <input type="text" value="${account.getAccountType()}" name="type" readonly hidden>
                                     <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
+                                </form>
                                 </div>
                             </c:if>
                             </c:if>
@@ -134,6 +175,7 @@
                 </div>
             </div>
         </section>
+
 
 
         <section>

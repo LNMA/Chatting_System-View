@@ -1,9 +1,8 @@
 package com.louay.projects.view.service.message;
 
-import com.louay.projects.controller.service.message.AddMessageUserController;
+import com.louay.projects.controller.service.message.GetNotSeenMessageController;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.account.AccountMessage;
-import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class SendMessage extends HttpServlet {
+public class ViewAllNotSeenMessage extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -26,27 +25,21 @@ public class SendMessage extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
             response.sendRedirect("signin\\login.jsp");
         }
-        String sender = (String) session.getAttribute("username");
-        String receiver = request.getParameter("targetUser");
-        StringBuilder message = new StringBuilder(request.getParameter("message"));
 
         AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
-        Users sourceUser = accountMessage.getSourceUser();
-        sourceUser.setUsername(sender);
         Users targetUser = accountMessage.getTargetUser();
-        targetUser.setUsername(receiver);
-        accountMessage.setMessageStringBuilder(message);
-        accountMessage.setSeen(false);
-        accountMessage.setSentDate(NowDate.getNowTimestamp());
+        targetUser.setUsername((String) session.getAttribute("username"));
 
-        AddMessageUserController addMessageUserController = (AddMessageUserController) this.context.getBean("addMessage");
-        addMessageUserController.addMessage(accountMessage);
+        GetNotSeenMessageController getNotSeenMessageController =
+                (GetNotSeenMessageController) this.context.getBean("getNotSeen");
 
-        response.sendRedirect(request.getContextPath()+"\\client\\message-home.jsp");
+        int result = getNotSeenMessageController.getNumberOfAllNotSeenMessage(accountMessage);
+
+        request.setAttribute("messageNotSeen", result);
     }
 }

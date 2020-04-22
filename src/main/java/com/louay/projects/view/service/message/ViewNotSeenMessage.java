@@ -33,8 +33,8 @@ public class ViewNotSeenMessage extends HttpServlet {
         }
 
         AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
-        Users sourceUser = accountMessage.getSourceUser();
-        sourceUser.setUsername((String) session.getAttribute("username"));
+        Users targetUser = accountMessage.getTargetUser();
+        targetUser.setUsername((String) session.getAttribute("username"));
 
         GetNotSeenMessageController getNotSeenMessageController =
                 (GetNotSeenMessageController) this.context.getBean("getNotSeen");
