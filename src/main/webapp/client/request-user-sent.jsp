@@ -46,9 +46,9 @@
 </head>
 <body class="mainBackground">
 
-<header>
-    <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
-         style="background-color: #3e3c4e ;height: 6em; width: 100%">
+<header class="fixed-top">
+    <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
+         style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
@@ -60,12 +60,12 @@
         </p>
 
         <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-2 w-75" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success " type="submit">Search &telrec;</button>
+            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
-        <a class="col-md-1"  href="<%=contextPath%>/client/message-receive.jsp">
+        <a class="col-md-auto col-lg-offset-1"  href="<%=contextPath%>/client/message-receive.jsp">
             <button class="btn btn-outline-info" type="submit">
                 <span class="badge badge-primary badge-pill mb-0 "><c:out value="${messageNotSeen}">${messageNotSeen}</c:out></span>
                 <img class="mt-0" src="<%= contextPath %>/client/img/message-white-48dp.svg" id="messageImg" height="24"
@@ -73,11 +73,10 @@
             </button>
         </a>
 
-        <div class="dropdown col-md-2">
+        <div class="dropdown col-md-auto">
             <button type="button" class="btn btn-link dropdown-toggle-split" data-toggle="dropdown">
                 <img src="<%= contextPath %>/client/img/account_circle-white-48dp.svg" class="rounded-circle mr-0"
-                     width="72"
-                     height="72"/>&blacktriangledown;
+                     width="72" height="72"/>&blacktriangledown;
             </button>
             <div class="dropdown-menu">
                 <form>
@@ -94,9 +93,9 @@
     </nav>
 </header>
 
-<main class="mt-3">
+<main class="col-md-12" style="padding-top: 7%">
 
-    <article>
+    <article >
         <section style="margin-left: 20%">
 
             <jsp:include page="/GetRequestSent"></jsp:include>
@@ -106,12 +105,15 @@
                         <div class="form-row">
 
                             <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${request.value.getTargetAccount().getUsername()}" name="strange" readonly hidden>
-                                <input type="text" value="${request.value.getTargetAccount().getAccountType()}" name="type" readonly hidden>
+                                <input type="text" value="${request.value.getTargetAccount().getUsername()}"
+                                       name="strange" readonly hidden>
+                                <input type="text" value="${request.value.getTargetAccount().getAccountType()}"
+                                       name="type" readonly hidden>
                                 <button class="btn btn-block" type="submit">
                                     <div class="form-row">
                                         <div class="col-1">
-                                            <img src="data:image/png;base64,${request.value.getSourceAccount().getBase64()}" class="rounded-circle" width="128" height="128">
+                                            <img src="data:image/png;base64,${request.value.getSourceAccount().getBase64()}"
+                                                 class="rounded-circle" width="128" height="128">
                                         </div>
                                         <div class="col-10">
                                             <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
@@ -122,10 +124,10 @@
                                 </button>
                             </form>
 
-                            </div>
-
                         </div>
+
                     </div>
+                </div>
                 </div>
             </c:forEach>
 
@@ -135,7 +137,7 @@
 
 </main>
 
-<footer style="padding-top: 25em;">
+<footer style="padding-top: 31em;">
     <nav class="navbar"
          style="background-color: #d3c7cd; height: 11em; width: 100%;">
         <p>Louay Amr © 2020</p>

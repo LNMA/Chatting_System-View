@@ -46,37 +46,39 @@
 </head>
 <body class="mainBackground">
 
-<header>
-    <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
-         style="background-color: #3e3c4e ;height: 6em; width: 100%">
+<header class="fixed-top">
+    <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
+         style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/signin/login.jsp">Home</a></p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a></p>
+                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a>
+        </p>
         <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
         </p>
 
         <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-2 w-75" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success " type="submit">Search &telrec;</button>
+            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
         </form>
 
-        <form class="col-md-1">
+        <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
+        <a class="col-md-auto col-lg-offset-1" href="<%=contextPath%>/client/message-receive.jsp">
             <button class="btn btn-outline-info" type="submit">
-                <span class="badge badge-primary badge-pill mb-0 ">14</span>
+                <span class="badge badge-primary badge-pill mb-0 "><c:out
+                        value="${messageNotSeen}">${messageNotSeen}</c:out></span>
                 <img class="mt-0" src="<%= contextPath %>/client/img/message-white-48dp.svg" id="messageImg" height="24"
                      width="24"/>
             </button>
-        </form>
+        </a>
 
-        <div class="dropdown col-md-2">
+        <div class="dropdown col-md-auto">
             <button type="button" class="btn btn-link dropdown-toggle-split" data-toggle="dropdown">
                 <img src="<%= contextPath %>/client/img/account_circle-white-48dp.svg" class="rounded-circle mr-0"
-                     width="72"
-                     height="72"/>&blacktriangledown;
+                     width="72" height="72"/>&blacktriangledown;
             </button>
             <div class="dropdown-menu">
                 <form>
@@ -93,141 +95,158 @@
     </nav>
 </header>
 
-<main class="mt-3">
+<main class="mt-3 col-md-12" style="padding-top: 7%;">
 
     <article>
 
         <jsp:include page="/ReviewAccount"></jsp:include>
         <c:forEach items="${accountDetail}" var="account">
-        <section>
-            <div class="card col-md-10 " style="margin-left: 9%;">
-                <div class="card-body">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-auto">
-                                <img src="data:image;base64,${account.getBase64()}" width="164" height="164" class="rounded-circle">
-                            </div>
-                            <c:if test="${account.getAccountType() eq 'USER'}">
-                            <div class="col-md-3">
-                                <p class="font-weight-bold" style="margin-top: 27%">${account.getFirstName()} ${account.getLastName()}</p>
-                            </div>
-                                <c:if test="${isFriend eq false and isThereRequest eq false and account.getUsername() ne username}">
-                            <div class="col-md-3">
-                                <form action="<%=contextPath%>/AddRequest" method="post">
-                                    <input type="text" value="${account.getUsername()}" name="id" readonly hidden>
-                                    <input type="text" value="${account.getAccountType()}" name="type" readonly hidden>
-                                    <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
-                                </form>
-                            </div>
-                                </c:if>
-                            <div class="col-md-3">
-                                <c:if test="${account.getUsername() ne username}">
-                                <button class="btn btn-info" data-toggle="modal" data-target="#userModal" style="margin-top: 25%">Send Message</button>
+            <section>
+                <div class="card col-md-10 " style="margin-left: 9%;">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <img src="data:image;base64,${account.getBase64()}" width="164" height="164"
+                                         class="rounded-circle">
+                                </div>
+                                <c:if test="${account.getAccountType() eq 'USER'}">
+                                    <div class="col-md-3">
+                                        <p class="font-weight-bold"
+                                           style="margin-top: 27%">${account.getFirstName()} ${account.getLastName()}</p>
+                                    </div>
+                                    <c:if test="${isFriend eq false and isThereRequest eq false and account.getUsername() ne username}">
+                                        <div class="col-md-3">
+                                            <form action="<%=contextPath%>/AddRequest" method="post">
+                                                <input type="text" value="${account.getUsername()}" name="id" readonly
+                                                       hidden>
+                                                <input type="text" value="${account.getAccountType()}" name="type"
+                                                       readonly hidden>
+                                                <button class="btn btn-warning" style="margin-top: 25%">+ Send Request
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                    <div class="col-md-3">
+                                    <c:if test="${account.getUsername() ne username}">
+                                        <button class="btn btn-info" data-toggle="modal" data-target="#userModal"
+                                                style="margin-top: 25%">Send Message
+                                        </button>
 
-                                <div class="modal fade" id="userModal">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
+                                        <div class="modal fade" id="userModal">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
 
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Send Message</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <form action="<%= contextPath %>/SendMessage" method="post">
-                                                    <input type="text" name="targetUser" value="${account.getUsername()}" readonly hidden>
-                                                    <div class="input-group button">
-                                                        <input type="text" class="form-control" placeholder="Type a replay"
-                                                               aria-describedby="sendMessage" name="message">
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-dark" type="submit" id="sendMessage">Send</button>
-                                                        </div>
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Send Message</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">
+                                                            &times;
+                                                        </button>
                                                     </div>
-                                                </form>
-                                            </div>
 
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    <div class="modal-body">
+                                                        <form action="<%= contextPath %>/SendMessage" method="post">
+                                                            <input type="text" name="targetUser"
+                                                                   value="${account.getUsername()}" readonly hidden>
+                                                            <div class="input-group button">
+                                                                <input type="text" class="form-control"
+                                                                       placeholder="Type a replay"
+                                                                       aria-describedby="sendMessage" name="message">
+                                                                <div class="input-group-append">
+                                                                    <button class="btn btn-dark" type="submit"
+                                                                            id="sendMessage">Send
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger"
+                                                                data-dismiss="modal">Close
+                                                        </button>
+                                                    </div>
+
+                                                </div>
                                             </div>
+                                        </div>
 
                                         </div>
-                                    </div>
-                                </div>
-
-                            </div>
+                                    </c:if>
                                 </c:if>
-                            </c:if>
-                            <c:if test="${account.getAccountType() eq 'GROUP'}">
-                                <div class="col-md-3">
-                                    <p class="font-weight-bold" style="margin-top: 27%">${account.getIdGroup()}</p>
-                                </div>
-                            <c:if test="${account.getGroupPrivacy() ne 'private' and isImInvited eq false and isImMember eq false and isRequestSent eq false}">
-                            <div class="col-md-6 text-right">
-                                <form action="<%=contextPath%>/AddRequest" method="post">
-                                    <input type="text" value="${account.getIdGroup()}" name="id" readonly hidden>
-                                    <input type="text" value="${account.getAccountType()}" name="type" readonly hidden>
-                                    <button class="btn btn-warning" style="margin-top: 25%">+ Send Request</button>
-                                </form>
-                                </div>
-                            </c:if>
-                            </c:if>
+                                <c:if test="${account.getAccountType() eq 'GROUP'}">
+                                    <div class="col-md-3">
+                                        <p class="font-weight-bold" style="margin-top: 27%">${account.getIdGroup()}</p>
+                                    </div>
+                                    <c:if test="${account.getGroupPrivacy() ne 'private' and isImInvited eq false and isImMember eq false and isRequestSent eq false}">
+                                        <div class="col-md-6 text-right">
+                                            <form action="<%=contextPath%>/AddRequest" method="post">
+                                                <input type="text" value="${account.getIdGroup()}" name="id" readonly
+                                                       hidden>
+                                                <input type="text" value="${account.getAccountType()}" name="type"
+                                                       readonly hidden>
+                                                <button class="btn btn-warning" style="margin-top: 25%">+ Send Request
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                </c:if>
+                            </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
-        </section>
+            </section>
 
 
-
-        <section>
-            <div class="card col-md-6 mt-3" style="margin-left: 24%">
-                <div class="card-header">
-                    About
-                </div>
-                <c:if test="${account.getAccountType() eq 'USER'}">
-                <div class="card-body">
-                    <p class="text-muted">Identify</p>
-                    <hr>
-                    <p>On chatting system since: ${account.getDateCreate()}</p>
-                    <p>${account.getUsername()}</p>
-                    <p>${account.getFirstName()} ${account.getLastName()}</p>
-                    <p>${account.getGender()}</p>
-                    <p>${account.getBirthday()}</p>
-                    <p>${account.getAge()}</p>
-
-                    <p class="text-muted mt-5">Communication</p>
-                    <hr>
-                    <p>${account.getTelephone()}</p>
-                    <p>${account.getEmail()}</p>
-
-                    <p class="text-muted mt-5">Address</p>
-                    <hr>
-                    <p>${account.getCountry()}</p>
-                    <p>${account.getState()}</p>
-                    <p>${account.getAddress()}</p>
-                </div>
-                </c:if>
-                <c:if test="${account.getAccountType() eq 'GROUP'}">
-                    <div class="card-body">
-                        <p class="text-muted">Identify</p>
-                        <hr>
-                        <p>On chatting system since: ${account.getDateCreate()}</p>
-                        <p>${account.getIdGroup()}</p>
-                        <p class="text-muted mt-5">Activity</p>
-                        <hr>
-                        <p>${account.getGroupActivity()}</p>
+            <section class="col-md-6 mt-3" style="margin-left: 24%;">
+                <div class="card">
+                    <div class="card-header">
+                        About
                     </div>
-                </c:if>
-            </div>
-        </section>
+                    <c:if test="${account.getAccountType() eq 'USER'}">
+                        <div class="card-body col-md-11">
+                            <p class="text-muted">Identify</p>
+                            <hr>
+                            <p>On chatting system since: ${account.getDateCreate()}</p>
+                            <p>${account.getUsername()}</p>
+                            <p>${account.getFirstName()} ${account.getLastName()}</p>
+                            <p>${account.getGender()}</p>
+                            <p>${account.getBirthday()}</p>
+                            <p>${account.getAge()}</p>
+
+                            <p class="text-muted mt-5">Communication</p>
+                            <hr>
+                            <p>${account.getTelephone()}</p>
+                            <p>${account.getEmail()}</p>
+
+                            <p class="text-muted mt-5">Address</p>
+                            <hr>
+                            <p>${account.getCountry()}</p>
+                            <p>${account.getState()}</p>
+                            <p>${account.getAddress()}</p>
+                        </div>
+                    </c:if>
+                    <c:if test="${account.getAccountType() eq 'GROUP'}">
+                        <div class="card-body">
+                            <p class="text-muted">Identify</p>
+                            <hr>
+                            <p>On chatting system since: ${account.getDateCreate()}</p>
+                            <p>${account.getIdGroup()}</p>
+                            <p class="text-muted mt-5">Activity</p>
+                            <hr>
+                            <p>${account.getGroupActivity()}</p>
+                        </div>
+                    </c:if>
+                </div>
+            </section>
         </c:forEach>
 
     </article>
 
 </main>
 
-<footer>
+<footer style="padding-top: 25em;">
     <nav class="navbar"
          style="background-color: #d3c7cd; height: 11em; width: 100%;">
         <p>Louay Amr © 2020</p>

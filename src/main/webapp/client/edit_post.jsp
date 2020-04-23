@@ -112,9 +112,9 @@
     </article>
 
 </main>
-<footer>
+<footer style="padding-top: 31em;">
     <nav class="navbar"
-         style="background-color: #d3c7cd; height: 11em; width: 100%;margin-top: 50%">
+         style="background-color: #d3c7cd; height: 11em; width: 100%;">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
