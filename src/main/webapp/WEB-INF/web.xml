@@ -257,6 +257,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddGroupImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.AddGroupImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroupImgPost</servlet-name>
+        <url-pattern>/AddGroupImgPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddGroupTextPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.AddGroupTextPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroupTextPost</servlet-name>
+        <url-pattern>/AddGroupTextPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SwitchToGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.SwitchToGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SwitchToGroup</servlet-name>
+        <url-pattern>/SwitchToGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

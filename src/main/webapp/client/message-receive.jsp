@@ -150,8 +150,8 @@
             <div class="card-body">
 
                 <section class="float-left">
-                    <div class="col-1 mt-2 mb-2 ">
-                        <div class="list-group" role="tablist" style="height: 40em; width: 20em; overflow: auto">
+                    <div class="col-md-12 mt-2 mb-2 " style="height: 40em;overflow: auto;">
+                        <div class="list-group" role="tablist">
 
                             <jsp:include page="/ViewListReceiveMessage"></jsp:include>
                             <c:forEach items="${notSeenSet}" var="set">

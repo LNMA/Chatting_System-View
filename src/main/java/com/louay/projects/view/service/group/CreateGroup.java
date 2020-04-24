@@ -43,6 +43,6 @@ public class CreateGroup extends HttpServlet {
         AddGroupController groupController = (AddGroupController) this.context.getBean("addGroupCont");
         groupController.createGroup(group, (String) session.getAttribute("username"));
 
-        response.sendRedirect(request.getContextPath() +"\\group\\group-control.jsp");
+        response.sendRedirect(request.getContextPath() + "\\group\\group-control.jsp");
     }
 }

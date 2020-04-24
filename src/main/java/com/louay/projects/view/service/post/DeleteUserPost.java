@@ -6,6 +6,8 @@ import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
+import com.louay.projects.model.chains.communications.group.GroupImgPost;
+import com.louay.projects.model.chains.communications.group.GroupTextPost;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -33,27 +35,43 @@ public class DeleteUserPost extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session.getAttribute("username") == null) {
             response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
-        } else {
+        }
+
             PostClassName postClassName = PostClassName.valueOf(request.getParameter("postClassName"));
             String idPost = request.getParameter("idPost");
 
             Post post = null;
             if (postClassName == PostClassName.ACCOUNT_TEX_POST) {
                 post = this.context.getBean(AccountTextPost.class);
+
             } else if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
                 post = this.context.getBean(AccountImgPost.class);
+
+            }else if (postClassName == PostClassName.GROUP_TEXT_POST) {
+                post = this.context.getBean(GroupTextPost.class);
+
+            } else if (postClassName == PostClassName.GROUP_IMG_POST) {
+                post = this.context.getBean(GroupImgPost.class);
+
+            } else {
+                throw new UnsupportedOperationException("unsupported operation.");
+
             }
 
             if (post != null) {
                 post.setIdPost(Long.valueOf(idPost));
                 Users users = post.getUser();
                 users.setUsername((String) session.getAttribute("username"));
-
             }
             DeleteUserPostController deleteUserPostController = (DeleteUserPostController) this.context.getBean("DeleteUserPost");
             deleteUserPostController.deletePost(post, postClassName);
 
+            if (postClassName == PostClassName.GROUP_IMG_POST || postClassName == PostClassName.GROUP_TEXT_POST){
+                response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
+
+            }
+
             response.sendRedirect(request.getContextPath()+"\\client\\home-client.jsp");
         }
-    }
+
 }

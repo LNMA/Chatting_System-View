@@ -139,9 +139,9 @@
                         </div>
 
                         <div class="col-md-1" style="margin-top: 6%;">
-                            <form action="<%=contextPath%>/group/group-switch.jsp" method="get">
-                                <input type="text" value="${group.value.getGroup().getIdGroup()}" hidden readonly>
-                                <input type="text" value="${group.value.getGroupMemberType()}" hidden readonly>
+                            <form action="<%=contextPath%>/SwitchToGroup" method="post">
+                                <input type="text" name="idGroup" value="${group.value.getGroup().getIdGroup()}" hidden readonly>
+                                <input type="text" name="memberType" value="${group.value.getGroupMemberType()}" hidden readonly>
                                 <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
                             </form>
                         </div>

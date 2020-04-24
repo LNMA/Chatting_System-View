@@ -8,10 +8,8 @@
 <%! String usernameSession;%>
 <%! String passwordSession;%>
 <%
-    idGroupSession = request.getParameter("idGroup");
-    session.setAttribute("idGroup", idGroupSession);
-    idGroupSession = request.getParameter("type");
-    session.setAttribute("memberType", memberTypeSession);
+    idGroupSession = (String) session.getAttribute("idGroup");
+    memberTypeSession = (String) session.getAttribute("memberType");
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
     StringBuilder contextPath = new StringBuilder(request.getContextPath());
@@ -102,19 +100,6 @@
     </nav>
 </header>
 
-<nav class="fixed-top">
-    <div class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
-        <div class="navbar-brand col-md-10 h-3">
-            <p class="font-weight-bold mt-1 text-white">Group Control</p>
-        </div>
-        <div class="nav-item col-md-2">
-            <form>
-                <button class="btn btn-warning" type="submit">+ Create Group</button>
-            </form>
-        </div>
-    </div>
-</nav>
-
 <main class="col-md-12" style="padding-top: 7em;">
 
     <article class="float-right col-md-9 mr-5">
@@ -140,12 +125,13 @@
             </div>
         </section>
 
-        <jsp:include page="/GetUserCirclePost"></jsp:include>
-        <c:forEach items="${userCirclePost}" var="post">
+        <jsp:include page="/GetGroupPost"></jsp:include>
+        <c:forEach items="${postTreeSet}" var="post">
             <section class="col-md-13 mt-3">
                 <div class="card">
                     <div class="card-header text-muted">
-                        Posted by ${post.getUser().getUsername()}, At : ${post.getDatePost()}
+                        <img src="data:image/png;base64,${post.getUser().getBase64()}" width="32" height="32" class="rounded-circle">
+                        Posted by ${post.getUser().getFirstName()} ${post.getUser().getLastName()}, At : ${post.getDatePost()}
 
 
                         <c:if test="${post.getUser().getUsername() eq username}">
@@ -154,11 +140,13 @@
                                     <img src="../client/img/settings-black-48dp.svg" width="16" height="16" >
                                 </div>
                                 <div class="dropdown-menu">
+                                    <c:if test="${memberType eq 'master'}">
                                     <form action="<%= contextPath %>/DeleteUserPost" method="post">
                                         <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
                                         <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
                                         <input class="dropdown-item" type="submit" value="Delete">
                                     </form>
+                                    </c:if>
                                     <form action="<%= contextPath %>/client/edit_post.jsp" method="get">
                                         <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
                                         <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
@@ -186,7 +174,7 @@
 </main>
 
 
-<footer>
+<footer style="margin-top: 25em;">
     <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
         <p>Louay Amr © 2020</p>
     </nav>

@@ -1,7 +1,6 @@
 package com.louay.projects.view.service.post;
 
 import com.louay.projects.controller.service.post.EditUserTextPostController;
-import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
@@ -38,29 +37,51 @@ public class EditUserTextPost extends HttpServlet {
         PostClassName postClassName = PostClassName.valueOf(request.getParameter("postClassName"));
         StringBuilder newPost = new StringBuilder(request.getParameter("post"));
 
-        Post post = initPost(postClassName, newPost);
-        post.setIdPost(Long.valueOf(idPost));
-        Users users = post.getUser();
-        users.setUsername((String) session.getAttribute("username"));
+        Post post = initPost(postClassName, newPost, request, Long.valueOf(idPost));
 
         EditUserTextPostController editUserPostController = (EditUserTextPostController) this.context.getBean("editUserTextPost");
         editUserPostController.editTextPost(postClassName, post);
 
-        response.sendRedirect(request.getContextPath()+"\\client\\home-client.jsp");
+        if (postClassName == PostClassName.GROUP_TEXT_POST) {
+            response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
+        }
+
+        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
     }
 
-    private Post initPost(PostClassName postClassName, StringBuilder newPost){
+    private Post initPost(PostClassName postClassName, StringBuilder newPost, HttpServletRequest request, Long idPost) {
         Post post;
+
         if (postClassName == PostClassName.ACCOUNT_TEX_POST) {
-            post = this.context.getBean(AccountTextPost.class);
-            ((AccountTextPost) post).setPostStringBuilder(newPost);
+            post = buildAccountTextPost(request, newPost, idPost);
 
         } else if (postClassName == PostClassName.GROUP_TEXT_POST) {
-            post = this.context.getBean(GroupTextPost.class);
-            ((GroupTextPost) post).setPostStringBuilder(newPost);
+            post = buildGroupTextPost(request, newPost, idPost);
+
         } else {
-            throw new UnsupportedOperationException("only edit text post are allow.");
+            throw new UnsupportedOperationException("only edit text post are allow here.");
         }
         return post;
+    }
+
+    private AccountTextPost buildAccountTextPost(HttpServletRequest request, StringBuilder newPost, Long idPost) {
+        AccountTextPost accountTextPost = this.context.getBean(AccountTextPost.class);
+        HttpSession session = request.getSession(false);
+        accountTextPost.setIdPost(idPost);
+        accountTextPost.setPostStringBuilder(newPost);
+        accountTextPost.getUser().setUsername((String) session.getAttribute("username"));
+
+        return accountTextPost;
+    }
+
+    private GroupTextPost buildGroupTextPost(HttpServletRequest request, StringBuilder newPost, Long idPost) {
+        GroupTextPost groupTextPost = this.context.getBean(GroupTextPost.class);
+        HttpSession session = request.getSession(false);
+        groupTextPost.setIdPost(idPost);
+        groupTextPost.setPostStringBuilder(newPost);
+        groupTextPost.getUser().setUsername((String) session.getAttribute("username"));
+        groupTextPost.getGroups().setIdGroup((String) session.getAttribute("idGroup"));
+
+        return groupTextPost;
     }
 }

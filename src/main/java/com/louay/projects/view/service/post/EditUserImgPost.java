@@ -1,7 +1,6 @@
 package com.louay.projects.view.service.post;
 
 import com.louay.projects.controller.service.post.EditUserImgPostController;
-import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
@@ -48,10 +47,7 @@ public class EditUserImgPost extends HttpServlet {
         String idPost = request.getParameter("idPost");
         PostClassName postClassName = PostClassName.valueOf(request.getParameter("postClassName"));
 
-        Post post = initPost(postClassName);
-        post.setIdPost(Long.valueOf(idPost));
-        Users users = post.getUser();
-        users.setUsername((String) session.getAttribute("username"));
+        Post post = initPost(postClassName, request, Long.valueOf(idPost));
 
         final Part filePart = request.getPart("filename");
         final String fileName = getFileName(filePart);
@@ -78,22 +74,12 @@ public class EditUserImgPost extends HttpServlet {
                 System.out.println(fne.getMessage());
             }
         }
-        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
-    }
 
-    private Post initPost(PostClassName postClassName) {
-        Post post;
-        if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
-            post = this.context.getBean(AccountImgPost.class);
-
-        } else if (postClassName == PostClassName.GROUP_IMG_POST) {
-            post = this.context.getBean(GroupImgPost.class);
-
-        } else {
-            throw new UnsupportedOperationException("only edit img post are allow.");
+        if (postClassName == PostClassName.GROUP_IMG_POST) {
+            response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
         }
 
-        return post;
+        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
     }
 
     private String getFileName(final Part part) {
@@ -106,5 +92,39 @@ public class EditUserImgPost extends HttpServlet {
             }
         }
         return null;
+    }
+
+    private Post initPost(PostClassName postClassName, HttpServletRequest request, Long idPost) {
+        Post post;
+
+        if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
+            post = buildAccountImgPost(request, idPost);
+
+        } else if (postClassName == PostClassName.GROUP_IMG_POST) {
+            post = buildGroupImgPost(request, idPost);
+
+        } else {
+            throw new UnsupportedOperationException("only edit img post are allow here.");
+        }
+        return post;
+    }
+
+    private AccountImgPost buildAccountImgPost(HttpServletRequest request, Long idPost) {
+        AccountImgPost accountImgPost = this.context.getBean(AccountImgPost.class);
+        HttpSession session = request.getSession(false);
+        accountImgPost.setIdPost(idPost);
+        accountImgPost.getUser().setUsername((String) session.getAttribute("username"));
+
+        return accountImgPost;
+    }
+
+    private GroupImgPost buildGroupImgPost(HttpServletRequest request, Long idPost) {
+        GroupImgPost groupImgPost = this.context.getBean(GroupImgPost.class);
+        HttpSession session = request.getSession(false);
+        groupImgPost.setIdPost(idPost);
+        groupImgPost.getUser().setUsername((String) session.getAttribute("username"));
+        groupImgPost.getGroups().setIdGroup((String) session.getAttribute("idGroup"));
+
+        return groupImgPost;
     }
 }
