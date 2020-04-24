@@ -1,0 +1,56 @@
+.background {
+    background-color: #d2d1e0;
+    background-size: cover;
+}
+
+.aside {
+    float: left;
+    width: 22%;
+    margin-right: 2%;
+}
+
+.navLinkHover:link{
+    color: #bcbacb;
+}
+
+.navLinkHover:hover{
+    color: white;
+}
+
+.msg-background{
+    background: white fixed;
+    background-size: cover;
+    border-radius: 0.5em 0.5em;
+    width: 63em;
+    height: 60em;
+
+}
+
+.mainCreate {
+    background: #6c6082 no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.formCreate {
+    width: 70%;
+    height: auto;
+    margin: 6% 14% 5%;
+    background-color: white;
+    border-radius: 3% 3%;
+
+}
+
+.internalForm {
+    margin-left: 8%;
+}
+
+.formHead {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 25px;
+    font-weight: 900;
+}

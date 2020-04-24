@@ -42,7 +42,7 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/client/home-client.js"></script>
-    <title>Home `by Louay Amr'</title>
+    <title>Message Sent `by Louay Amr'</title>
 </head>
 <body class="mainBackground">
 

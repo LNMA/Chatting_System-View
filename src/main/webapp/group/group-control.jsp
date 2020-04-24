@@ -17,7 +17,7 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(10).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
@@ -34,17 +34,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
         @import url(<%= contextPath %>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
-        @import url(<%= contextPath %>/client/home-client.css);
         @import url(<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(<%= contextPath %>/group/group.css);
     </style>
     <script src="<%= contextPath %>/libr/jQuery-3.4.1/jquery.min.js"></script>
     <script src="<%= contextPath %>/libr/popper-1.16/popper.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
-    <script src="<%= contextPath %>/client/home-client.js"></script>
-    <title>Request Sent 'by Louay Amr'</title>
+    <script src="<%= contextPath %>/group/group.js"></script>
+    <title>Group Control `by Louay Amr'</title>
 </head>
-<body class="mainBackground">
+<body class="background">
 
 <header class="fixed-top">
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
@@ -55,7 +55,8 @@
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/signin/login.jsp">Home</a></p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a></p>
+                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a>
+        </p>
         <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
         </p>
 
@@ -65,9 +66,10 @@
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
-        <a class="col-md-auto col-lg-offset-1"  href="<%=contextPath%>/client/message-receive.jsp">
+        <a class="col-md-auto col-lg-offset-1" href="<%=contextPath%>/client/message-receive.jsp">
             <button class="btn btn-outline-info" type="submit">
-                <span class="badge badge-primary badge-pill mb-0 "><c:out value="${messageNotSeen}">${messageNotSeen}</c:out></span>
+                <span class="badge badge-primary badge-pill mb-0 "><c:out
+                        value="${messageNotSeen}">${messageNotSeen}</c:out></span>
                 <img class="mt-0" src="<%= contextPath %>/client/img/message-white-48dp.svg" id="messageImg" height="24"
                      width="24"/>
             </button>
@@ -93,43 +95,55 @@
     </nav>
 </header>
 
-<main class="col-md-12" style="padding-top: 7%">
+<nav class="fixed-top">
+    <div class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
+        <div class="navbar-brand col-md-10 h-3">
+            <p class="font-weight-bold mt-1 text-white">Group Control</p>
+        </div>
+        <div class="nav-item col-md-2">
+            <form>
+                <button class="btn btn-warning" type="submit">+ Create Group</button>
+            </form>
+        </div>
+    </div>
+</nav>
 
-    <article >
-        <section style="margin-left: 20%">
+<main class="col-md-12" style="padding-top: 7em;">
 
-            <jsp:include page="/GetRequestSent"></jsp:include>
-            <c:forEach items="${requestMap}" var="request">
-                <div class="card col-9 mt-3">
-                    <div class="card-body">
-                        <div class="form-row">
+    <article>
 
-                            <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${request.value.getTargetAccount().getUsername()}"
-                                       name="strange" readonly hidden>
-                                <input type="text" value="${request.value.getTargetAccount().getAccountType()}"
-                                       name="type" readonly hidden>
-                                <button class="btn btn-block" type="submit">
-                                    <div class="form-row">
-                                        <div class="col-1">
-                                            <img src="data:image/png;base64,${request.value.getSourceAccount().getBase64()}"
-                                                 class="rounded-circle" width="128" height="128">
-                                        </div>
-                                        <div class="col-10">
-                                            <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
-                                                    ${request.value.getSourceAccount().getFirstName()} ${request.value.getSourceAccount().getLastName()}</p>
-                                        </div>
+        <section class="col-md-8 mt-3" style="margin-left: 16%;">
+
+            <div class="card">
+
+                <div class="card-header">
+                    My Group
+                </div>
+
+                <div class="card-body col-md-8" style="margin-left: 10%;">
+                    <div class="row row-col-1 row-cols-md-2">
+
+                        <div class="col-md-11">
+                            <form>
+                                <button class="btn btn-block">
+                                    <div class="row">
+                                        <img src="img/broken_robot.png" width="94" height="94" class="rounded-circle">
+                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">idGroup</p>
                                     </div>
-
                                 </button>
                             </form>
+                        </div>
 
+                        <div class="col-md-1" style="margin-top: 6%;">
+                            <form>
+                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
+                            </form>
                         </div>
 
                     </div>
                 </div>
-                </div>
-            </c:forEach>
+
+            </div>
 
         </section>
 
@@ -137,13 +151,11 @@
 
 </main>
 
-<footer style="padding-top: 31em;">
-    <nav class="navbar"
-         style="background-color: #d3c7cd; height: 11em; width: 100%;">
+
+<footer>
+    <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
-
-
 </body>
 </html>
