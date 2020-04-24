@@ -1,6 +1,8 @@
 package com.louay.projects.view.service.group;
 
+import com.louay.projects.controller.service.group.AddGroupController;
 import com.louay.projects.model.chains.accounts.group.Groups;
+import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -36,7 +38,11 @@ public class CreateGroup extends HttpServlet {
         group.setIdGroup(idGroup);
         group.setGroupPrivacy(privacy);
         group.setGroupActivity(activity);
+        group.setDateCreate(NowDate.getNowTimestamp());
 
+        AddGroupController groupController = (AddGroupController) this.context.getBean("addGroupCont");
+        groupController.createGroup(group, (String) session.getAttribute("username"));
 
+        response.sendRedirect(request.getContextPath() +"\\group\\group-control.jsp");
     }
 }

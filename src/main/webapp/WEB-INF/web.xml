@@ -239,6 +239,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetUserGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetUserGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserGroup</servlet-name>
+        <url-pattern>/GetUserGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetGroupPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupPost</servlet-name>
+        <url-pattern>/GetGroupPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>
@@ -258,7 +276,6 @@
         <error-code>500</error-code>
         <location>/ErrorServlet</location>
     </error-page>
-
 
 
     <session-config>

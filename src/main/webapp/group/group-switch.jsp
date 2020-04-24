@@ -3,10 +3,15 @@
 <%@ page errorPage="../util/error.jsp" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.util.Calendar" %>
-
+<%! String idGroupSession; %>
+<%! String memberTypeSession; %>
 <%! String usernameSession;%>
 <%! String passwordSession;%>
 <%
+    idGroupSession = request.getParameter("idGroup");
+    session.setAttribute("idGroup", idGroupSession);
+    idGroupSession = request.getParameter("type");
+    session.setAttribute("memberType", memberTypeSession);
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
     StringBuilder contextPath = new StringBuilder(request.getContextPath());
@@ -17,10 +22,12 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(10).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(40).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
+        session.setAttribute("idGroup", idGroupSession);
+        session.setAttribute("memberType", memberTypeSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
 
@@ -95,71 +102,91 @@
     </nav>
 </header>
 
-<nav class="fixed-top" style="margin-top: 6em;">
+<nav class="fixed-top">
     <div class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
         <div class="navbar-brand col-md-10 h-3">
             <p class="font-weight-bold mt-1 text-white">Group Control</p>
         </div>
         <div class="nav-item col-md-2">
-            <a href="<%=contextPath%>/group/creat-group.html">
+            <form>
                 <button class="btn btn-warning" type="submit">+ Create Group</button>
-            </a>
+            </form>
         </div>
     </div>
 </nav>
 
-<main class="col-md-12" style="padding-top: 13em;">
+<main class="col-md-12" style="padding-top: 7em;">
 
-    <article>
+    <article class="float-right col-md-9 mr-5">
 
-        <section class="col-md-8 mt-3" style="margin-left: 16%;">
-
+        <section class="col-md-13">
             <div class="card">
-
                 <div class="card-header">
-                    My Group
-                </div>
-
-                <jsp:include page="/GetUserGroup"></jsp:include>
-                <c:forEach items="${groupMap}" var="group">
-                <div class="card-body col-md-8" style="margin-left: 10%;">
-                    <div class="row row-col-1 row-cols-md-2">
-
-                        <div class="col-md-11">
-                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${group.value.getGroup().getIdGroup()}" name="strange" hidden readonly>
-                                <input type="text" value="${group.value.getGroup().getAccountType()}" name="type" hidden readonly>
-                                <button class="btn btn-block">
-                                    <div class="row">
-                                        <img src="data:img/png;base64,${group.value.getGroup().getBase64()}" width="94" height="94" class="rounded-circle">
-                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">${group.value.getGroup().getIdGroup()}</p>
-                                    </div>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="col-md-1" style="margin-top: 6%;">
-                            <form action="<%=contextPath%>/group/group-switch.jsp" method="get">
-                                <input type="text" value="${group.value.getGroup().getIdGroup()}" hidden readonly>
-                                <input type="text" value="${group.value.getGroupMemberType()}" hidden readonly>
-                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
-                            </form>
-                        </div>
-
+                    <div class="btn-group btn-toolbar">
+                        <button type="button" class="btn btn-outline-info " id="inputStringPost"><img
+                                src="<%= contextPath %>/client/img/post_add-black-48dp.svg" class="mb-1" width="30"
+                                height="30"/>
+                            Creat Post
+                        </button>
+                        <button type="button" class="btn btn-outline-info " id="inputImg"><img
+                                src="<%= contextPath %>/client/img/photo_size_select_actual-black-48dp.svg" class="mb-1"
+                                width="30"
+                                height="30"/>
+                            Photo
+                        </button>
                     </div>
                 </div>
-                </c:forEach>
-
+                <div class="card-body" id="addPost" hidden></div>
             </div>
-
         </section>
+
+        <jsp:include page="/GetUserCirclePost"></jsp:include>
+        <c:forEach items="${userCirclePost}" var="post">
+            <section class="col-md-13 mt-3">
+                <div class="card">
+                    <div class="card-header text-muted">
+                        Posted by ${post.getUser().getUsername()}, At : ${post.getDatePost()}
+
+
+                        <c:if test="${post.getUser().getUsername() eq username}">
+                            <div class="dropdown dropleft float-right">
+                                <div class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="../client/img/settings-black-48dp.svg" width="16" height="16" >
+                                </div>
+                                <div class="dropdown-menu">
+                                    <form action="<%= contextPath %>/DeleteUserPost" method="post">
+                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
+                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                        <input class="dropdown-item" type="submit" value="Delete">
+                                    </form>
+                                    <form action="<%= contextPath %>/client/edit_post.jsp" method="get">
+                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
+                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                        <input class="dropdown-item" type="submit" value="Edit">
+                                    </form>
+                                </div>
+                            </div>
+                        </c:if>
+
+                    </div>
+                    <div class="card-body">
+                        <c:if test="${post.getType() eq 'TEXT_POST'}">
+                            ${post.getPost()}
+                        </c:if>
+                        <c:if test="${post.getType() eq 'IMG_POST'}">
+                            <img src="data:image/png;base64,${post.getBase64()}" class="card-img-top"/>
+                        </c:if>
+                    </div>
+                </div>
+            </section>
+        </c:forEach>
 
     </article>
 
 </main>
 
 
-<footer style="padding-top: 25%;">
+<footer>
     <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
         <p>Louay Amr © 2020</p>
     </nav>
