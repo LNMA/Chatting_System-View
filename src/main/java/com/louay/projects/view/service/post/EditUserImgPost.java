@@ -1,6 +1,6 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.EditUserImgPostController;
+import com.louay.projects.controller.service.post.EditUserImgPostController;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.constant.PostClassName;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
         maxFileSize = 16 * 1024 * 1024,
         maxRequestSize = 65 * 1024 * 1024,
         //TODO modify file path
-        location = "C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
+        location = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
         fileSizeThreshold = 1024 * 1024
 )
 public class EditUserImgPost extends HttpServlet {
@@ -47,9 +47,7 @@ public class EditUserImgPost extends HttpServlet {
         String idPost = request.getParameter("idPost");
         PostClassName postClassName = PostClassName.valueOf(request.getParameter("postClassName"));
 
-        Post post = initPost(postClassName);
-        post.setIdPost(Long.valueOf(idPost));
-        post.setUsername((String) session.getAttribute("username"));
+        Post post = initPost(postClassName, request, Long.valueOf(idPost));
 
         final Part filePart = request.getPart("filename");
         final String fileName = getFileName(filePart);
@@ -76,22 +74,17 @@ public class EditUserImgPost extends HttpServlet {
                 System.out.println(fne.getMessage());
             }
         }
-        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
-    }
 
-    private Post initPost(PostClassName postClassName) {
-        Post post;
-        if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
-            post = this.context.getBean(AccountImgPost.class);
+        if (postClassName == PostClassName.GROUP_IMG_POST) {
+            response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
 
-        } else if (postClassName == PostClassName.GROUP_IMG_POST) {
-            post = this.context.getBean(GroupImgPost.class);
+        }else if (postClassName == PostClassName.ACCOUNT_IMG_POST){
+            response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
 
-        } else {
-            throw new UnsupportedOperationException("only edit img post are allow.");
+        }else {
+            throw new UnsupportedOperationException("Unsupported redirect postClassName.");
         }
 
-        return post;
     }
 
     private String getFileName(final Part part) {
@@ -104,5 +97,39 @@ public class EditUserImgPost extends HttpServlet {
             }
         }
         return null;
+    }
+
+    private Post initPost(PostClassName postClassName, HttpServletRequest request, Long idPost) {
+        Post post;
+
+        if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
+            post = buildAccountImgPost(request, idPost);
+
+        } else if (postClassName == PostClassName.GROUP_IMG_POST) {
+            post = buildGroupImgPost(request, idPost);
+
+        } else {
+            throw new UnsupportedOperationException("only edit img post are allow here.");
+        }
+        return post;
+    }
+
+    private AccountImgPost buildAccountImgPost(HttpServletRequest request, Long idPost) {
+        AccountImgPost accountImgPost = this.context.getBean(AccountImgPost.class);
+        HttpSession session = request.getSession(false);
+        accountImgPost.setIdPost(idPost);
+        accountImgPost.getUser().setUsername((String) session.getAttribute("username"));
+
+        return accountImgPost;
+    }
+
+    private GroupImgPost buildGroupImgPost(HttpServletRequest request, Long idPost) {
+        GroupImgPost groupImgPost = this.context.getBean(GroupImgPost.class);
+        HttpSession session = request.getSession(false);
+        groupImgPost.setIdPost(idPost);
+        groupImgPost.getUser().setUsername((String) session.getAttribute("username"));
+        groupImgPost.getGroups().setIdGroup((String) session.getAttribute("idGroup"));
+
+        return groupImgPost;
     }
 }

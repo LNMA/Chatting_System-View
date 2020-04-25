@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="../util/error.jsp" %>
-<%@ page import="java.util.Calendar" %>
 <%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.util.Calendar" %>
 
 <%! String usernameSession;%>
 <%! String passwordSession;%>
@@ -23,6 +23,7 @@
         session.setAttribute("password", passwordSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
+
 %>
 
 
@@ -32,16 +33,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-        @import url(<%=contextPath%>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
-        @import url(<%=contextPath%>/client/home-client.css);
-        @import url(<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(<%= contextPath %>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
+        @import url(<%= contextPath %>/client/home-client.css);
+        @import url(<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
     </style>
-    <script src="<%=contextPath%>/libr/jQuery-3.4.1/jquery.min.js"></script>
-    <script src="<%=contextPath%>/libr/popper-1.16/popper.js"></script>
-    <script src="<%=contextPath%>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
-    <script src="<%=contextPath%>/client/home-client.js"></script>
-    <title>User Friend 'by Louay Amr'</title>
+    <script src="<%= contextPath %>/libr/jQuery-3.4.1/jquery.min.js"></script>
+    <script src="<%= contextPath %>/libr/popper-1.16/popper.js"></script>
+    <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
+    <script src="<%= contextPath %>/client/home-client.js"></script>
+    <title>Request Received 'by Louay Amr'</title>
 </head>
 <body class="mainBackground">
 
@@ -92,38 +93,56 @@
     </nav>
 </header>
 
-<main class="col-md-12" style="padding-top: 7%;" >
+<main class="mt-3 col-md-12" style="padding-top: 7%;">
 
-    <article style="margin-left: 19%">
+    <article>
+        <section style="margin-left: 20%">
 
-        <jsp:include page="/ViewMyFriend"></jsp:include>
-        <c:forEach items="${pictureList}" var="picture">
-            <section class="col-md-9 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
-                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
-                            <button class="btn btn-block w-75" type="submit">
+            <jsp:include page="/GetRequestReceive"></jsp:include>
+            <c:forEach items="${requestMap}" var="request">
+            <div class="card col-9 mt-3">
+                <div class="card-body">
+                    <div class="form-row">
+
+                        <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
+                            <input type="text" value="${request.value.getSourceAccount().getUsername()}" name="strange" readonly hidden>
+                            <input type="text" value="${request.value.getSourceAccount().getAccountType()}" name="type" readonly hidden>
+                            <button class="btn btn-block" type="submit">
                                 <div class="form-row">
-                                    <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
-                                         width="164" height="164"/>
-                                    <p class="font-weight-bolder h5"
-                                       style="margin-left: 13%; margin-top: 10%">${picture.getUsername()} </p>
+                                    <div class="col-1">
+                                        <img src="data:image/png;base64,${request.value.getSourceAccount().getBase64()}" class="rounded-circle" width="128" height="128">
+                                    </div>
+                                    <div class="col-10">
+                                        <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
+                                                ${request.value.getSourceAccount().getFirstName()} ${request.value.getSourceAccount().getLastName()}</p>
+                                    </div>
                                 </div>
+
                             </button>
                         </form>
+
+                        <div class="col-2">
+                            <form action="<%=contextPath%>/AddUserFriend" method="post">
+                                <input type="text" value="${request.value.getSourceAccount().getUsername()}" name="strange" readonly hidden>
+                                <input type="text" value="${request.value.getSourceAccount().getAccountType()}" name="type" readonly hidden>
+                                <button type="submit" class="btn btn-success" style="margin-top: 38%;">Accept</button>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
-            </section>
-        </c:forEach>
+            </div>
+            </c:forEach>
+
+        </section>
 
     </article>
 
 </main>
-<footer style="padding-top: 32em">
+
+<footer style="padding-top: 31em;">
     <nav class="navbar"
-         style="background-color: #d3c7cd; height: 11em; width: 100%">
+         style="background-color: #d3c7cd; height: 11em; width: 100%;">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>

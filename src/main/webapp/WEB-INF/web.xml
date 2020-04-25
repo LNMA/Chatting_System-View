@@ -122,6 +122,186 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>SendMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.SendMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendMessage</servlet-name>
+        <url-pattern>/SendMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewListReceiveMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewListReceiveMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewListReceiveMessage</servlet-name>
+        <url-pattern>/ViewListReceiveMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewReceiveMessageContent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewReceiveMessageContent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewReceiveMessageContent</servlet-name>
+        <url-pattern>/ViewReceiveMessageContent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReviewAccount</servlet-name>
+        <servlet-class>com.louay.projects.view.service.search.ReviewAccount</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReviewAccount</servlet-name>
+        <url-pattern>/ReviewAccount</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddRequest</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddRequest</servlet-name>
+        <url-pattern>/AddRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewAllNotSeenMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewAllNotSeenMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewAllNotSeenMessage</servlet-name>
+        <url-pattern>/ViewAllNotSeenMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewSentMessageContent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewSentMessageContent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewSentMessageContent</servlet-name>
+        <url-pattern>/ViewSentMessageContent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ViewListSentMessage</servlet-name>
+        <servlet-class>com.louay.projects.view.service.message.ViewListSentMessage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ViewListSentMessage</servlet-name>
+        <url-pattern>/ViewListSentMessage</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.GetUserImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserImgPost</servlet-name>
+        <url-pattern>/GetUserImgPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetRequestReceive</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetRequestReceive</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetRequestReceive</servlet-name>
+        <url-pattern>/GetRequestReceive</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetRequestSent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetRequestSent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetRequestSent</servlet-name>
+        <url-pattern>/GetRequestSent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddUserFriend</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddUserFriend</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUserFriend</servlet-name>
+        <url-pattern>/AddUserFriend</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.CreateGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateGroup</servlet-name>
+        <url-pattern>/CreateGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetUserGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserGroup</servlet-name>
+        <url-pattern>/GetUserGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetGroupPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupPost</servlet-name>
+        <url-pattern>/GetGroupPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddGroupImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.AddGroupImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroupImgPost</servlet-name>
+        <url-pattern>/AddGroupImgPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddGroupTextPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.AddGroupTextPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroupTextPost</servlet-name>
+        <url-pattern>/AddGroupTextPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SwitchToGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.SwitchToGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SwitchToGroup</servlet-name>
+        <url-pattern>/SwitchToGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupPicture</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetGroupPicture</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupPicture</servlet-name>
+        <url-pattern>/GetGroupPicture</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupMember</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetGroupMember</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupMember</servlet-name>
+        <url-pattern>/GetGroupMember</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>
@@ -130,11 +310,15 @@
         <url-pattern>/ErrorServlet</url-pattern>
     </servlet-mapping>
     <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/ErrorServlet</location>
+    </error-page>
+    <error-page>
         <error-code>404</error-code>
         <location>/ErrorServlet</location>
     </error-page>
     <error-page>
-        <exception-type>java.lang.Exception</exception-type>
+        <error-code>500</error-code>
         <location>/ErrorServlet</location>
     </error-page>
 

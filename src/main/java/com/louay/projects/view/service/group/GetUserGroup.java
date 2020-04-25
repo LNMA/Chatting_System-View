@@ -1,8 +1,9 @@
-package com.louay.projects.view.service.user;
+package com.louay.projects.view.service.group;
 
-import com.louay.projects.controller.service.client.ViewMyFriendController;
+import com.louay.projects.controller.service.group.GetUserGroupController;
 import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.model.chains.member.group.GroupMembers;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -12,12 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
+import java.util.Map;
 
-import java.util.Set;
-
-public class ViewMyFriend extends HttpServlet implements Serializable {
-
+public class GetUserGroup extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -30,18 +28,16 @@ public class ViewMyFriend extends HttpServlet implements Serializable {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session =request.getSession(false);
-        if (session.getAttribute("username") == null){
-            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("username") == null) {
+            response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
+        Users user = this.context.getBean(Client.class);
+        user.setUsername((String) session.getAttribute("username"));
 
-        Users users = context.getBean(Client.class);
+        GetUserGroupController userGroupController = (GetUserGroupController) this.context.getBean("getUserGroupCont");
+        Map<Long, GroupMembers> groupMembersMap = userGroupController.getGroup(user);
 
-        users.setUsername((String) session.getAttribute("username"));
-
-        ViewMyFriendController friendByName = (ViewMyFriendController) this.context.getBean("findFriendByName");
-        Set<Users> set = friendByName.execute(users);
-
-        request.setAttribute("pictureList", set);
+        request.setAttribute("groupMap" , groupMembersMap);
     }
 }

@@ -1,14 +1,16 @@
-package com.louay.projects.view.service.post;
+package com.louay.projects.view.service.group;
 
-
-import com.louay.projects.controller.service.post.AddUserImgPostController;
+import com.louay.projects.controller.service.group.AddGroupPostController;
+import com.louay.projects.view.service.post.AddUserImgPost;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,8 +21,7 @@ import java.util.logging.Logger;
         location = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
         fileSizeThreshold = 1024 * 1024
 )
-public class AddUserImgPost extends HttpServlet {
-
+public class AddGroupImgPost extends HttpServlet {
     private final static Logger LOGGER = Logger.getLogger(AddUserImgPost.class.getCanonicalName());
 
     private AnnotationConfigApplicationContext context;
@@ -36,7 +37,7 @@ public class AddUserImgPost extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("username") == null) {
+        if (session.getAttribute("username") == null || session.getAttribute("idGroup") == null) {
             response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
         response.setContentType("text/html;charset=UTF-8");
@@ -58,15 +59,18 @@ public class AddUserImgPost extends HttpServlet {
                 }
                 in.close();
 
-                AddUserImgPostController addUserImgPostController = (AddUserImgPostController) this.context.getBean("addUserImgPost");
-                addUserImgPostController.addImgPost((String) request.getSession(false).getAttribute("username"), fileName, bytes);
+                String username = (String) session.getAttribute("username");
+                String idGroup = (String) session.getAttribute("idGroup");
+
+                AddGroupPostController addGroupPostController = (AddGroupPostController) this.context.getBean("addGroupPostCont");
+                addGroupPostController.addGroupImgPost(username, idGroup, fileName, bytes);
 
             } catch (FileNotFoundException fne) {
                 System.out.println(fne.getMessage());
             }
         }
 
-        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
+        response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
     }
 
     private String getFileName(final Part part) {

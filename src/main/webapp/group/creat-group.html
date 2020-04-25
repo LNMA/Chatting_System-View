@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        @import url(../libr/bootstrap-4.4.1/css/bootstrap.min.css);
+        @import url(../libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(../group/group.css);
+    </style>
+    <script src="../libr/jQuery-3.4.1/jquery.min.js"></script>
+    <script src="../libr/popper-1.16/popper.js"></script>
+    <script src="../libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="../libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
+    <script src="../group/group.js"></script>
+    <title>Create Group 'by Louay Amr'</title>
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light static-top mb-0 shadow text-center position-relative"
+         style="background-color: #3e3c4e ;height: 6em; width: 100%">
+        <p class="text-light text-capitalize h1 ">Create Group</p>
+    </nav>
+</header>
+
+<body>
+<main>
+    <div class="mainCreate">
+
+        <div id="topAlert"></div>
+
+        <div class="formCreate">
+
+            <div class="internalForm">
+
+                <form action="../CreateGroup" method="post" name="CreateGroupForm" onsubmit="return creatGroupValidateForm()">
+
+                    <div class="formHead mb-0 pt-4">Create Group in chatting system</div>
+                    <small class="form-text text-muted text-left mb-3">* field required</small>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="inputIdGroup">*Group ID</label>
+                            <input class="form-control w-75" type="text" maxlength="30" name="idGroup"
+                                   id="inputIdGroup" placeholder="Type Group ID"/>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-8">
+                            <label for="inputPrivacy">*Group Privacy</label>
+                            <br>
+                            <select class="custom-select w-75" name="privacy" id="inputPrivacy">
+                                <option selected disabled value="">Choose...</option>
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                                <option value="hidden">Hidden</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <label for="inputActivity">*Group Activity</label>
+                            <input class="form-control w-100" type="text" maxlength="60" name="activity"
+                                   id="inputActivity" placeholder="Type Group Activity"/>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6"></div>
+                        <div class="form-group col-md-6">
+                            <input class="btn btn-success w-50 p-2" style="margin: 3% 25% 3%" type="submit"
+                                   value="Create"/>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <nav class="navbar navbar-dark position-relative mb-0" style="background-color: #d3c7cd; height: 9em; width: 100%">
+        <p>Louay Amr © 2020</p>
+    </nav>
+</footer>
+
+</body>
+</html>

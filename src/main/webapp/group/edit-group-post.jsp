@@ -4,9 +4,15 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.time.LocalDateTime" %>
 
+<%! String idGroupSession; %>
+<%! String memberTypeSession; %>
 <%! String usernameSession;%>
 <%! String passwordSession;%>
 <%
+    idGroupSession = request.getParameter("idGroup");
+    session.setAttribute("idGroup", idGroupSession);
+    idGroupSession = request.getParameter("type");
+    session.setAttribute("memberType", memberTypeSession);
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
     StringBuilder contextPath = new StringBuilder(request.getContextPath());
@@ -17,12 +23,15 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(40).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
+        session.setAttribute("idGroup", idGroupSession);
+        session.setAttribute("memberType", memberTypeSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
+
 %>
 
 <!DOCTYPE html>
@@ -42,7 +51,7 @@
     <script src="<%=contextPath%>/client/home-client.js"></script>
     <title>Edit Post 'by Louay Amr'</title>
 </head>
-<body class="mainBackground">
+<body class="background">
 
 <header>
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"

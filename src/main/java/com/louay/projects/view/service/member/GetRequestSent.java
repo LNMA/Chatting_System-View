@@ -1,8 +1,8 @@
-package com.louay.projects.view.service.user;
+package com.louay.projects.view.service.member;
 
-import com.louay.projects.controller.service.client.ViewMyFriendController;
-import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.controller.service.member.GetUserRequestController;
 import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.model.chains.member.account.FriendRequest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -12,12 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
+import java.util.Map;
 
-import java.util.Set;
-
-public class ViewMyFriend extends HttpServlet implements Serializable {
-
+public class GetRequestSent extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -30,18 +27,19 @@ public class ViewMyFriend extends HttpServlet implements Serializable {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session =request.getSession(false);
-        if (session.getAttribute("username") == null){
-            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("username") == null) {
+            response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
 
-        Users users = context.getBean(Client.class);
+        GetUserRequestController requestController = (GetUserRequestController) this.context.getBean("userRequestCont");
 
+        FriendRequest friendRequest = this.context.getBean(FriendRequest.class);
+        Users users = friendRequest.getSourceAccount();
         users.setUsername((String) session.getAttribute("username"));
 
-        ViewMyFriendController friendByName = (ViewMyFriendController) this.context.getBean("findFriendByName");
-        Set<Users> set = friendByName.execute(users);
+        Map<Long, FriendRequest> requestMap = requestController.getSentRequestAndPicBySender(friendRequest);
 
-        request.setAttribute("pictureList", set);
+        request.setAttribute("requestMap", requestMap);
     }
 }

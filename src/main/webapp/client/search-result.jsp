@@ -25,7 +25,6 @@
     }
 %>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +40,7 @@
     <script src="<%=contextPath%>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%=contextPath%>/client/home-client.js"></script>
-    <title>User Friend 'by Louay Amr'</title>
+    <title>Search Result 'by Louay Amr'</title>
 </head>
 <body class="mainBackground">
 
@@ -92,38 +91,62 @@
     </nav>
 </header>
 
-<main class="col-md-12" style="padding-top: 7%;" >
+<main class="mt-3 col-md-12" style="padding-top: 7%;">
 
-    <article style="margin-left: 19%">
+    <article>
 
-        <jsp:include page="/ViewMyFriend"></jsp:include>
-        <c:forEach items="${pictureList}" var="picture">
-            <section class="col-md-9 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
-                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
-                            <button class="btn btn-block w-75" type="submit">
-                                <div class="form-row">
-                                    <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
-                                         width="164" height="164"/>
-                                    <p class="font-weight-bolder h5"
-                                       style="margin-left: 13%; margin-top: 10%">${picture.getUsername()} </p>
-                                </div>
-                            </button>
-                        </form>
+        <jsp:include page="/SearchAccountGroup"></jsp:include>
+        <c:forEach items="${searchResult}" var="result">
+
+            <c:if test="${result.getAccountType() eq 'USER'}">
+                <section class="col-md-9 mt-2" style="margin-left: 14%">
+                    <div class="card">
+                        <div class="card-body">
+                                <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                    <input type="text" value="${result.getUsername()}" name="strange" readonly hidden>
+                                    <input type="text" value="${result.getAccountType()}" name="type" readonly hidden>
+                                    <button class="btn btn-block w-75" type="submit">
+                                        <div class="form-row">
+                                        <img src="data:image/png;base64,${result.getBase64()}" class="rounded-circle"
+                                     width="164" height="164"/>
+                                <p class="font-weight-bolder h5"
+                                   style="margin-left: 13%; margin-top: 10%">${result.getFirstName()} ${result.getLastName()} </p>
+                                        </div>
+                                    </button>
+                                </form>
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </c:if>
+
+            <c:if test="${result.getAccountType() eq 'GROUP'}">
+                <section class="col-md-9 mt-2" style="margin-left: 14%">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                <input type="text" value="${result.getIdGroup()}" name="strange" readonly hidden>
+                                <input type="text" value="${result.getAccountType()}" name="type" readonly hidden>
+                                <button class="btn btn-block w-75" type="submit">
+                                <div class="form-row">
+                                <img src="data:image/png;base64,${result.getBase64()}" class="rounded-circle"
+                                     width="164" height="164"/>
+                                <p class="font-weight-bolder h5"
+                                   style="margin-left: 13%; margin-top: 7%">${result.getIdGroup()} </p>
+                            </div>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </c:if>
         </c:forEach>
 
     </article>
 
 </main>
-<footer style="padding-top: 32em">
+<footer style="padding-top: 25em;">
     <nav class="navbar"
-         style="background-color: #d3c7cd; height: 11em; width: 100%">
+         style="background-color: #d3c7cd; height: 11em; width: 100%;">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>

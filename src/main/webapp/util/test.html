@@ -23,8 +23,10 @@
 
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../signin/login.jsp" target="_self" class="navLinkHover nav-link">Home</a></p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../client/friend.jsp" target="_self" class="navLinkHover nav-link">Friend</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../signin/login.jsp" target="_self"
+                                                                class="navLinkHover nav-link">Home</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a href="../client/friend.jsp" target="_self"
+                                                                class="navLinkHover nav-link">Friend</a></p>
         <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
         </p>
 
@@ -62,66 +64,81 @@
 </header>
 
 <main>
+    <nav class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
+        <div class="navbar-brand col-md-10 h-3">
+            <p class="font-weight-bold mt-1 text-white">Group Control</p>
+        </div>
+        <div class="nav-item col-md-2">
+            <form>
+                <button class="btn btn-warning" type="submit">+ Create Group</button>
+            </form>
+        </div>
+    </nav>
 
-    <main class="mt-3">
+    <article>
 
-        <aside class="aside ml-2">
-        </aside>
+        <section class="col-md-8 mt-3" style="margin-left: 16%;">
 
-        <article class="mr-3">
+            <div class="card">
 
-            <section class="col-md-9" style="margin-left: 14%">
-                <div class="card">
-                    <div class="card-body" id="editTxtPost">
-                        <form class="form-group" action="../AddUserTextPost" method="post">
-                            <textarea class="form-control" data-toggle="collapse" name="post" ></textarea>
-                            <button class="btn btn-warning mt-2 col-md-1" type="submit" name="post" value="Post">Edit</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
-
-
-            <section class="col-md-9" style="margin-left: 14%">
-                <div class="card">
-                    <div class="card-body" id="editImgPost">
-                        <img src="data:image;base64,${post.getBase64()}" class="card-img-top"/>
-                        <br>
-                        <br>
-                        <form class="form-group" action="../AddUserImgPost" method="post" enctype="multipart/form-data">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="editImgPost" name="filename">
-                                <label class="custom-file-label" for="editImgPost">Choose file...</label>
-                            </div>
-                            <script>
-                                // Add the following code if you want the name of the file appear on select \n' +
-                                $(".custom-file-input").on("change", function() {
-                                    var fileName = $(this).val().split("\\").pop();
-                                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                                });
-                            </script>
-                            <button class="btn btn-warning mt-2 col-md-1" type="submit" value="post">Edit</button>
-                        </form>
-                    </div>
+                <div class="card-header">
+                    My Group
                 </div>
 
-            </section>
+                <div class="card-body col-md-8" style="margin-left: 10%;">
+                    <div class="row row-col-1 row-cols-md-2">
 
-        </article>
+                        <div class="col-md-11">
+                            <form>
+                                <button class="btn btn-block">
+                                    <div class="row">
+                                        <img src="img/broken_robot.png" width="94" height="94" class="rounded-circle">
+                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">idGroup</p>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
 
-        <input type="search">
+                        <div class="col-md-1" style="margin-top: 6%;">
+                            <form>
+                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card-body col-md-8" style="margin-left: 10%;">
+                    <div class="row row-col-1 row-cols-md-2">
+
+                        <div class="col-md-11">
+                            <form>
+                                <button class="btn btn-block">
+                                    <div class="row">
+                                        <img src="img/broken_robot.png" width="94" height="94" class="rounded-circle">
+                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">idGroup</p>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="col-md-1" style="margin-top: 6%;">
+                            <form>
+                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </article>
 
 
-    </main>
-
-
-
-    <footer>
-        <nav class="navbar navbar-dark position-relative mb-0 .fixed-bottom"
-             style="background-color: #d3c7cd; height: 11em; width: 100%;">
-            <p>Louay Amr © 2020</p>
-        </nav>
-    </footer>
 </main>
+
 </body>
 </html>

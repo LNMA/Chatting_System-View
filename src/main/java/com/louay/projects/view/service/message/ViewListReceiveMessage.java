@@ -1,8 +1,8 @@
-package com.louay.projects.view.service.user;
+package com.louay.projects.view.service.message;
 
-import com.louay.projects.controller.service.client.ViewMyFriendController;
-import com.louay.projects.model.chains.accounts.Client;
+import com.louay.projects.controller.service.message.GetNotSeenMessageController;
 import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.model.chains.communications.account.AccountMessage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -12,12 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.Serializable;
-
 import java.util.Set;
 
-public class ViewMyFriend extends HttpServlet implements Serializable {
-
+public class ViewListReceiveMessage extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -30,18 +27,21 @@ public class ViewMyFriend extends HttpServlet implements Serializable {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session =request.getSession(false);
-        if (session.getAttribute("username") == null){
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("username") == null) {
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
 
-        Users users = context.getBean(Client.class);
+        AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
+        Users targetUser = accountMessage.getTargetUser();
+        targetUser.setUsername((String) session.getAttribute("username"));
 
-        users.setUsername((String) session.getAttribute("username"));
+        GetNotSeenMessageController notSeenMessageCont  =
+                (GetNotSeenMessageController) this.context.getBean("getNotSeenMessageCont");
 
-        ViewMyFriendController friendByName = (ViewMyFriendController) this.context.getBean("findFriendByName");
-        Set<Users> set = friendByName.execute(users);
+        Set<AccountMessage> accountMessageSet = notSeenMessageCont.getUsersAndNotSeenMessageByReceiver(accountMessage);
 
-        request.setAttribute("pictureList", set);
+
+        request.setAttribute("notSeenSet", accountMessageSet);
     }
 }

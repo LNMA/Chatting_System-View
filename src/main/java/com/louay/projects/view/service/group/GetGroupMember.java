@@ -1,7 +1,8 @@
-package com.louay.projects.view.service.search;
+package com.louay.projects.view.service.group;
 
-import com.louay.projects.controller.service.search.SearchAccountGroupController;
-import com.louay.projects.model.chains.accounts.Accounts;
+import com.louay.projects.controller.service.member.GetGroupMemberController;
+import com.louay.projects.model.chains.accounts.group.Groups;
+import com.louay.projects.model.chains.member.group.GroupMembers;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -11,9 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Set;
+import java.util.Map;
 
-public class SearchAccountGroup extends HttpServlet {
+public class GetGroupMember extends HttpServlet {
+
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -27,15 +29,18 @@ public class SearchAccountGroup extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("username") == null) {
+        if (session.getAttribute("username") == null || session.getAttribute("idGroup") == null) {
             response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
 
-        String key = request.getParameter("keySearch");
+        Groups groups = context.getBean(Groups.class);
 
-        SearchAccountGroupController controller = (SearchAccountGroupController) this.context.getBean("searchAccountGroup");
-        Set<Accounts> accountsSet = controller.getSearchResult(key);
+        groups.setIdGroup((String) session.getAttribute("idGroup"));
 
-        request.setAttribute("searchResult", accountsSet);
+        GetGroupMemberController memberController = (GetGroupMemberController) this.context.getBean("groupMemberCont");
+        Map<Long, GroupMembers> groupMembersMap = memberController.getGroupMemberAndInfo(groups);
+
+        request.setAttribute("groupMembersMap", groupMembersMap);
     }
+
 }

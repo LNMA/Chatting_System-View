@@ -1,6 +1,7 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.GetUserEditPostController;
+import com.louay.projects.controller.service.post.GetUserEditPostController;
+import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import com.louay.projects.model.chains.communications.account.AccountImgPost;
 import com.louay.projects.model.chains.communications.account.AccountTextPost;
@@ -56,7 +57,8 @@ public class GetUserEditPost extends HttpServlet {
 
         if (post != null) {
             post.setIdPost(Long.valueOf(idPost));
-            post.setUsername((String) session.getAttribute("username"));
+            Users users = post.getUser();
+            users.setUsername((String) session.getAttribute("username"));
         }
 
         GetUserEditPostController getUserEditPost = (GetUserEditPostController) this.context.getBean("getUserEditPost");

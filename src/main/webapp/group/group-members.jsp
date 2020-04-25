@@ -32,18 +32,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
-        @import url(<%=contextPath%>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
-        @import url(<%=contextPath%>/client/home-client.css);
-        @import url(<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(<%= contextPath %>/libr/bootstrap-4.4.1/css/bootstrap.min.css);
+        @import url(<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/css/bootstrap-formhelpers.min.css);
+        @import url(<%= contextPath %>/group/group.css);
     </style>
-    <script src="<%=contextPath%>/libr/jQuery-3.4.1/jquery.min.js"></script>
-    <script src="<%=contextPath%>/libr/popper-1.16/popper.js"></script>
-    <script src="<%=contextPath%>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=contextPath%>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
-    <script src="<%=contextPath%>/client/home-client.js"></script>
-    <title>User Friend 'by Louay Amr'</title>
+    <script src="<%= contextPath %>/libr/jQuery-3.4.1/jquery.min.js"></script>
+    <script src="<%= contextPath %>/libr/popper-1.16/popper.js"></script>
+    <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
+    <script src="<%= contextPath %>/group/group.js"></script>
+    <title>Group Members `by Louay Amr'</title>
 </head>
-<body class="mainBackground">
+<body class="background">
 
 <header class="fixed-top">
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
@@ -54,7 +54,8 @@
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/signin/login.jsp">Home</a></p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a></p>
+                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a>
+        </p>
         <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
         </p>
 
@@ -64,9 +65,10 @@
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
-        <a class="col-md-auto col-lg-offset-1"  href="<%=contextPath%>/client/message-receive.jsp">
+        <a class="col-md-auto col-lg-offset-1" href="<%=contextPath%>/client/message-receive.jsp">
             <button class="btn btn-outline-info" type="submit">
-                <span class="badge badge-primary badge-pill mb-0 "><c:out value="${messageNotSeen}">${messageNotSeen}</c:out></span>
+                <span class="badge badge-primary badge-pill mb-0 "><c:out
+                        value="${messageNotSeen}">${messageNotSeen}</c:out></span>
                 <img class="mt-0" src="<%= contextPath %>/client/img/message-white-48dp.svg" id="messageImg" height="24"
                      width="24"/>
             </button>
@@ -96,23 +98,26 @@
 
     <article style="margin-left: 19%">
 
-        <jsp:include page="/ViewMyFriend"></jsp:include>
-        <c:forEach items="${pictureList}" var="picture">
+        <jsp:include page="/GetGroupMember"></jsp:include>
+        <c:forEach items="${groupMembersMap}" var="member">
             <section class="col-md-9 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
-                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
-                            <button class="btn btn-block w-75" type="submit">
+                            <input type="text" value="${member.value.getFriendMember().getUsername()}" name="strange" readonly hidden>
+                            <input type="text" value="${member.value.getFriendMember().getAccountType()}" name="type" readonly hidden>
+                            <button class="btn btn-block w-100" type="submit">
                                 <div class="form-row">
-                                    <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
+                                    <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}" class="rounded-circle"
                                          width="164" height="164"/>
                                     <p class="font-weight-bolder h5"
-                                       style="margin-left: 13%; margin-top: 10%">${picture.getUsername()} </p>
+                                       style="margin-left: 5%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}   :   ${member.value.getGroupMemberType()}
+                                    </p>
+
                                 </div>
                             </button>
                         </form>
+                        <div class="text-muted small">Since : ${member.value.getFriendMemberSince()}</div>
                     </div>
                 </div>
             </section>

@@ -1,7 +1,7 @@
 package com.louay.projects.view.service.post;
 
-import com.louay.projects.controller.service.client.GetUserCirclePostController;
-import com.louay.projects.model.chains.accounts.Admin;
+import com.louay.projects.controller.service.post.GetUserCirclePostController;
+import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.Post;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -28,21 +28,20 @@ public class GetUserCirclePost extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session =request.getSession(false);
-        if (session.getAttribute("username") == null){
-            response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
-        }else{
-            Users users = this.context.getBean(Admin.class);
-            users.setUsername((String) session.getAttribute("username"));
-
-            GetUserCirclePostController getUserCirclePostController =
-                    (GetUserCirclePostController) this.context.getBean("getUserCirclePost");
-
-
-            TreeSet<Post> postTreeSet = getUserCirclePostController.getUserCirclesPost(users);
-
-            request.setAttribute("userCirclePost", postTreeSet);
-
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("username") == null) {
+            response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
+        Users users = this.context.getBean(Client.class);
+        users.setUsername((String) session.getAttribute("username"));
+
+        GetUserCirclePostController getUserCirclePostController =
+                (GetUserCirclePostController) this.context.getBean("getUserCirclePost");
+
+
+        TreeSet<Post> postTreeSet = getUserCirclePostController.getUserCirclesPost(users);
+
+        request.setAttribute("userCirclePost", postTreeSet);
+
     }
 }
