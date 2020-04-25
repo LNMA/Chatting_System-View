@@ -3,10 +3,15 @@
 <%@ page errorPage="../util/error.jsp" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.util.Calendar" %>
-
+<%! String idGroupSession; %>
+<%! String memberTypeSession; %>
 <%! String usernameSession;%>
 <%! String passwordSession;%>
 <%
+    if (session.getAttribute("idGroup") != null && session.getAttribute("memberType") != null) {
+        idGroupSession = (String) session.getAttribute("idGroup");
+        memberTypeSession = (String) session.getAttribute("memberType");
+    }
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
     StringBuilder contextPath = new StringBuilder(request.getContextPath());
@@ -17,13 +22,15 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(30).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
-        response.sendRedirect(contextPath + "\\signin\\login.jsp");
+        if (idGroupSession != null && memberTypeSession != null) {
+            session.setAttribute("idGroup", idGroupSession);
+            session.setAttribute("memberType", memberTypeSession);
+        }
     }
-
 %>
 
 
@@ -116,7 +123,7 @@
                                            style="margin-top: 27%">${account.getFirstName()} ${account.getLastName()}</p>
                                     </div>
                                     <c:if test="${isFriend eq false and isThereRequest eq false and account.getUsername() ne username}">
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <form action="<%=contextPath%>/AddRequest" method="post">
                                                 <input type="text" value="${account.getUsername()}" name="id" readonly
                                                        hidden>
@@ -127,49 +134,64 @@
                                             </form>
                                         </div>
                                     </c:if>
-                                    <div class="col-md-3">
+
+                                    <c:if test="${memberType eq 'master' and isImInvited eq false and isImMember eq false and isRequestSent eq false}">
+                                        <div class="col-md-2">
+                                            <form action="<%=contextPath%>/AddGroupInvite" method="post">
+                                                <input type="text" value="${account.getUsername()}" name="id" readonly
+                                                       hidden>
+                                                <input type="text" value="${account.getAccountType()}" name="type"
+                                                       readonly hidden>
+                                                <button class="btn btn-warning" style="margin-top: 25%">+ Invite
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </c:if>
+
                                     <c:if test="${account.getUsername() ne username}">
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#userModal"
-                                                style="margin-top: 25%">Send Message
-                                        </button>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-info" data-toggle="modal" data-target="#userModal"
+                                                    style="margin-top: 25%">Send Message
+                                            </button>
 
-                                        <div class="modal fade" id="userModal">
-                                            <div class="modal-dialog modal-lg">
-                                                <div class="modal-content">
+                                            <div class="modal fade" id="userModal">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
 
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">Send Message</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">
-                                                            &times;
-                                                        </button>
-                                                    </div>
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Send Message</h4>
+                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                &times;
+                                                            </button>
+                                                        </div>
 
-                                                    <div class="modal-body">
-                                                        <form action="<%= contextPath %>/SendMessage" method="post">
-                                                            <input type="text" name="targetUser"
-                                                                   value="${account.getUsername()}" readonly hidden>
-                                                            <div class="input-group button">
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="Type a replay"
-                                                                       aria-describedby="sendMessage" name="message">
-                                                                <div class="input-group-append">
-                                                                    <button class="btn btn-dark" type="submit"
-                                                                            id="sendMessage">Send
-                                                                    </button>
+                                                        <div class="modal-body">
+                                                            <form action="<%= contextPath %>/SendMessage" method="post">
+                                                                <input type="text" name="targetUser"
+                                                                       value="${account.getUsername()}" readonly hidden>
+                                                                <div class="input-group button">
+                                                                    <input type="text" class="form-control"
+                                                                           placeholder="Type a replay"
+                                                                           aria-describedby="sendMessage"
+                                                                           name="message">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-dark" type="submit"
+                                                                                id="sendMessage">Send
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
+                                                            </form>
+                                                        </div>
 
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger"
-                                                                data-dismiss="modal">Close
-                                                        </button>
-                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+                                                        </div>
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
                                         </div>
                                     </c:if>

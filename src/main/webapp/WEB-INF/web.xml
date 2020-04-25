@@ -302,6 +302,42 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddMemberGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddMemberGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddMemberGroup</servlet-name>
+        <url-pattern>/AddMemberGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupInviteSent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetGroupInviteSent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupInviteSent</servlet-name>
+        <url-pattern>/GetGroupInviteSent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupRequestReceive</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetGroupRequestReceive</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupRequestReceive</servlet-name>
+        <url-pattern>/GetGroupRequestReceive</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddGroupInvite</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddGroupInvite</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroupInvite</servlet-name>
+        <url-pattern>/AddGroupInvite</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>
@@ -321,7 +357,6 @@
         <error-code>500</error-code>
         <location>/ErrorServlet</location>
     </error-page>
-
 
     <session-config>
         <session-timeout>60</session-timeout>

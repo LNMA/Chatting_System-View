@@ -26,7 +26,6 @@
         session.setAttribute("password", passwordSession);
         session.setAttribute("idGroup", idGroupSession);
         session.setAttribute("memberType", memberTypeSession);
-        response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
 
 %>

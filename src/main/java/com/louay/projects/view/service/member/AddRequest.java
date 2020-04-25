@@ -1,9 +1,7 @@
 package com.louay.projects.view.service.member;
 
 import com.louay.projects.controller.service.member.AddRequestController;
-import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.accounts.constant.AccountType;
-import com.louay.projects.model.chains.accounts.group.Groups;
 import com.louay.projects.model.chains.member.Request;
 import com.louay.projects.model.chains.member.account.FriendRequest;
 import com.louay.projects.model.chains.member.group.GroupRequest;
