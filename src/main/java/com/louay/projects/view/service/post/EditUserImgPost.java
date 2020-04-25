@@ -21,7 +21,7 @@ import java.util.logging.Logger;
         maxFileSize = 16 * 1024 * 1024,
         maxRequestSize = 65 * 1024 * 1024,
         //TODO modify file path
-        location = "C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
+        location = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
         fileSizeThreshold = 1024 * 1024
 )
 public class EditUserImgPost extends HttpServlet {
@@ -77,9 +77,14 @@ public class EditUserImgPost extends HttpServlet {
 
         if (postClassName == PostClassName.GROUP_IMG_POST) {
             response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
+
+        }else if (postClassName == PostClassName.ACCOUNT_IMG_POST){
+            response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
+
+        }else {
+            throw new UnsupportedOperationException("Unsupported redirect postClassName.");
         }
 
-        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
     }
 
     private String getFileName(final Part part) {

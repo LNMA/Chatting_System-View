@@ -199,7 +199,7 @@
             </section>
 
 
-            <section class="col-md-6 mt-3" style="margin-left: 24%;">
+            <section class="col-md-6 mt-3" style="margin-left: 25%;">
                 <div class="card">
                     <div class="card-header">
                         About

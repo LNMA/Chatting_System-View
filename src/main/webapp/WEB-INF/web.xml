@@ -284,6 +284,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetGroupPicture</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetGroupPicture</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupPicture</servlet-name>
+        <url-pattern>/GetGroupPicture</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupMember</servlet-name>
+        <servlet-class>com.louay.projects.view.service.group.GetGroupMember</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupMember</servlet-name>
+        <url-pattern>/GetGroupMember</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

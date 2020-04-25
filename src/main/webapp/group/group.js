@@ -6,15 +6,15 @@ $(document).on('click', '#inputStringPost', function () {
         '                    </form>' +
         '                </div>';
 
-    $('#addPost').removeAttr('hidden');
-    $('#addPost').show();
-    $(document.body).find('#addPost').html('');
-    $(document.body).find('#addPost').html(post);
+    $('#addGroupPost').removeAttr('hidden');
+    $('#addGroupPost').show();
+    $(document.body).find('#addGroupPost').html('');
+    $(document.body).find('#addGroupPost').html(post);
 });
 
 $(document).on('dblclick', '#inputStringPost', function () {
     'use strict';
-    $('#addPost').hide();
+    $('#addGroupPost').hide();
 });
 
 $(document).on('click', '#inputImg', function () {
@@ -34,15 +34,15 @@ $(document).on('click', '#inputImg', function () {
         '                        <button class=\"btn btn-primary mt-2 col-md-1\" type=\"submit\" value=\"post\">Post</button>\n' +
         '                    </form>\n';
 
-    $('#addPost').removeAttr('hidden');
-    $('#addPost').show();
-    $(document.body).find('#addPost').html('');
-    $(document.body).find('#addPost').html(post);
+    $('#addGroupPost').removeAttr('hidden');
+    $('#addGroupPost').show();
+    $(document.body).find('#addGroupPost').html('');
+    $(document.body).find('#addGroupPost').html(post);
 });
 
 $(document).on('dblclick', '#inputImg', function () {
     'use strict';
-    $('#addPost').hide();
+    $('#addGroupPost').hide();
 });
 
 function creatGroupValidateForm() {

@@ -40,38 +40,50 @@ public class DeleteUserPost extends HttpServlet {
             PostClassName postClassName = PostClassName.valueOf(request.getParameter("postClassName"));
             String idPost = request.getParameter("idPost");
 
-            Post post = null;
-            if (postClassName == PostClassName.ACCOUNT_TEX_POST) {
-                post = this.context.getBean(AccountTextPost.class);
+            Post post = buildPost(postClassName, Long.valueOf(idPost), request);
 
-            } else if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
-                post = this.context.getBean(AccountImgPost.class);
-
-            }else if (postClassName == PostClassName.GROUP_TEXT_POST) {
-                post = this.context.getBean(GroupTextPost.class);
-
-            } else if (postClassName == PostClassName.GROUP_IMG_POST) {
-                post = this.context.getBean(GroupImgPost.class);
-
-            } else {
-                throw new UnsupportedOperationException("unsupported operation.");
-
-            }
-
-            if (post != null) {
-                post.setIdPost(Long.valueOf(idPost));
-                Users users = post.getUser();
-                users.setUsername((String) session.getAttribute("username"));
-            }
             DeleteUserPostController deleteUserPostController = (DeleteUserPostController) this.context.getBean("DeleteUserPost");
             deleteUserPostController.deletePost(post, postClassName);
 
             if (postClassName == PostClassName.GROUP_IMG_POST || postClassName == PostClassName.GROUP_TEXT_POST){
                 response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
 
+            }else if (postClassName == PostClassName.ACCOUNT_TEX_POST || postClassName == PostClassName.ACCOUNT_IMG_POST){
+                response.sendRedirect(request.getContextPath()+"\\client\\home-client.jsp");
+
+            }else {
+                throw new UnsupportedOperationException("Unsupported redirect postClassName.");
             }
 
-            response.sendRedirect(request.getContextPath()+"\\client\\home-client.jsp");
+        }
+
+        private Post buildPost(PostClassName postClassName, Long idPost, HttpServletRequest request){
+            Post post;
+            HttpSession session = request.getSession(false);
+
+            if (postClassName == PostClassName.ACCOUNT_TEX_POST) {
+                post = this.context.getBean(AccountTextPost.class);
+                post.getUser().setUsername((String) session.getAttribute("username"));
+
+            } else if (postClassName == PostClassName.ACCOUNT_IMG_POST) {
+                post = this.context.getBean(AccountImgPost.class);
+                post.getUser().setUsername((String) session.getAttribute("username"));
+
+            }else if (postClassName == PostClassName.GROUP_TEXT_POST) {
+                post = this.context.getBean(GroupTextPost.class);
+                ((GroupTextPost)post).getGroups().setIdGroup((String) session.getAttribute("idGroup"));
+
+            } else if (postClassName == PostClassName.GROUP_IMG_POST) {
+                post = this.context.getBean(GroupImgPost.class);
+                ((GroupImgPost)post).getGroups().setIdGroup((String) session.getAttribute("idGroup"));
+
+            } else {
+                throw new UnsupportedOperationException("unsupported operation.");
+
+            }
+
+            post.setIdPost(idPost);
+            return post;
         }
 
 }

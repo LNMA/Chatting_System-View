@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="../util/error.jsp" %>
-<%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="java.time.LocalDateTime" %>
 
 <%! String usernameSession;%>
 <%! String passwordSession;%>
@@ -17,13 +17,12 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(10).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
-
 %>
 
 
@@ -42,7 +41,7 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/group/group.js"></script>
-    <title>Group Control `by Louay Amr'</title>
+    <title>Group Members `by Louay Amr'</title>
 </head>
 <body class="background">
 
@@ -95,74 +94,45 @@
     </nav>
 </header>
 
-<nav class="fixed-top" style="margin-top: 6em;">
-    <div class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
-        <div class="navbar-brand col-md-10 h-3">
-            <p class="font-weight-bold mt-1 text-white">Group Control</p>
-        </div>
-        <div class="nav-item col-md-2">
-            <a href="<%=contextPath%>/group/creat-group.html">
-                <button class="btn btn-warning" type="submit">+ Create Group</button>
-            </a>
-        </div>
-    </div>
-</nav>
+<main class="col-md-12" style="padding-top: 7%;" >
 
-<main class="col-md-12" style="padding-top: 13em;">
+    <article style="margin-left: 19%">
 
-    <article>
+        <jsp:include page="/GetGroupMember"></jsp:include>
+        <c:forEach items="${groupMembersMap}" var="member">
+            <section class="col-md-9 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                            <input type="text" value="${member.value.getFriendMember().getUsername()}" name="strange" readonly hidden>
+                            <input type="text" value="${member.value.getFriendMember().getAccountType()}" name="type" readonly hidden>
+                            <button class="btn btn-block w-100" type="submit">
+                                <div class="form-row">
+                                    <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}" class="rounded-circle"
+                                         width="164" height="164"/>
+                                    <p class="font-weight-bolder h5"
+                                       style="margin-left: 5%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}   :   ${member.value.getGroupMemberType()}
+                                    </p>
 
-        <section class="col-md-8 mt-3" style="margin-left: 16%;">
-
-            <div class="card">
-
-                <div class="card-header">
-                    My Group
-                </div>
-
-                <jsp:include page="/GetUserGroup"></jsp:include>
-                <c:forEach items="${groupMap}" var="group">
-                <div class="card-body col-md-8" style="margin-left: 10%;">
-                    <div class="row row-col-1 row-cols-md-2">
-
-                        <div class="col-md-11">
-                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${group.value.getGroup().getIdGroup()}" name="strange" hidden readonly>
-                                <input type="text" value="${group.value.getGroup().getAccountType()}" name="type" hidden readonly>
-                                <button class="btn btn-block" type="submit">
-                                    <div class="row">
-                                        <img src="data:img/png;base64,${group.value.getGroup().getBase64()}" width="94" height="94" class="rounded-circle">
-                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">${group.value.getGroup().getIdGroup()}</p>
-                                    </div>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="col-md-1" style="margin-top: 6%;">
-                            <form action="<%=contextPath%>/SwitchToGroup" method="post">
-                                <input type="text" name="idGroup" value="${group.value.getGroup().getIdGroup()}" hidden readonly>
-                                <input type="text" name="memberType" value="${group.value.getGroupMemberType()}" hidden readonly>
-                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
-                            </form>
-                        </div>
-
+                                </div>
+                            </button>
+                        </form>
+                        <div class="text-muted small">Since : ${member.value.getFriendMemberSince()}</div>
                     </div>
                 </div>
-                </c:forEach>
-
-            </div>
-
-        </section>
+            </section>
+        </c:forEach>
 
     </article>
 
 </main>
-
-
-<footer style="padding-top: 25%;">
-    <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
+<footer style="padding-top: 32em">
+    <nav class="navbar"
+         style="background-color: #d3c7cd; height: 11em; width: 100%">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
+
+
 </body>
 </html>

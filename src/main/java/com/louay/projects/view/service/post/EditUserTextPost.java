@@ -44,9 +44,14 @@ public class EditUserTextPost extends HttpServlet {
 
         if (postClassName == PostClassName.GROUP_TEXT_POST) {
             response.sendRedirect(request.getContextPath() + "\\group\\group-switch.jsp");
+
+        }else if (postClassName == PostClassName.ACCOUNT_TEX_POST){
+            response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
+
+        }else {
+            throw new UnsupportedOperationException("Unsupported redirect postClassName.");
         }
 
-        response.sendRedirect(request.getContextPath() + "\\client\\home-client.jsp");
     }
 
     private Post initPost(PostClassName postClassName, StringBuilder newPost, HttpServletRequest request, Long idPost) {

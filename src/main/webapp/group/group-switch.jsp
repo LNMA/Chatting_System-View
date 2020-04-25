@@ -47,7 +47,7 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/group/group.js"></script>
-    <title>Group Control `by Louay Amr'</title>
+    <title>Group Switch `by Louay Amr'</title>
 </head>
 <body class="background">
 
@@ -58,27 +58,15 @@
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/signin/login.jsp">Home</a></p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a>
-        </p>
-        <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
+                                                                href="<%= contextPath %>/group/group-switch.jsp">Home</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-2"><a class="nav-link navLinkHover"
+                                                                href="<%= contextPath %>/group/group-members.jsp">Member</a>
         </p>
 
-        <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
+        <form class="form-inline col-md-6" action="<%= contextPath %>/client/search-result.jsp" method="get">
+            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
             <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
         </form>
-
-        <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
-        <a class="col-md-auto col-lg-offset-1" href="<%=contextPath%>/client/message-receive.jsp">
-            <button class="btn btn-outline-info" type="submit">
-                <span class="badge badge-primary badge-pill mb-0 "><c:out
-                        value="${messageNotSeen}">${messageNotSeen}</c:out></span>
-                <img class="mt-0" src="<%= contextPath %>/client/img/message-white-48dp.svg" id="messageImg" height="24"
-                     width="24"/>
-            </button>
-        </a>
 
         <div class="dropdown col-md-auto">
             <button type="button" class="btn btn-link dropdown-toggle-split" data-toggle="dropdown">
@@ -89,9 +77,9 @@
                 <form>
                     <input class="dropdown-item text-left" type="submit" value="Profile">
                 </form>
-                <form action="<%= contextPath %>/Logout" method="post">
-                    <input class="dropdown-item text-left" type="submit" value="Logout">
-                </form>
+                <a href="<%=contextPath%>/client/home-client.jsp">
+                    <input class="dropdown-item text-left" type="submit" value="Group Logout">
+                </a>
                 <a class="dropdown-item" href="#">Profile</a>
                 <a class="dropdown-item disabled" href="#">Disabled</a>
             </div>
@@ -101,6 +89,56 @@
 </header>
 
 <main class="col-md-12" style="padding-top: 7em;">
+
+    <aside class="float-left col-md-2">
+
+        <div class="form-row">
+            <img src="<%= contextPath %>/GetGroupPicture" class="rounded-circle" width="134" height="134"/>
+            <p class="mt-5 ml-1 font-weight-bold h5"><%= idGroupSession %>
+            </p>
+        </div>
+        <hr>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/message-sent.jsp">
+                <img src="<%= contextPath %>/client/img/send-black-48dp.svg" width="24" height="24">
+                <p class="ml-3">Messages Sent</p>
+            </a>
+        </div>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/request-user-sent.jsp">
+                <img src="<%= contextPath %>/client/img/how_to_reg-black-48dp.svg" width="24" height="24">
+                <p class="ml-3">Request Sent</p>
+            </a>
+        </div>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-members.jsp">
+                <img src="<%= contextPath %>/client/img/group-black-48dp.svg" width="24" height="24">
+                <p class="ml-3">Group Member</p>
+            </a>
+        </div>
+        <hr>
+        <div class="form-text text-muted font-weight-bold ml-2">
+            <p>Explore</p>
+        </div>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/gallery.jsp">
+                <img src="<%= contextPath %>/client/img/photo_library-black-48dp.svg" width="24" height="24">
+                <p class="ml-3">My Photo Album</p>
+            </a>
+        </div>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/request-user-receive.jsp">
+                <img src="<%= contextPath %>/client/img/person_add-black-48dp.svg" width="24" height="24">
+                <p class="ml-3">Request</p>
+            </a>
+        </div>
+        <div class="form-row">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/message-receive.jsp">
+                <img class="mt-2" src="<%= contextPath %>/client/img/email-black-48dp.svg" width="24" height="24">
+                <p class="ml-3 mt-2">Message</p>
+            </a>
+        </div>
+    </aside>
 
     <article class="float-right col-md-9 mr-5">
 
@@ -121,7 +159,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="card-body" id="addPost" hidden></div>
+                <div class="card-body" id="addGroupPost" hidden></div>
             </div>
         </section>
 
@@ -130,26 +168,43 @@
             <section class="col-md-13 mt-3">
                 <div class="card">
                     <div class="card-header text-muted">
-                        <img src="data:image/png;base64,${post.getUser().getBase64()}" width="32" height="32" class="rounded-circle">
-                        Posted by ${post.getUser().getFirstName()} ${post.getUser().getLastName()}, At : ${post.getDatePost()}
+                        <div class="float-left row">
+                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                            <input type="text" value="${post.getUser().getUsername()}" name="strange" hidden
+                                   readonly>
+                            <input type="text" value="${post.getUser().getAccountType()}" name="type" hidden
+                                   readonly>
+                            <button class="btn btn-link" type="submit">
+                                <img src="data:image/png;base64,${post.getUser().getBase64()}" width="32" height="32"
+                                     class="rounded-circle">
+                            </button>
+                        </form>
+                            <p class="mt-2">
+                        Posted by ${post.getUser().getFirstName()} ${post.getUser().getLastName()}, At
+                        : ${post.getDatePost()}
+                            </p>
+                        </div>
 
 
                         <c:if test="${post.getUser().getUsername() eq username}">
                             <div class="dropdown dropleft float-right">
                                 <div class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="../client/img/settings-black-48dp.svg" width="16" height="16" >
+                                    <img src="../client/img/settings-black-48dp.svg" width="20" height="20">
                                 </div>
                                 <div class="dropdown-menu">
                                     <c:if test="${memberType eq 'master'}">
-                                    <form action="<%= contextPath %>/DeleteUserPost" method="post">
-                                        <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
-                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
-                                        <input class="dropdown-item" type="submit" value="Delete">
-                                    </form>
+                                        <form action="<%= contextPath %>/DeleteUserPost" method="post">
+                                            <input type="text" value="${post.getIdPost()}" name="idPost" hidden
+                                                   readonly>
+                                            <input type="text" value="${post.getClassName()}" name="postClassName"
+                                                   hidden readonly>
+                                            <input class="dropdown-item" type="submit" value="Delete">
+                                        </form>
                                     </c:if>
                                     <form action="<%= contextPath %>/client/edit_post.jsp" method="get">
                                         <input type="text" value="${post.getIdPost()}" name="idPost" hidden readonly>
-                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden readonly>
+                                        <input type="text" value="${post.getClassName()}" name="postClassName" hidden
+                                               readonly>
                                         <input class="dropdown-item" type="submit" value="Edit">
                                     </form>
                                 </div>
@@ -174,7 +229,7 @@
 </main>
 
 
-<footer style="margin-top: 25em;">
+<footer style="margin-top: 31em;">
     <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
         <p>Louay Amr © 2020</p>
     </nav>

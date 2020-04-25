@@ -1,7 +1,6 @@
 package com.louay.projects.view.service.user;
 
 import com.louay.projects.controller.service.client.ViewMyFriendController;
-import com.louay.projects.model.chains.accounts.Admin;
 import com.louay.projects.model.chains.accounts.Client;
 import com.louay.projects.model.chains.accounts.Users;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+
 import java.util.Set;
 
 public class ViewMyFriend extends HttpServlet implements Serializable {
