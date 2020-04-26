@@ -135,7 +135,7 @@
                                         </div>
                                     </c:if>
 
-                                    <c:if test="${memberType eq 'master' and isImInvited eq false and isImMember eq false and isRequestSent eq false}">
+                                    <c:if test="${memberType eq 'master' and isUserInviteToMyGroup eq false and isOurMemberGroup eq false and isSentGroupRequest eq false and account.getUsername() ne username}">
                                         <div class="col-md-2">
                                             <form action="<%=contextPath%>/AddGroupInvite" method="post">
                                                 <input type="text" value="${account.getUsername()}" name="id" readonly
@@ -201,13 +201,13 @@
                                         <p class="font-weight-bold" style="margin-top: 27%">${account.getIdGroup()}</p>
                                     </div>
                                     <c:if test="${account.getGroupPrivacy() ne 'private' and isImInvited eq false and isImMember eq false and isRequestSent eq false}">
-                                        <div class="col-md-6 text-right">
+                                        <div class="col-md-4 text-right">
                                             <form action="<%=contextPath%>/AddRequest" method="post">
                                                 <input type="text" value="${account.getIdGroup()}" name="id" readonly
                                                        hidden>
                                                 <input type="text" value="${account.getAccountType()}" name="type"
                                                        readonly hidden>
-                                                <button class="btn btn-warning" style="margin-top: 25%">+ Send Request
+                                                <button class="btn btn-warning" style="margin-top: 20%">+ Send Request
                                                 </button>
                                             </form>
                                         </div>

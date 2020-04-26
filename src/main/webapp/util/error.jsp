@@ -24,12 +24,10 @@
     <p class="font-weight-bold text-left text-warning h2">Chatting system</p>
     <p class="font-weight-bold h5">Sorry but Exception is occurred!</p>
     <p class="mt-5">
-        <label class="font-weight-bold"><%= exception%>
-        </label><label class="text-muted">, That's an error.</label>
+        <label class="font-weight-bold"><%= exception%></label><label class="text-muted">, That's an error.</label>
     </p>
     <p class="mt-5">
-        <label class="font-weight-bold "><%= exception.getMessage()%>
-        </label><label class="text-muted">. That's all we know.</label>
+        <label class="font-weight-bold "><%= exception.getMessage()%></label><label class="text-muted">. That's all we know.</label>
     </p>
 </div>
 </body>

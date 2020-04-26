@@ -2,6 +2,7 @@ package com.louay.projects.view.service.member;
 
 import com.louay.projects.controller.service.member.AddGroupMemberController;
 import com.louay.projects.model.chains.accounts.constant.AccountType;
+import com.louay.projects.model.chains.member.constant.GroupMemberType;
 import com.louay.projects.model.chains.member.group.GroupMembers;
 import com.louay.projects.model.util.date.NowDate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -42,6 +43,7 @@ public class AddMemberGroup extends HttpServlet {
             GroupMembers groupMembers = this.context.getBean(GroupMembers.class);
             groupMembers.getGroup().setIdGroup(id);
             groupMembers.getFriendMember().setUsername((String) session.getAttribute("username"));
+            groupMembers.setGroupMemberType(GroupMemberType.SLAVE.getMemberType());
             groupMembers.setFriendMemberSince(NowDate.getNowTimestamp());
 
             addGroupMemberController.addGroupMemberInvite(groupMembers);

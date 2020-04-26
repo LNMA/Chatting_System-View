@@ -37,8 +37,7 @@ public class GetRequestReceive extends HttpServlet {
         GetUserRequestController requestController = (GetUserRequestController) this.context.getBean("userRequestCont");
 
         FriendRequest friendRequest = this.context.getBean(FriendRequest.class);
-        Users users = friendRequest.getTargetAccount();
-        users.setUsername((String) session.getAttribute("username"));
+        friendRequest.getTargetAccount().setUsername((String) session.getAttribute("username"));
 
         TreeMap<Long, Request> requestMap = requestController.getSentRequestAndPicByReceiver(friendRequest);
 
