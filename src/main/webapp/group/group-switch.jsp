@@ -54,7 +54,6 @@
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
          style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 
-
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/group/group-switch.jsp">Home</a></p>
@@ -97,18 +96,14 @@
             </p>
         </div>
         <hr>
+        <c:if test="${memberType eq 'master'}">
         <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/message-sent.jsp">
-                <img src="<%= contextPath %>/client/img/send-black-48dp.svg" width="24" height="24">
-                <p class="ml-3">Messages Sent</p>
-            </a>
-        </div>
-        <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/request-user-sent.jsp">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-invite-sent.jsp">
                 <img src="<%= contextPath %>/client/img/how_to_reg-black-48dp.svg" width="24" height="24">
-                <p class="ml-3">Request Sent</p>
+                <p class="ml-3">Invite Sent</p>
             </a>
         </div>
+        </c:if>
         <div class="form-row">
             <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-members.jsp">
                 <img src="<%= contextPath %>/client/img/group-black-48dp.svg" width="24" height="24">
@@ -120,23 +115,19 @@
             <p>Explore</p>
         </div>
         <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/gallery.jsp">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-gallery.jsp">
                 <img src="<%= contextPath %>/client/img/photo_library-black-48dp.svg" width="24" height="24">
-                <p class="ml-3">My Photo Album</p>
+                <p class="ml-3">Group Album</p>
             </a>
         </div>
+        <c:if test="${memberType eq 'master'}">
         <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/request-user-receive.jsp">
+            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-request-receive.jsp">
                 <img src="<%= contextPath %>/client/img/person_add-black-48dp.svg" width="24" height="24">
-                <p class="ml-3">Request</p>
+                <p class="ml-3">Request Receive</p>
             </a>
         </div>
-        <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/client/message-receive.jsp">
-                <img class="mt-2" src="<%= contextPath %>/client/img/email-black-48dp.svg" width="24" height="24">
-                <p class="ml-3 mt-2">Message</p>
-            </a>
-        </div>
+        </c:if>
     </aside>
 
     <article class="float-right col-md-9 mr-5">

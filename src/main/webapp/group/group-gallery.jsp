@@ -47,7 +47,7 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/group/group.js"></script>
-    <title>Sent Invite `by Louay Amr'</title>
+    <title>Gallery `by Louay Amr'</title>
 </head>
 <body class="background">
 
@@ -87,52 +87,35 @@
     </nav>
 </header>
 
-<main class="col-md-12" style="padding-top: 7em;">
+<main class="col-md-12 mt-2" style="padding-top: 7%;">
 
     <article>
-        <section style="margin-left: 20%">
 
-            <jsp:include page="/GetGroupInviteSent"></jsp:include>
-            <c:forEach items="${groupInviteMap}" var="invite">
-                <div class="card col-9 mt-3">
-                    <div class="card-body">
-                            <div class="form-row">
-
-                                <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                    <input type="text" value="${invite.value.getTargetAccount().getUsername()}" name="strange" readonly hidden>
-                                    <input type="text" value="${invite.value.getTargetAccount().getAccountType()}" name="type" readonly hidden>
-                                    <button class="btn btn-block" type="submit">
-                                        <div class="form-row">
-                                            <div class="col-1">
-                                                <img src="data:image/png;base64,${invite.value.getTargetAccount().getBase64()}" class="rounded-circle" width="128" height="128">
-                                            </div>
-                                            <div class="col-10">
-                                                <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
-                                                        ${invite.value.getTargetAccount().getFirstName()} ${invite.value.getTargetAccount().getLastName()}</p>
-                                            </div>
-                                            <div class="text-muted small">At: ${invite.value.getRequestDate()}</div>
-                                        </div>
-
-                                    </button>
-                                </form>
-
-                            </div>
-
+        <div class="row row-cols-1 row-cols-md-3">
+            <jsp:include page="/GetGroupImgPost"></jsp:include>
+            <c:forEach items="${imgTree}" var="img">
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <img src="data:image/png;base64,${img.getBase64()}" class="card-img-top">
+                        </div>
                     </div>
                 </div>
             </c:forEach>
 
-        </section>
+        </div>
 
     </article>
 
 </main>
 
-
-<footer style="margin-top: 31em;">
-    <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
+<footer style="padding-top: 31em;">
+    <nav class="navbar"
+         style="background-color: #d3c7cd; height: 11em; width: 100%;">
         <p>Louay Amr © 2020</p>
     </nav>
 </footer>
+
+
 </body>
 </html>

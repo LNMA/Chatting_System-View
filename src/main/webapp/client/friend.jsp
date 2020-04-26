@@ -49,7 +49,6 @@
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
          style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 
-
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/signin/login.jsp">Home</a></p>
@@ -59,8 +58,8 @@
         </p>
 
         <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
+            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-3" type="submit">Search &telrec;</button>
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
@@ -97,19 +96,20 @@
     <article style="margin-left: 19%">
 
         <jsp:include page="/ViewMyFriend"></jsp:include>
-        <c:forEach items="${pictureList}" var="picture">
+        <c:forEach items="${userFriendMap}" var="member">
             <section class="col-md-9 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
-                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
+                            <input type="text" value="${member.value.getFriendMember().getUsername()}" name="strange" readonly hidden>
+                            <input type="text" value="${member.value.getFriendMember().getAccountType()}" name="type" readonly hidden>
                             <button class="btn btn-block w-75" type="submit">
                                 <div class="form-row">
-                                    <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
+                                    <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}" class="rounded-circle"
                                          width="164" height="164"/>
                                     <p class="font-weight-bolder h5"
-                                       style="margin-left: 13%; margin-top: 10%">${picture.getUsername()} </p>
+                                       style="margin-left: 13%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}</p>
+                                    <div class="text-muted small">Since: ${member.value.getFriendMemberSince()}</div>
                                 </div>
                             </button>
                         </form>

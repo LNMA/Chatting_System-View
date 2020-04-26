@@ -39,7 +39,7 @@ public class GetRequestReceive extends HttpServlet {
         FriendRequest friendRequest = this.context.getBean(FriendRequest.class);
         friendRequest.getTargetAccount().setUsername((String) session.getAttribute("username"));
 
-        TreeMap<Long, Request> requestMap = requestController.getSentRequestAndPicByReceiver(friendRequest);
+        Map<Long, Request> requestMap = requestController.getSentRequestAndPicByReceiver(friendRequest);
 
         request.setAttribute("requestMap", requestMap);
     }

@@ -1,8 +1,7 @@
 package com.louay.projects.view.service.user;
 
-import com.louay.projects.controller.service.client.ViewMyFriendController;
-import com.louay.projects.model.chains.accounts.Client;
-import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.controller.service.member.GetUserFriendController;
+import com.louay.projects.model.chains.member.account.UserFriend;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Serializable;
 
-import java.util.Set;
+import java.util.Map;
 
 public class ViewMyFriend extends HttpServlet implements Serializable {
 
@@ -35,13 +34,19 @@ public class ViewMyFriend extends HttpServlet implements Serializable {
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
 
-        Users users = context.getBean(Client.class);
+        GetUserFriendController friendByName = (GetUserFriendController) this.context.getBean("userFriendMemberCont");
+        Map<Long, UserFriend> userFriendMap =
+                friendByName.getUserFriendMemberAndInfoByUsername(buildUserFriend(request));
 
-        users.setUsername((String) session.getAttribute("username"));
+        request.setAttribute("userFriendMap", userFriendMap);
+    }
 
-        ViewMyFriendController friendByName = (ViewMyFriendController) this.context.getBean("findFriendByName");
-        Set<Users> set = friendByName.execute(users);
+    private UserFriend buildUserFriend(HttpServletRequest request){
+        HttpSession session =request.getSession(false);
+        UserFriend userFriend = context.getBean(UserFriend.class);
 
-        request.setAttribute("pictureList", set);
+        userFriend.getUser().setUsername((String) session.getAttribute("username"));
+
+        return userFriend;
     }
 }

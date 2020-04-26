@@ -50,7 +50,6 @@
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
          style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 
-
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/signin/login.jsp">Home</a></p>
@@ -60,8 +59,8 @@
         </p>
 
         <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
+            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-3" type="submit">Search &telrec;</button>
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
@@ -95,40 +94,77 @@
 
 <main class="col-md-12" style="padding-top: 7%">
 
-    <article >
+    <article>
         <section style="margin-left: 20%">
 
             <jsp:include page="/GetRequestSent"></jsp:include>
             <c:forEach items="${requestMap}" var="request">
-                <div class="card col-9 mt-3">
-                    <div class="card-body">
-                        <div class="form-row">
+                <c:if test="${request.value.getRequestClassName() eq 'FRIEND_REQUEST'}">
+                    <div class="card col-9 mt-3">
+                        <div class="card-body">
+                            <div class="form-row">
 
-                            <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${request.value.getTargetAccount().getUsername()}"
-                                       name="strange" readonly hidden>
-                                <input type="text" value="${request.value.getTargetAccount().getAccountType()}"
-                                       name="type" readonly hidden>
-                                <button class="btn btn-block" type="submit">
-                                    <div class="form-row">
-                                        <div class="col-1">
-                                            <img src="data:image/png;base64,${request.value.getSourceAccount().getBase64()}"
-                                                 class="rounded-circle" width="128" height="128">
+                                <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                    <input type="text" value="${request.value.getTargetAccount().getUsername()}"
+                                           name="strange" readonly hidden>
+                                    <input type="text" value="${request.value.getTargetAccount().getAccountType()}"
+                                           name="type" readonly hidden>
+                                    <button class="btn btn-block" type="submit">
+                                        <div class="form-row">
+                                            <div class="col-1">
+                                                <img src="data:image/png;base64,${request.value.getSourceAccount().getBase64()}"
+                                                     class="rounded-circle" width="128" height="128">
+                                            </div>
+                                            <div class="col-10">
+                                                <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
+                                                        ${request.value.getSourceAccount().getFirstName()} ${request.value.getSourceAccount().getLastName()}</p>
+                                            </div>
+                                            <div class="text-muted small">At: ${request.value.getRequestDate()}</div>
                                         </div>
-                                        <div class="col-10">
-                                            <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
-                                                    ${request.value.getSourceAccount().getFirstName()} ${request.value.getSourceAccount().getLastName()}</p>
-                                        </div>
-                                    </div>
 
-                                </button>
-                            </form>
+                                    </button>
+                                </form>
+
+                            </div>
 
                         </div>
-
                     </div>
-                </div>
-                </div>
+                    </div>
+                </c:if>
+
+                <c:if test="${request.value.getRequestClassName() eq 'GROUP_REQUEST'}">
+                    <div class="card col-9 mt-3">
+                        <div class="card-body">
+                            <div class="form-row">
+
+                                <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                    <input type="text" value="${request.value.getSourceGroup().getIdGroup()}"
+                                           name="strange" readonly hidden>
+                                    <input type="text" value="${request.value.getSourceGroup().getAccountType()}"
+                                           name="type" readonly hidden>
+                                    <button class="btn btn-block" type="submit">
+                                        <div class="form-row">
+                                            <div class="col-1">
+                                                <img src="data:image/png;base64,${request.value.getSourceGroup().getBase64()}"
+                                                     class="rounded-circle" width="128" height="128">
+                                            </div>
+                                            <div class="col-10">
+                                                <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
+                                                        ${request.value.getSourceGroup().getIdGroup()}</p>
+                                            </div>
+                                            <div class="text-muted small">At: ${request.value.getRequestDate()}</div>
+                                        </div>
+
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+                </c:if>
+
             </c:forEach>
 
         </section>

@@ -53,10 +53,39 @@
 </head>
 <body class="background">
 
-<header>
-    <nav class="navbar navbar-expand-lg mb-0 shadow text-left position-relative"
-         style="background-color: #3e3c4e ;height: 6em; width: 100%">
-        <p class="text-light h3 font-weight-bold">Edit Post</p>
+<header class="fixed-top">
+    <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
+         style="background-color: #3e3c4e ;height: 6em; width: 100%;">
+
+        <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
+        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
+                                                                href="<%= contextPath %>/group/group-switch.jsp">Home</a></p>
+        <p class="text-light mt-3 font-weight-bold col-md-2"><a class="nav-link navLinkHover"
+                                                                href="<%= contextPath %>/group/group-members.jsp">Member</a>
+        </p>
+
+        <form class="form-inline col-md-6" action="<%= contextPath %>/client/search-result.jsp" method="get">
+            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
+        </form>
+
+        <div class="dropdown col-md-auto">
+            <button type="button" class="btn btn-link dropdown-toggle-split" data-toggle="dropdown">
+                <img src="<%= contextPath %>/client/img/account_circle-white-48dp.svg" class="rounded-circle mr-0"
+                     width="72" height="72"/>&blacktriangledown;
+            </button>
+            <div class="dropdown-menu">
+                <form>
+                    <input class="dropdown-item text-left" type="submit" value="Profile">
+                </form>
+                <a href="<%=contextPath%>/client/home-client.jsp">
+                    <input class="dropdown-item text-left" type="submit" value="Group Logout">
+                </a>
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item disabled" href="#">Disabled</a>
+            </div>
+        </div>
+
     </nav>
 </header>
 

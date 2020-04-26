@@ -48,7 +48,6 @@
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
          style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 
-
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
                                                                 href="<%= contextPath %>/signin/login.jsp">Home</a></p>
@@ -58,8 +57,8 @@
         </p>
 
         <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
+            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-3" type="submit">Search &telrec;</button>
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>

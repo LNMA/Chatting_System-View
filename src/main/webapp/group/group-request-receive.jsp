@@ -47,14 +47,13 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/group/group.js"></script>
-    <title>Group Switch `by Louay Amr'</title>
+    <title>Request Recieve `by Louay Amr'</title>
 </head>
 <body class="background">
 
 <header class="fixed-top">
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
          style="background-color: #3e3c4e ;height: 6em; width: 100%;">
-
 
         <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
         <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
@@ -111,7 +110,7 @@
                                                 <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
                                                         ${request.value.getTargetAccount().getFirstName()} ${request.value.getTargetAccount().getLastName()}</p>
                                             </div>
-                                            <div class="text-muted small">${request.value.getRequestDate()}</div>
+                                            <div class="text-muted small">At: ${request.value.getRequestDate()}</div>
                                         </div>
 
                                     </button>

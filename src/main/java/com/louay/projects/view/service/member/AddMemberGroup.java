@@ -35,27 +35,45 @@ public class AddMemberGroup extends HttpServlet {
 
         String id = request.getParameter("strange");
         AccountType accountType = AccountType.valueOf(request.getParameter("type"));
+
+        AddGroupMemberController addGroupMemberController =
+                (AddGroupMemberController) this.context.getBean("addGroupMemberCont");
+
         if (accountType.compareTo(AccountType.GROUP) == 0){
+            addGroupMemberController.addGroupMemberInvite(buildGroupMembersInviteMember(request, id));
+            response.sendRedirect(request.getContextPath() + "\\group\\group-control.jsp");
 
-            AddGroupMemberController addGroupMemberController =
-                    (AddGroupMemberController) this.context.getBean("addGroupMemberCont");
 
-            GroupMembers groupMembers = this.context.getBean(GroupMembers.class);
-            groupMembers.getGroup().setIdGroup(id);
-            groupMembers.getFriendMember().setUsername((String) session.getAttribute("username"));
-            groupMembers.setGroupMemberType(GroupMemberType.SLAVE.getMemberType());
-            groupMembers.setFriendMemberSince(NowDate.getNowTimestamp());
-
-            addGroupMemberController.addGroupMemberInvite(groupMembers);
-
-        }
-
-        if ("master".equalsIgnoreCase((String)session.getAttribute("memberType"))){
+        }else if (accountType.compareTo(AccountType.USER) == 0 && "master".compareTo((String)session.getAttribute("memberType")) == 0){
+            addGroupMemberController.addGroupMemberRequest(buildGroupMembersSentRequest(request, id));
             response.sendRedirect(request.getContextPath() + "\\group\\group-members.jsp");
 
         }else {
-            response.sendRedirect(request.getContextPath() + "\\group\\group-control.jsp");
-
+            throw new UnsupportedOperationException("unsupported add member operation.");
         }
+    }
+
+    private GroupMembers buildGroupMembersInviteMember(HttpServletRequest request, String idGroup){
+        HttpSession session = request.getSession(false);
+
+        GroupMembers groupMembers = this.context.getBean(GroupMembers.class);
+        groupMembers.getGroup().setIdGroup(idGroup);
+        groupMembers.getFriendMember().setUsername((String) session.getAttribute("username"));
+        groupMembers.setGroupMemberType(GroupMemberType.SLAVE.getMemberType());
+        groupMembers.setFriendMemberSince(NowDate.getNowTimestamp());
+
+        return groupMembers;
+    }
+
+    private GroupMembers buildGroupMembersSentRequest(HttpServletRequest request, String username){
+        HttpSession session = request.getSession(false);
+
+        GroupMembers groupMembers = this.context.getBean(GroupMembers.class);
+        groupMembers.getGroup().setIdGroup((String) session.getAttribute("idGroup"));
+        groupMembers.getFriendMember().setUsername(username);
+        groupMembers.setGroupMemberType(GroupMemberType.SLAVE.getMemberType());
+        groupMembers.setFriendMemberSince(NowDate.getNowTimestamp());
+
+        return groupMembers;
     }
 }

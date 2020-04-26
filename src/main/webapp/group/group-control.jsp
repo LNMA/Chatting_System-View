@@ -61,8 +61,8 @@
         </p>
 
         <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
+            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
+            <button class="btn btn-success col-md-3" type="submit">Search &telrec;</button>
         </form>
 
         <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
@@ -80,7 +80,7 @@
                 <img src="<%= contextPath %>/client/img/account_circle-white-48dp.svg" class="rounded-circle mr-0"
                      width="72" height="72"/>&blacktriangledown;
             </button>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu" style="z-index: 0">
                 <form>
                     <input class="dropdown-item text-left" type="submit" value="Profile">
                 </form>
@@ -95,7 +95,7 @@
     </nav>
 </header>
 
-<nav class="fixed-top" style="margin-top: 6em;">
+<nav class="fixed-top" style="margin-top: 6em;z-index: 1">
     <div class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
         <div class="navbar-brand col-md-10 h-3">
             <p class="font-weight-bold mt-1 text-white">Group Control</p>
