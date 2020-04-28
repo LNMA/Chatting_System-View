@@ -103,11 +103,11 @@
                         <form action="<%=contextPath%>/client/review-account.jsp" method="get">
                             <input type="text" value="${member.value.getFriendMember().getUsername()}" name="strange" readonly hidden>
                             <input type="text" value="${member.value.getFriendMember().getAccountType()}" name="type" readonly hidden>
-                            <button class="btn btn-block w-75" type="submit">
-                                <div class="form-row">
+                            <button class="btn btn-block " type="submit">
+                                <div class="row col-md-12">
                                     <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}" class="rounded-circle"
                                          width="164" height="164"/>
-                                    <p class="font-weight-bolder h5"
+                                    <p class="font-weight-bolder h5 col-md-6"
                                        style="margin-left: 13%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}</p>
                                     <div class="text-muted small">Since: ${member.value.getFriendMemberSince()}</div>
                                 </div>

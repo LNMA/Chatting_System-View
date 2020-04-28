@@ -47,7 +47,7 @@
 <body class="mainBackground">
 
 
-<header class="fixed-top">
+<header>
     <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
          style="background-color: #3e3c4e ;height: 6em; width: 100%;">
 

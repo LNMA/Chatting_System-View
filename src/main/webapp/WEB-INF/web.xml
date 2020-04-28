@@ -347,6 +347,33 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>LogoutGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.register.LogoutGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutGroup</servlet-name>
+        <url-pattern>/LogoutGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserProfileInfo</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.GetUserProfileInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserProfileInfo</servlet-name>
+        <url-pattern>/GetUserProfileInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateUserProfile</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.UpdateUserProfile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateUserProfile</servlet-name>
+        <url-pattern>/UpdateUserProfile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

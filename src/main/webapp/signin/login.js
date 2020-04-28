@@ -1,7 +1,9 @@
+/*jshint esversion: 6 */
+/*jshint sub:true*/
 function signInvalidateForm() {
     'use strict';
-    var username = document.forms['signInform']['username'].value;
-    var password = document.forms['signInform']['password'].value;
+    let username = document.forms['signInform']['username'].value;
+    let password = document.forms['signInform']['password'].value;
     if ((username === '') || (password === '')) {
         document.getElementById('topAlert').innerHTML = '   <div class=\"container\">\n' +
             '        <div class=\"alert alert-danger alert-dismissible\" data-dismiss=\"alert\" id=\"myAlert\">\n' +

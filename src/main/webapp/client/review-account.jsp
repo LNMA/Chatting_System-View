@@ -218,7 +218,7 @@
             </section>
 
 
-            <section class="col-md-6 mt-3" style="margin-left: 25%;">
+            <section class="col-md-6 mt-3" style="margin-left: 26%;">
                 <div class="card">
                     <div class="card-header">
                         About

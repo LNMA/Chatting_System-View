@@ -75,9 +75,9 @@
                 <form>
                     <input class="dropdown-item text-left" type="submit" value="Profile">
                 </form>
-                <a href="<%=contextPath%>/client/home-client.jsp">
+                <form action="<%= contextPath %>/LogoutGroup" method="post">
                     <input class="dropdown-item text-left" type="submit" value="Group Logout">
-                </a>
+                </form>
                 <a class="dropdown-item" href="#">Profile</a>
                 <a class="dropdown-item disabled" href="#">Disabled</a>
             </div>
@@ -87,6 +87,86 @@
 </header>
 
 <main class="col-md-12" style="padding-top: 7em;">
+
+    <div id="viewProfileModal">
+        <div class="modal fade" id="groupProfileModal">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Profile</h4>
+                        <button type="button" class="close" data-dismiss="modal">
+                            &times;
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="container-fluid">
+                            <div class="row row-cols-4">
+                                <!-- label -->
+                                <div class="col-md-2">
+                                    <label for="idGroup" class="font-weight-bold col-md-12">ID Group: </label>
+                                    <label for="dateCreate" class="font-weight-bold col-md-12 mt-4">Date Create: </label>
+                                    <label for="privacy" class="font-weight-bold col-md-12 mt-4">Group Privacy: </label>
+                                    <label for="activity" class="font-weight-bold col-md-12 mt-4">Activity: </label>
+                                </div>
+                                <!-- label -->
+                                <!-- input -->
+                                <div class="col-md-5">
+                                    <input class="form-control col-md-12" id="idGroup" name="idGroup" type="text"
+                                           value="${group.getIdGroup()}" readonly disabled>
+                                    <input class="form-control col-md-12 mt-3" id="dateCreate" name="dateCreate"
+                                           type="text"
+                                           value="${group.getDateCreate()}" readonly disabled>
+                                    <input class="form-control col-md-12 mt-3" id="privacy" name="groupPrivacy"
+                                           type="text" value="${group.groupPrivacy()}" readonly disabled>
+                                    <input class="form-control col-md-12 mt-3" id="activity" name="groupActivity"
+                                           type="text"
+                                           value="${group.getGroupActivity()}" readonly disabled>
+                                </div>
+                                <!-- input -->
+                                <!-- edit -->
+                                <div class="col-md-1">
+                                    <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#gPrivacyModal" style="margin-top: 6.5em;">
+                                        <img src="../group/img/edit-black-48dp.svg" width="16" height="16">
+                                    </button>
+                                    <button class="btn mt-3" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#gActivityModal">
+                                        <img src="../group/img/edit-black-48dp.svg" width="16" height="16">
+                                    </button>
+                                </div>
+                                <!-- edit -->
+                                <!-- img -->
+                                <div class="col-md-3 offset-md-1">
+                                    <div class="row">
+                                        <img src="data:image;base64,${account.getBase64()}" class="rounded-circle"
+                                             width="192" height="192">
+                                        <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#gImageModal">
+                                            <img src="../group/img/add_photo_alternate-black-48dp.svg" width="28"
+                                                 height="28">
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- img -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger"
+                                data-dismiss="modal">Close
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="changeGroupImageModal"></div>
+        <div id="changeGroupPrivacyModal"></div>
+        <div id="changeGroupActivityModal"></div>
+    </div>
 
     <aside class="float-left col-md-2">
 

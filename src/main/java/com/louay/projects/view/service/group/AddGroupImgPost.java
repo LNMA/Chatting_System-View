@@ -1,7 +1,6 @@
 package com.louay.projects.view.service.group;
 
 import com.louay.projects.controller.service.group.AddGroupPostController;
-import com.louay.projects.view.service.post.AddUserImgPost;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -18,11 +17,11 @@ import java.util.logging.Logger;
         maxFileSize = 16 * 1024 * 1024,
         maxRequestSize = 65 * 1024 * 1024,
         //TODO modify file path
-        location = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
+        location = "C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
         fileSizeThreshold = 1024 * 1024
 )
 public class AddGroupImgPost extends HttpServlet {
-    private final static Logger LOGGER = Logger.getLogger(AddUserImgPost.class.getCanonicalName());
+    private final static Logger LOGGER = Logger.getLogger(AddGroupImgPost.class.getCanonicalName());
 
     private AnnotationConfigApplicationContext context;
 
