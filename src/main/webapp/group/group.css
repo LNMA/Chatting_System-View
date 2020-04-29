@@ -17,6 +17,14 @@
     color: white;
 }
 
+.navLinkHover:visited{
+    color: white;
+}
+
+.navLinkHover:active{
+    color: white;
+}
+
 .msg-background{
     background: white fixed;
     background-size: cover;

@@ -1,8 +1,10 @@
 package com.louay.projects.view.service.message;
 
+import com.louay.projects.controller.service.member.GetUserRequestController;
 import com.louay.projects.controller.service.message.GetNotSeenMessageController;
 import com.louay.projects.model.chains.accounts.Users;
 import com.louay.projects.model.chains.communications.account.AccountMessage;
+import com.louay.projects.model.chains.member.account.FriendRequest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -31,15 +33,36 @@ public class ViewAllNotSeenMessage extends HttpServlet {
             response.sendRedirect(request.getContextPath()+"\\signin\\login.jsp");
         }
 
+        GetNotSeenMessageController notSeenMessageCont  =
+                (GetNotSeenMessageController) this.context.getBean("getNotSeenMessageCont");
+
+        GetUserRequestController requestController =
+                (GetUserRequestController) this.context.getBean("userRequestCont");
+
+
+        int numRequest = requestController.numberOfReceiveRequest(buildFriendRequest(request));
+
+
+        int numMessage = notSeenMessageCont.getNumberOfAllNotSeenMessageByReceiver(buildAccountMessage(request));
+
+        request.setAttribute("messageNotSeen", numMessage);
+        request.setAttribute("requestReceive" , numRequest);
+    }
+
+    private AccountMessage buildAccountMessage(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
         AccountMessage accountMessage = this.context.getBean(AccountMessage.class);
         Users targetUser = accountMessage.getTargetUser();
         targetUser.setUsername((String) session.getAttribute("username"));
 
-        GetNotSeenMessageController notSeenMessageCont  =
-                (GetNotSeenMessageController) this.context.getBean("getNotSeenMessageCont");
+        return accountMessage;
+    }
 
-        int result = notSeenMessageCont.getNumberOfAllNotSeenMessageByReceiver(accountMessage);
+    private FriendRequest buildFriendRequest(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        FriendRequest friendRequest = this.context.getBean(FriendRequest.class);
+        friendRequest.getTargetAccount().setUsername((String) session.getAttribute("username"));
 
-        request.setAttribute("messageNotSeen", result);
+        return friendRequest;
     }
 }

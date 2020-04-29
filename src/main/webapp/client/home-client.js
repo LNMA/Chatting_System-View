@@ -51,8 +51,9 @@ $(document).on('dblclick', '#inputImg', function () {
 });
 
 //password modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changePasswordModal').empty();
     $('#changePasswordModal').append(`<div class="modal fade" id="passwordModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -145,8 +146,9 @@ function passwordValidateForm() {
 }
 
 //image modal
-$(window).on('load',function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeUserPictureModal').empty();
     $('#changeUserPictureModal').append(`<div class="modal fade" id="ImageModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -189,8 +191,9 @@ $(window).on('load',function () {
 });
 
 //first name modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeFNameModal').empty();
     $('#changeFNameModal').append(`<div class="modal fade" id="firstNameModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -248,8 +251,9 @@ function fNameValidateForm() {
 }
 
 //last name modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeLNameModal').empty();
     $('#changeLNameModal').append(`<div class="modal fade" id="lastNameModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -305,8 +309,9 @@ function lNameValidateForm() {
 }
 
 //gender modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeGenderModal').empty();
     $('#changeGenderModal').append(`<div class="modal fade" id="genderModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -368,8 +373,9 @@ function genderValidateForm() {
 }
 
 //birthday modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeBirthdayModal').empty();
     $('#changeBirthdayModal').append(`<div class="modal fade" id="birthdayModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -426,8 +432,9 @@ function birthdayValidateForm() {
 }
 
 //telephone modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeTelephoneModal').empty();
     $('#changeTelephoneModal').append(`<div class="modal fade" id="telephoneModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -506,8 +513,9 @@ function telephoneValidateForm() {
 }
 
 //email modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeEmailModal').empty();
     $('#changeEmailModal').append(`<div class="modal fade" id="emailModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -575,8 +583,9 @@ function emailValidateForm() {
 }
 
 //address modal
-$(window).on('load', function () {
+$(document).on('click', '#dropdownProfile', function () {
     'use strict';
+    $('#changeAddressModal').empty();
     $('#changeAddressModal').append(`<div class="modal fade" id="addressModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

@@ -50,125 +50,53 @@
 </head>
 <body class="background">
 
-<header class="fixed-top">
-    <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
-         style="background-color: #3e3c4e ;height: 6em; width: 100%;">
+<header>
+    <nav class="navbar navbar-dark navbar-expand-md fixed-top shadow" style="background-color: #3e3c4e ;">
+        <a class="navbar-brand font-weight-bold" href="../group/group-switch.jsp">Chatting system</a>
 
-        <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/group/group-switch.jsp">Home</a></p>
-        <p class="text-light mt-3 font-weight-bold col-md-2"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/group/group-members.jsp">Member</a>
-        </p>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGroupAccount"
+                aria-controls="navbarGroupAccount" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <form class="form-inline col-md-6" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-8" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
-        </form>
+        <div class="collapse navbar-collapse ml-5" id="navbarGroupAccount">
+            <ul class="navbar-nav">
+                <li class="nav-item ml-5">
+                    <a class="nav-link font-weight-bold" href="../group/group-switch.jsp">Home</a>
+                </li>
+                <li class="nav-item ml-5">
+                    <a class="nav-link font-weight-bold" href="../group/group-members.jsp">Members</a>
+                </li>
+            </ul>
 
-        <div class="dropdown col-md-auto">
-            <button type="button" class="btn btn-link dropdown-toggle-split" data-toggle="dropdown">
-                <img src="<%= contextPath %>/client/img/account_circle-white-48dp.svg" class="rounded-circle mr-0"
-                     width="72" height="72"/>&blacktriangledown;
-            </button>
-            <div class="dropdown-menu">
-                <form>
-                    <input class="dropdown-item text-left" type="submit" value="Profile">
-                </form>
-                <form action="<%= contextPath %>/LogoutGroup" method="post">
+            <form class="form-inline my-2 my-md-0 col-md-10" action="../client/search-result.jsp" method="get"
+                  style="margin-left: 12%;">
+                <input class="form-control mr-sm-2 w-50" type="search" placeholder="Search" aria-label="Search"
+                       name="keySearch">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search &telrec;</button>
+            </form>
+        </div>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="accountGroupDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <img src="../client/img/account_circle-white-48dp.svg" class="rounded-circle" width="72" height="72"/>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="accountGroupDropdown">
+                <button class="dropdown-item text-left" id="dropProfile" data-toggle="modal"
+                        data-target="#groupProfileModal">Group Profile
+                </button>
+                <form action="../LogoutGroup" method="post">
                     <input class="dropdown-item text-left" type="submit" value="Group Logout">
                 </form>
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item disabled" href="#">Disabled</a>
             </div>
         </div>
-
     </nav>
 </header>
 
-<main class="col-md-12" style="padding-top: 7em;">
+<main class="container-fluid" style="padding-top: 8em;">
+    <div class="row row-cols-md-2">
 
-    <div id="viewProfileModal">
-        <div class="modal fade" id="groupProfileModal">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Profile</h4>
-                        <button type="button" class="close" data-dismiss="modal">
-                            &times;
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="container-fluid">
-                            <div class="row row-cols-4">
-                                <!-- label -->
-                                <div class="col-md-2">
-                                    <label for="idGroup" class="font-weight-bold col-md-12">ID Group: </label>
-                                    <label for="dateCreate" class="font-weight-bold col-md-12 mt-4">Date Create: </label>
-                                    <label for="privacy" class="font-weight-bold col-md-12 mt-4">Group Privacy: </label>
-                                    <label for="activity" class="font-weight-bold col-md-12 mt-4">Activity: </label>
-                                </div>
-                                <!-- label -->
-                                <!-- input -->
-                                <div class="col-md-5">
-                                    <input class="form-control col-md-12" id="idGroup" name="idGroup" type="text"
-                                           value="${group.getIdGroup()}" readonly disabled>
-                                    <input class="form-control col-md-12 mt-3" id="dateCreate" name="dateCreate"
-                                           type="text"
-                                           value="${group.getDateCreate()}" readonly disabled>
-                                    <input class="form-control col-md-12 mt-3" id="privacy" name="groupPrivacy"
-                                           type="text" value="${group.groupPrivacy()}" readonly disabled>
-                                    <input class="form-control col-md-12 mt-3" id="activity" name="groupActivity"
-                                           type="text"
-                                           value="${group.getGroupActivity()}" readonly disabled>
-                                </div>
-                                <!-- input -->
-                                <!-- edit -->
-                                <div class="col-md-1">
-                                    <button class="btn" data-toggle="modal" data-dismiss="modal"
-                                            data-target="#gPrivacyModal" style="margin-top: 6.5em;">
-                                        <img src="../group/img/edit-black-48dp.svg" width="16" height="16">
-                                    </button>
-                                    <button class="btn mt-3" data-toggle="modal" data-dismiss="modal"
-                                            data-target="#gActivityModal">
-                                        <img src="../group/img/edit-black-48dp.svg" width="16" height="16">
-                                    </button>
-                                </div>
-                                <!-- edit -->
-                                <!-- img -->
-                                <div class="col-md-3 offset-md-1">
-                                    <div class="row">
-                                        <img src="data:image;base64,${account.getBase64()}" class="rounded-circle"
-                                             width="192" height="192">
-                                        <button class="btn" data-toggle="modal" data-dismiss="modal"
-                                                data-target="#gImageModal">
-                                            <img src="../group/img/add_photo_alternate-black-48dp.svg" width="28"
-                                                 height="28">
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- img -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger"
-                                data-dismiss="modal">Close
-                        </button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div id="changeGroupImageModal"></div>
-        <div id="changeGroupPrivacyModal"></div>
-        <div id="changeGroupActivityModal"></div>
-    </div>
-
-    <aside class="float-left col-md-2">
+    <aside class="col-md-2">
 
         <div class="form-row">
             <img src="<%= contextPath %>/GetGroupPicture" class="rounded-circle" width="134" height="134"/>
@@ -177,12 +105,12 @@
         </div>
         <hr>
         <c:if test="${memberType eq 'master'}">
-        <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-invite-sent.jsp">
-                <img src="<%= contextPath %>/client/img/how_to_reg-black-48dp.svg" width="24" height="24">
-                <p class="ml-3">Invite Sent</p>
-            </a>
-        </div>
+            <div class="form-row">
+                <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-invite-sent.jsp">
+                    <img src="<%= contextPath %>/client/img/how_to_reg-black-48dp.svg" width="24" height="24">
+                    <p class="ml-3">Invite Sent</p>
+                </a>
+            </div>
         </c:if>
         <div class="form-row">
             <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-members.jsp">
@@ -201,18 +129,18 @@
             </a>
         </div>
         <c:if test="${memberType eq 'master'}">
-        <div class="form-row">
-            <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-request-receive.jsp">
-                <img src="<%= contextPath %>/client/img/person_add-black-48dp.svg" width="24" height="24">
-                <p class="ml-3">Request Receive</p>
-            </a>
-        </div>
+            <div class="form-row">
+                <a class="btn btn-toolbar btn-link" href="<%= contextPath %>/group/group-request-receive.jsp">
+                    <img src="<%= contextPath %>/client/img/person_add-black-48dp.svg" width="24" height="24">
+                    <p class="ml-3">Request Receive</p>
+                </a>
+            </div>
         </c:if>
     </aside>
 
-    <article class="float-right col-md-9 mr-5">
+    <article class="col-md-9 offset-md-1">
 
-        <section class="col-md-13">
+        <section class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="btn-group btn-toolbar">
@@ -235,23 +163,24 @@
 
         <jsp:include page="/GetGroupPost"></jsp:include>
         <c:forEach items="${postTreeSet}" var="post">
-            <section class="col-md-13 mt-3">
+            <section class="col-md-12 mt-3">
                 <div class="card">
                     <div class="card-header text-muted">
                         <div class="float-left row">
-                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                            <input type="text" value="${post.getUser().getUsername()}" name="strange" hidden
-                                   readonly>
-                            <input type="text" value="${post.getUser().getAccountType()}" name="type" hidden
-                                   readonly>
-                            <button class="btn btn-link" type="submit">
-                                <img src="data:image/png;base64,${post.getUser().getBase64()}" width="32" height="32"
-                                     class="rounded-circle">
-                            </button>
-                        </form>
+                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                <input type="text" value="${post.getUser().getUsername()}" name="strange" hidden
+                                       readonly>
+                                <input type="text" value="${post.getUser().getAccountType()}" name="type" hidden
+                                       readonly>
+                                <button class="btn btn-link" type="submit">
+                                    <img src="data:image/png;base64,${post.getUser().getBase64()}" width="32"
+                                         height="32"
+                                         class="rounded-circle">
+                                </button>
+                            </form>
                             <p class="mt-2">
-                        Posted by ${post.getUser().getFirstName()} ${post.getUser().getLastName()}, At
-                        : ${post.getDatePost()}
+                                Posted by ${post.getUser().getFirstName()} ${post.getUser().getLastName()}, At
+                                : ${post.getDatePost()}
                             </p>
                         </div>
 
@@ -295,14 +224,107 @@
         </c:forEach>
 
     </article>
-
+    </div>
 </main>
 
+<nav>
+    <div id="viewProfileModal">
+        <jsp:include page="/GetGroupProfileInfo"></jsp:include>
+        <c:forEach items="${groupsSet}" var="group">
+            <div class="modal fade" id="groupProfileModal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Profile</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
 
-<footer style="margin-top: 31em;">
-    <nav class="navbar" style="background-color: #d3c7cd; height: 11em; width: 100%">
-        <p>Louay Amr © 2020</p>
+                        <div class="modal-body">
+
+                            <div class="container-fluid">
+                                <div class="row row-cols-4">
+                                    <!-- label -->
+                                    <div class="col-md-2">
+                                        <label for="idGroup" class="font-weight-bold col-md-12">ID Group: </label>
+                                        <label for="dateCreate" class="font-weight-bold col-md-12 mt-4">Date
+                                            Create: </label>
+                                        <label for="privacy" class="font-weight-bold col-md-12 mt-4">Group
+                                            Privacy: </label>
+                                        <label for="activity" class="font-weight-bold col-md-12 mt-4">Activity: </label>
+                                    </div>
+                                    <!-- label -->
+                                    <!-- input -->
+                                    <div class="col-md-5">
+                                        <input class="form-control col-md-12" id="idGroup" name="idGroup" type="text"
+                                               value="${group.getIdGroup()}" readonly disabled>
+                                        <input class="form-control col-md-12 mt-3" id="dateCreate" name="dateCreate"
+                                               type="text"
+                                               value="${group.getDateCreate()}" readonly disabled>
+                                        <input class="form-control col-md-12 mt-3" id="privacy" name="groupPrivacy"
+                                               type="text" value="${group.getGroupPrivacy()}" readonly disabled>
+                                        <input class="form-control col-md-12 mt-3" id="activity" name="groupActivity"
+                                               type="text"
+                                               value="${group.getGroupActivity()}" readonly disabled>
+                                    </div>
+                                    <!-- input -->
+                                    <!-- edit -->
+                                    <div class="col-md-1">
+                                        <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#gPrivacyModal" style="margin-top: 6.5em;">
+                                            <img src="../group/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-3" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#gActivityModal">
+                                            <img src="../group/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                    </div>
+                                    <!-- edit -->
+                                    <!-- img -->
+                                    <div class="col-md-3 offset-md-1">
+                                        <div class="row">
+                                            <img src="data:image;base64,${group.getBase64()}" class="rounded-circle"
+                                                 width="192" height="192">
+                                            <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                    data-target="#gImageModal">
+                                                <img src="../group/img/add_photo_alternate-black-48dp.svg" width="28"
+                                                     height="28">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- img -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger"
+                                    data-dismiss="modal">Close
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+        <div id="changeGroupImageModal"></div>
+        <div id="changeGroupPrivacyModal"></div>
+        <div id="changeGroupActivityModal"></div>
+    </div>
+</nav>
+
+
+<footer>
+    <nav class="navbar navbar-light navbar-expand-md shadow mt-3"
+         style="background-color: #d3c7cd ;height: 10em;">
+        <div class="navbar-nav">
+            <div class="navbar-text">
+                Louay Amr © 2020
+            </div>
+        </div>
     </nav>
 </footer>
+
 </body>
 </html>

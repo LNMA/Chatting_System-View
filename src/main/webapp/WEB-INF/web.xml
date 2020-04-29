@@ -374,6 +374,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>GetGroupProfileInfo</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.GetGroupProfileInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupProfileInfo</servlet-name>
+        <url-pattern>/GetGroupProfileInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateGroupProfileInfo</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.UpdateGroupProfileInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateGroupProfileInfo</servlet-name>
+        <url-pattern>/UpdateGroupProfileInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>

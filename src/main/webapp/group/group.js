@@ -1,5 +1,7 @@
 /*jshint esversion: 6 */
 /*jshint sub:true*/
+
+//text group post
 $(document).on('click', '#inputStringPost', function () {
     'use strict';
     let post = '<form class=\"form-group\" action=\"../AddGroupTextPost\" method=\"post\">' +
@@ -19,6 +21,7 @@ $(document).on('dblclick', '#inputStringPost', function () {
     $('#addGroupPost').hide();
 });
 
+//img group post
 $(document).on('click', '#inputImg', function () {
     'use strict';
     let post = '<form class=\"form-group\" action=\"../AddGroupImgPost\" method=\"post\" enctype=\"multipart/form-data\">\n' +
@@ -47,6 +50,7 @@ $(document).on('dblclick', '#inputImg', function () {
     $('#addGroupPost').hide();
 });
 
+//create group validation form
 function creatGroupValidateForm() {
     'use strict';
     let idGroup = document.forms['CreateGroupForm']['idGroup'].value;
@@ -94,9 +98,11 @@ function creatGroupValidateForm() {
     }
 }
 
-$(window).on('load', function () {
+//Img modal
+$(document).on('click', '#dropProfile' ,function () {
     'use strict';
-    $('#changeGroupImageModal').append(`<div class="modal fade" id="GImageModal">
+    $('#changeGroupImageModal').empty();
+    $('#changeGroupImageModal').append(`<div class="modal fade" id="gImageModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
@@ -106,7 +112,7 @@ $(window).on('load', function () {
                         &times;
                     </button>
                 </div>
-                <form action="../UpdateUserProfile" method="post" enctype="multipart/form-data">
+                <form action="../UpdateGroupProfileInfo" method="post" enctype="multipart/form-data">
                     <input type="text" value="pGroup0img1c" name="fieldCode" readonly hidden>
                     <div class="modal-body">
                         <div class="custom-file">
@@ -137,8 +143,10 @@ $(window).on('load', function () {
     </div>`);
 });
 
-$(window).on('load', function () {
+//privacy modal
+$(document).on('click', '#dropProfile' ,function () {
     'use strict';
+    $('#changeGroupPrivacyModal').empty();
     $('#changeGroupPrivacyModal').append(`<div class="modal fade" id="gPrivacyModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -149,7 +157,7 @@ $(window).on('load', function () {
                         &times;
                     </button>
                 </div>
-                <form name="privacyForm" action="../UpdateUserProfile" method="post" onsubmit="return fNameValidateForm()">
+                <form name="privacyForm" action="../UpdateGroupProfileInfo" method="post" onsubmit="return privacyValidateForm()">
                     <input type="text" value="pGroup1privacy2c" name="fieldCode" readonly hidden>
                     <div class="modal-body">
                         <div class="container-fluid">
@@ -184,9 +192,26 @@ $(window).on('load', function () {
         </div>
     </div>`);
 });
-
-$(window).on('load', function () {
+function privacyValidateForm() {
     'use strict';
+    let privacy = document.forms['privacyForm']['privacy'].value;
+
+
+    if ((privacy === '')) {
+        document.getElementById('privacyAlert').innerHTML = '   <div class=\"container\">\n' +
+            '        <div class=\"alert alert-danger alert-dismissible\" data-dismiss=\"alert\" id=\"myAlert\">\n' +
+            '            <button type=\"button\" class=\"close\">&times;</button>\n' +
+            '            <strong>Error!</strong> All required field must be filled.\n' +
+            '        </div>\n' +
+            '    </div>';
+        return false;
+    }
+}
+
+//activity modal
+$(document).on('click', '#dropProfile' ,function () {
+    'use strict';
+    $('#changeGroupActivityModal').empty();
     $('#changeGroupActivityModal').append(`<div class="modal fade" id="gActivityModal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -197,7 +222,7 @@ $(window).on('load', function () {
                         &times;
                     </button>
                 </div>
-                <form name="activityForm" action="../UpdateUserProfile" method="post" onsubmit="return fNameValidateForm()">
+                <form name="activityForm" action="../UpdateGroupProfileInfo" method="post" onsubmit="return activityValidateForm()">
                     <input type="text" value="pGroup2Activity3c" name="fieldCode" readonly hidden>
                     <div class="modal-body">
                         <div class="container-fluid">
@@ -227,3 +252,18 @@ $(window).on('load', function () {
         </div>
     </div>`);
 });
+function activityValidateForm() {
+    'use strict';
+    let activity = document.forms['activityForm']['activity'].value;
+
+
+    if ((activity === '')) {
+        document.getElementById('activityAlert').innerHTML = '   <div class=\"container\">\n' +
+            '        <div class=\"alert alert-danger alert-dismissible\" data-dismiss=\"alert\" id=\"myAlert\">\n' +
+            '            <button type=\"button\" class=\"close\">&times;</button>\n' +
+            '            <strong>Error!</strong> All required field must be filled.\n' +
+            '        </div>\n' +
+            '    </div>';
+        return false;
+    }
+}

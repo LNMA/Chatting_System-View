@@ -16,7 +16,7 @@ import java.util.logging.Logger;
         maxFileSize = 16 * 1024 * 1024,
         maxRequestSize = 65 * 1024 * 1024,
         //TODO modify file path
-        location = "C:\\Users\\Oday Amr\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
+        location = "C:\\Users\\Ryzen 5\\Documents\\IdeaProjects\\Chatting_System-View\\src\\main\\webapp\\data",
         fileSizeThreshold = 1024 * 1024
 )
 public class AddUserImgPost extends HttpServlet {
