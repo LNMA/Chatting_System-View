@@ -139,7 +139,7 @@
         <nav class="navbar navbar-dark navbar-expand-md fixed-top shadow" style="background-color: #3e3c4e ;">
             <a class="navbar-brand font-weight-bold" href="<%=contextPath%>group/group-switch.jsp">Chatting system</a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUserAccount"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarGroupAccount"
                     aria-controls="navbarGroupAccount" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
