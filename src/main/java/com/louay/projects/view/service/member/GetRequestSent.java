@@ -2,6 +2,7 @@ package com.louay.projects.view.service.member;
 
 import com.louay.projects.controller.service.member.GetUserRequestController;
 import com.louay.projects.model.chains.accounts.Users;
+import com.louay.projects.model.chains.member.Request;
 import com.louay.projects.model.chains.member.account.FriendRequest;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -38,7 +39,7 @@ public class GetRequestSent extends HttpServlet {
         Users users = friendRequest.getSourceAccount();
         users.setUsername((String) session.getAttribute("username"));
 
-        Map<Long, FriendRequest> requestMap = requestController.getSentRequestAndPicBySender(friendRequest);
+        Map<Long, Request> requestMap = requestController.getSentRequestAndPicBySender(friendRequest);
 
         request.setAttribute("requestMap", requestMap);
     }

@@ -1,12 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="../util/error.jsp" %>
-<%@ page import="java.util.Calendar" %>
 <%@ page import="java.time.LocalDateTime" %>
-
+<%@ page import="java.util.Calendar" %>
+<%! String idGroupSession; %>
+<%! String memberTypeSession; %>
 <%! String usernameSession;%>
 <%! String passwordSession;%>
 <%
+    idGroupSession = (String) session.getAttribute("idGroup");
+    memberTypeSession = (String) session.getAttribute("memberType");
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
     StringBuilder contextPath = new StringBuilder(request.getContextPath());
@@ -17,12 +20,15 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(40).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
+        session.setAttribute("idGroup", idGroupSession);
+        session.setAttribute("memberType", memberTypeSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
+
 %>
 
 
@@ -41,9 +47,10 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/group/group.js"></script>
-    <title>Group Members `by Louay Amr'</title>
+    <title>Sent Invite `by Louay Amr'</title>
 </head>
 <body class="background">
+
 
 <header>
     <nav class="navbar navbar-dark navbar-expand-md fixed-top shadow" style="background-color: #3e3c4e ;">
@@ -90,42 +97,49 @@
     </nav>
 </header>
 
-<main class="container-fluid" style="padding-top: 8%;">
+<main class="container-fluid" style="padding-top: 8em;">
     <div class="row row-cols-md-3">
         <div class="col-md-2"></div>
 
         <article class="col-md-8">
+            <section style="margin-left: 20%">
 
-            <jsp:include page="/GetGroupMember"></jsp:include>
-            <c:forEach items="${groupMembersMap}" var="member">
-                <section class="mt-3">
-                    <div class="card">
+                <jsp:include page="/GetGroupInviteSent"></jsp:include>
+                <c:forEach items="${groupInviteMap}" var="invite">
+                    <div class="mt-3">
                         <div class="card-body">
-                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${member.value.getFriendMember().getUsername()}"
-                                       name="strange" readonly hidden>
-                                <input type="text" value="${member.value.getFriendMember().getAccountType()}"
-                                       name="type" readonly hidden>
-                                <button class="btn btn-block w-100" type="submit">
-                                    <div class="form-row">
-                                        <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}"
-                                             class="rounded-circle"
-                                             width="164" height="164"/>
-                                        <p class="font-weight-bolder h5"
-                                           style="margin-left: 5%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}
-                                            : ${member.value.getGroupMemberType()}
-                                        </p>
+                            <div class="form-row">
 
-                                    </div>
-                                </button>
-                            </form>
-                            <div class="text-muted small">Since : ${member.value.getFriendMemberSince()}</div>
+                                <form class="col-10" action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                    <input type="text" value="${invite.value.getTargetAccount().getUsername()}"
+                                           name="strange" readonly hidden>
+                                    <input type="text" value="${invite.value.getTargetAccount().getAccountType()}"
+                                           name="type" readonly hidden>
+                                    <button class="btn btn-block" type="submit">
+                                        <div class="form-row">
+                                            <div class="col-1">
+                                                <img src="data:image/png;base64,${invite.value.getTargetAccount().getBase64()}"
+                                                     class="rounded-circle" width="128" height="128">
+                                            </div>
+                                            <div class="col-10">
+                                                <p class="font-weight-bold h5" style="margin-left: 5%; margin-top: 9%;">
+                                                        ${invite.value.getTargetAccount().getFirstName()} ${invite.value.getTargetAccount().getLastName()}</p>
+                                            </div>
+                                            <div class="text-muted small">At: ${invite.value.getRequestDate()}</div>
+                                        </div>
+
+                                    </button>
+                                </form>
+
+                            </div>
+
                         </div>
                     </div>
-                </section>
-            </c:forEach>
+                </c:forEach>
 
+            </section>
         </article>
+
     </div>
 </main>
 
@@ -215,7 +229,6 @@
         <div id="changeGroupActivityModal"></div>
     </div>
 </nav>
-
 
 <footer>
     <nav class="navbar navbar-light navbar-expand-md shadow"

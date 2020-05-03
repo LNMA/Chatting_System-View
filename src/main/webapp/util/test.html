@@ -12,7 +12,7 @@
     <script src="../libr/popper-1.16/popper.js"></script>
     <script src="../libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="../libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
-    <script src="../client/home-client.js"></script>
+    <script src="../group/group.js"></script>
     <title>Home `by Louay Amr'</title>
 </head>
 <body class="mainBackground">
@@ -64,78 +64,14 @@
 </header>
 
 <main>
-    <nav class="navbar navbar-dark navbar-expand-md bg-info col-md-12">
-        <div class="navbar-brand col-md-10 h-3">
-            <p class="font-weight-bold mt-1 text-white">Group Control</p>
-        </div>
-        <div class="nav-item col-md-2">
-            <form>
-                <button class="btn btn-warning" type="submit">+ Create Group</button>
-            </form>
-        </div>
-    </nav>
 
-    <article>
+    <div class="col-md-2">
+        <button class="btn btn-info" data-toggle="modal" data-target="#profileModal"
+                style="margin-top: 25%">Send Message
+        </button>
+    </div>
 
-        <section class="col-md-8 mt-3" style="margin-left: 16%;">
 
-            <div class="card">
-
-                <div class="card-header">
-                    My Group
-                </div>
-
-                <div class="card-body col-md-8" style="margin-left: 10%;">
-                    <div class="row row-col-1 row-cols-md-2">
-
-                        <div class="col-md-11">
-                            <form>
-                                <button class="btn btn-block">
-                                    <div class="row">
-                                        <img src="img/broken_robot.png" width="94" height="94" class="rounded-circle">
-                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">idGroup</p>
-                                    </div>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="col-md-1" style="margin-top: 6%;">
-                            <form>
-                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="card-body col-md-8" style="margin-left: 10%;">
-                    <div class="row row-col-1 row-cols-md-2">
-
-                        <div class="col-md-11">
-                            <form>
-                                <button class="btn btn-block">
-                                    <div class="row">
-                                        <img src="img/broken_robot.png" width="94" height="94" class="rounded-circle">
-                                        <p class="font-weight-bold ml-3" style="margin-top: 6%;">idGroup</p>
-                                    </div>
-                                </button>
-                            </form>
-                        </div>
-
-                        <div class="col-md-1" style="margin-top: 6%;">
-                            <form>
-                                <button type="submit" class="btn btn-success">&circlearrowright;Switch</button>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </section>
-
-    </article>
 
 
 </main>

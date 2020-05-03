@@ -302,6 +302,96 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddMemberGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddMemberGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddMemberGroup</servlet-name>
+        <url-pattern>/AddMemberGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupInviteSent</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetGroupInviteSent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupInviteSent</servlet-name>
+        <url-pattern>/GetGroupInviteSent</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupRequestReceive</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.GetGroupRequestReceive</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupRequestReceive</servlet-name>
+        <url-pattern>/GetGroupRequestReceive</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddGroupInvite</servlet-name>
+        <servlet-class>com.louay.projects.view.service.member.AddGroupInvite</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddGroupInvite</servlet-name>
+        <url-pattern>/AddGroupInvite</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupImgPost</servlet-name>
+        <servlet-class>com.louay.projects.view.service.post.GetGroupImgPost</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupImgPost</servlet-name>
+        <url-pattern>/GetGroupImgPost</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutGroup</servlet-name>
+        <servlet-class>com.louay.projects.view.service.register.LogoutGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutGroup</servlet-name>
+        <url-pattern>/LogoutGroup</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetUserProfileInfo</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.GetUserProfileInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetUserProfileInfo</servlet-name>
+        <url-pattern>/GetUserProfileInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateUserProfile</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.UpdateUserProfile</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateUserProfile</servlet-name>
+        <url-pattern>/UpdateUserProfile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetGroupProfileInfo</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.GetGroupProfileInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetGroupProfileInfo</servlet-name>
+        <url-pattern>/GetGroupProfileInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateGroupProfileInfo</servlet-name>
+        <servlet-class>com.louay.projects.view.service.profile.UpdateGroupProfileInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateGroupProfileInfo</servlet-name>
+        <url-pattern>/UpdateGroupProfileInfo</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ErrorServlet</servlet-name>
         <servlet-class>com.louay.projects.view.service.util.error.ErrorServlet</servlet-class>
     </servlet>
@@ -321,7 +411,6 @@
         <error-code>500</error-code>
         <location>/ErrorServlet</location>
     </error-page>
-
 
     <session-config>
         <session-timeout>60</session-timeout>

@@ -52,7 +52,11 @@ public class ReviewAccount extends HttpServlet {
         GetUserRequestController userRequestController = (GetUserRequestController) this.context.getBean("userRequestCont");
 
         Accounts accounts = null;
+        String idGroup = null;
         String username = (String) session.getAttribute("username");
+        if (session.getAttribute("idGroup") != null){
+            idGroup = (String) session.getAttribute("idGroup");
+        }
         if (accountType.compareTo(AccountType.USER) == 0){
             accounts = this.context.getBean(Client.class);
             ((Client)accounts).setUsername(id);
@@ -61,6 +65,15 @@ public class ReviewAccount extends HttpServlet {
             boolean isThereRequest = userRequestController.isRequestSendOrReceive(buildFriendRequest(username, id));
             request.setAttribute("isFriend", isFriend);
             request.setAttribute("isThereRequest", isThereRequest);
+
+            if (idGroup != null){
+                boolean isUserInviteToMyGroup = inviteController.isImInvited(buildGroupInvite(id, idGroup));
+                boolean isOurMemberGroup = memberController.isImMember(buildGroupMembers(id,idGroup));
+                boolean isSentGroupRequest = requestController.isRequestSent(buildGroupRequest(id,idGroup));
+                request.setAttribute("isUserInviteToMyGroup", isUserInviteToMyGroup);
+                request.setAttribute("isOurMemberGroup", isOurMemberGroup);
+                request.setAttribute("isSentGroupRequest", isSentGroupRequest);
+            }
 
         }else if (accountType.compareTo(AccountType.GROUP) == 0){
             accounts = this.context.getBean(Groups.class);

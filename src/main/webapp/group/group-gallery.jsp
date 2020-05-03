@@ -1,12 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page errorPage="../util/error.jsp" %>
-<%@ page import="java.util.Calendar" %>
 <%@ page import="java.time.LocalDateTime" %>
-
+<%@ page import="java.util.Calendar" %>
+<%! String idGroupSession; %>
+<%! String memberTypeSession; %>
 <%! String usernameSession;%>
 <%! String passwordSession;%>
 <%
+    idGroupSession = (String) session.getAttribute("idGroup");
+    memberTypeSession = (String) session.getAttribute("memberType");
     usernameSession = (String) session.getAttribute("username");
     passwordSession = (String) session.getAttribute("password");
     StringBuilder contextPath = new StringBuilder(request.getContextPath());
@@ -17,12 +20,15 @@
             calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE),
             calendar.get(Calendar.SECOND));
 
-    if (sessionCreate.plusMinutes(50).compareTo(LocalDateTime.now()) > 0) {
+    if (sessionCreate.plusMinutes(40).compareTo(LocalDateTime.now()) > 0) {
         session = request.getSession(true);
         session.setAttribute("username", usernameSession);
         session.setAttribute("password", passwordSession);
+        session.setAttribute("idGroup", idGroupSession);
+        session.setAttribute("memberType", memberTypeSession);
         response.sendRedirect(contextPath + "\\signin\\login.jsp");
     }
+
 %>
 
 
@@ -41,9 +47,10 @@
     <script src="<%= contextPath %>/libr/bootstrap-4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="<%= contextPath %>/libr/bootstrap-formHelper-2.3.0/dist/js/bootstrap-formhelpers.min.js"></script>
     <script src="<%= contextPath %>/group/group.js"></script>
-    <title>Group Members `by Louay Amr'</title>
+    <title>Gallery `by Louay Amr'</title>
 </head>
 <body class="background">
+
 
 <header>
     <nav class="navbar navbar-dark navbar-expand-md fixed-top shadow" style="background-color: #3e3c4e ;">
@@ -91,43 +98,27 @@
 </header>
 
 <main class="container-fluid" style="padding-top: 8%;">
-    <div class="row row-cols-md-3">
-        <div class="col-md-2"></div>
 
-        <article class="col-md-8">
+    <article>
 
-            <jsp:include page="/GetGroupMember"></jsp:include>
-            <c:forEach items="${groupMembersMap}" var="member">
-                <section class="mt-3">
-                    <div class="card">
+        <div class="row row-cols-1 row-cols-md-3">
+            <jsp:include page="/GetGroupImgPost"></jsp:include>
+            <c:forEach items="${imgTree}" var="img">
+                <div class="col mb-4">
+                    <div class="card h-100">
                         <div class="card-body">
-                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                                <input type="text" value="${member.value.getFriendMember().getUsername()}"
-                                       name="strange" readonly hidden>
-                                <input type="text" value="${member.value.getFriendMember().getAccountType()}"
-                                       name="type" readonly hidden>
-                                <button class="btn btn-block w-100" type="submit">
-                                    <div class="form-row">
-                                        <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}"
-                                             class="rounded-circle"
-                                             width="164" height="164"/>
-                                        <p class="font-weight-bolder h5"
-                                           style="margin-left: 5%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}
-                                            : ${member.value.getGroupMemberType()}
-                                        </p>
-
-                                    </div>
-                                </button>
-                            </form>
-                            <div class="text-muted small">Since : ${member.value.getFriendMemberSince()}</div>
+                            <img src="data:image/png;base64,${img.getBase64()}" class="card-img-top">
                         </div>
                     </div>
-                </section>
+                </div>
             </c:forEach>
 
-        </article>
-    </div>
+        </div>
+
+    </article>
+
 </main>
+
 
 <nav>
     <div id="viewProfileModal">

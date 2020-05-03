@@ -45,89 +45,324 @@
 </head>
 <body class="mainBackground">
 
-<header class="fixed-top">
-    <nav class="navbar navbar-expand-lg mb-0 shadow text-left"
-         style="background-color: #3e3c4e ;height: 6em; width: 100%;">
+<header>
+    <nav class="navbar navbar-dark navbar-expand-md fixed-top shadow" style="background-color: #3e3c4e ;">
+        <a class="navbar-brand font-weight-bold" href="<%=contextPath%>/signin/login.jsp">Chatting system</a>
 
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUserAccount"
+                aria-controls="navbarUserAccount" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse ml-5" id="navbarUserAccount">
+            <ul class="navbar-nav">
+                <li class="nav-item ml-4">
+                    <a class="nav-link font-weight-bold" href="<%=contextPath%>/signin/login.jsp">Home</a>
+                </li>
+                <li class="nav-item ml-4">
+                    <a class="nav-link font-weight-bold" href="<%=contextPath%>/client/friend.jsp">Friend</a>
+                </li>
+                <li class="nav-item dropdown ml-4">
+                    <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
+                    <a class="nav-link dropdown-toggle" href="#" id="inboxDropdown" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Inbox<span class="badge badge-primary badge-pill"><c:out
+                            value="${messageNotSeen+requestReceive}"></c:out></span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="inboxDropdown">
+                        <a class="dropdown-item" href="<%=contextPath%>/client/request-user-receive.jsp">
+                            <img src="<%=contextPath%>/client/img/person_add-black-48dp.svg" width="24" height="24">
+                            Request <span class="badge badge-primary badge-pill"><c:out
+                                value="${requestReceive}"></c:out></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<%=contextPath%>/client/message-receive.jsp">
+                            <img src="<%=contextPath%>/client/img/email-black-48dp.svg" width="24" height="24">
+                            Message <span class="badge badge-primary badge-pill"><c:out
+                                value="${messageNotSeen}"></c:out></span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
 
-        <p class="text-light h4 font-weight-bold col-md-2">Chatting system</p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/signin/login.jsp">Home</a></p>
-        <p class="text-light mt-3 font-weight-bold col-md-1"><a class="nav-link navLinkHover"
-                                                                href="<%= contextPath %>/client/friend.jsp">Friend</a></p>
-        <p class="text-light mt-3 font-weight-bold col-md-1">Inbox<span class="badge badge-primary badge-pill">14</span>
-        </p>
+            <form class="form-inline my-2 my-md-0" action="<%=contextPath%>/client/search-result.jsp" method="get"
+                  style="margin-left: 12%; margin-right: 12%;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                       name="keySearch">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search &telrec;</button>
+            </form>
 
-        <form class="form-inline col-md-5" action="<%= contextPath %>/client/search-result.jsp" method="get">
-            <input class="form-control mr-sm-1 col-md-9" type="text" placeholder="Search" name="keySearch">
-            <button class="btn btn-success col-md-2" type="submit">Search &telrec;</button>
-        </form>
-
-        <jsp:include page="/ViewAllNotSeenMessage"></jsp:include>
-        <a class="col-md-auto col-lg-offset-1"  href="<%=contextPath%>/client/message-receive.jsp">
-            <button class="btn btn-outline-info" type="submit">
-                <span class="badge badge-primary badge-pill mb-0 "><c:out value="${messageNotSeen}">${messageNotSeen}</c:out></span>
-                <img class="mt-0" src="<%= contextPath %>/client/img/message-white-48dp.svg" id="messageImg" height="24"
-                     width="24"/>
-            </button>
-        </a>
-
-        <div class="dropdown col-md-auto">
-            <button type="button" class="btn btn-link dropdown-toggle-split" data-toggle="dropdown">
-                <img src="<%= contextPath %>/client/img/account_circle-white-48dp.svg" class="rounded-circle mr-0"
-                     width="72" height="72"/>&blacktriangledown;
-            </button>
-            <div class="dropdown-menu">
-                <form>
-                    <input class="dropdown-item text-left" type="submit" value="Profile">
-                </form>
-                <form action="<%= contextPath %>/Logout" method="post">
+            <a class="nav-item" href="<%=contextPath%>/client/message-receive.jsp">
+                <button class="btn btn-outline-info nav-link">
+                    <span class="badge badge-primary badge-pill mb-0 "><c:out
+                            value="${messageNotSeen}"></c:out></span>
+                    <img class="mt-0" src="<%=contextPath%>/client/img/message-white-48dp.svg" id="messageImg"
+                         height="24"
+                         width="24"/>
+                </button>
+            </a>
+        </div>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="accountUserDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+                <img src="<%=contextPath%>/client/img/account_circle-white-48dp.svg" class="rounded-circle" width="72"
+                     height="72"/>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="accountUserDropdown">
+                <button class="dropdown-item text-left" id="dropdownProfile" data-toggle="modal"
+                        data-target="#profileModal">Profile
+                </button>
+                <form action="<%=contextPath%>/Logout" method="post">
                     <input class="dropdown-item text-left" type="submit" value="Logout">
                 </form>
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item disabled" href="#">Disabled</a>
             </div>
         </div>
-
     </nav>
 </header>
 
-<main class="col-md-12" style="padding-top: 7%;" >
+<main class="container-fluid" style="padding-top: 8%;">
+    <div class="row row-cols-md-3">
+        <div class="col-md-2"></div>
 
-    <article style="margin-left: 19%">
+        <article class="col-md-8">
 
-        <jsp:include page="/ViewMyFriend"></jsp:include>
-        <c:forEach items="${pictureList}" var="picture">
-            <section class="col-md-9 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="<%=contextPath%>/client/review-account.jsp" method="get">
-                            <input type="text" value="${picture.getUsername()}" name="strange" readonly hidden>
-                            <input type="text" value="${picture.getAccountType()}" name="type" readonly hidden>
-                            <button class="btn btn-block w-75" type="submit">
-                                <div class="form-row">
-                                    <img src="data:image/png;base64,${picture.getBase64()}" class="rounded-circle"
-                                         width="164" height="164"/>
-                                    <p class="font-weight-bolder h5"
-                                       style="margin-left: 13%; margin-top: 10%">${picture.getUsername()} </p>
-                                </div>
+            <jsp:include page="/ViewMyFriend"></jsp:include>
+            <c:forEach items="${userFriendMap}" var="member">
+                <section class="mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="<%=contextPath%>/client/review-account.jsp" method="get">
+                                <input type="text" value="${member.value.getFriendMember().getUsername()}"
+                                       name="strange" readonly hidden>
+                                <input type="text" value="${member.value.getFriendMember().getAccountType()}"
+                                       name="type" readonly hidden>
+                                <button class="btn btn-block " type="submit">
+                                    <div class="row col-md-12">
+                                        <img src="data:image/png;base64,${member.value.getFriendMember().getBase64()}"
+                                             class="rounded-circle"
+                                             width="164" height="164"/>
+                                        <p class="font-weight-bolder h5 col-md-6"
+                                           style="margin-left: 13%; margin-top: 10%">${member.value.getFriendMember().getFirstName()} ${member.value.getFriendMember().getLastName()}</p>
+                                        <div class="text-muted small">
+                                            Since: ${member.value.getFriendMemberSince()}</div>
+                                    </div>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </c:forEach>
+
+        </article>
+    </div>
+</main>
+
+<nav>
+    <div id="viewProfileModal">
+        <jsp:include page="/GetUserProfileInfo"></jsp:include>
+        <c:forEach items="${accountDetail}" var="account">
+            <div class="modal fade" id="profileModal">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Profile</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
                             </button>
-                        </form>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="container-fluid">
+                                <div class="row row-cols-3">
+                                    <!-- label -->
+                                    <div class="col-md-3">
+                                        <label for="username" class="font-weight-bold col-md-12">Username: </label>
+                                        <label for="accountPermission" class="font-weight-bold col-md-12 mt-4">Account
+                                            Permission: </label>
+                                        <label for="dateCreate" class="font-weight-bold col-md-12 mt-4">Date
+                                            Create: </label>
+                                    </div>
+                                    <!-- label -->
+                                    <!-- input -->
+                                    <div class="col-md-4">
+                                        <input class="form-control col-md-12" id="username" name="username" type="text"
+                                               value="${account.getUsername()}" readonly disabled>
+                                        <input class="form-control col-md-12 mt-3" id="accountPermission"
+                                               name="accountPermission"
+                                               type="text" value="${account.getAccountPermission()}" readonly disabled>
+                                        <input class="form-control col-md-12 mt-3" id="dateCreate" name="dateCreate"
+                                               type="text"
+                                               value="${account.getDateCreate()}" readonly disabled>
+                                    </div>
+                                    <!-- input -->
+                                    <!-- img -->
+                                    <div class="col-md-3 offset-md-2">
+                                        <div class="row">
+                                            <img src="data:image;base64,${account.getBase64()}" class="rounded-circle"
+                                                 width="192" height="192">
+                                            <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                    data-target="#ImageModal">
+                                                <img src="../client/img/add_photo_alternate-black-48dp.svg" width="28"
+                                                     height="28">
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- img -->
+                                </div>
+                            </div>
+
+                            <div class="container-fluid">
+                                <div class="row row-cols-3">
+                                    <div class="col-md-3">
+                                        <label for="password" class="font-weight-bold col-md-12">Password: </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input class="form-control col-md-12" id="password" name="password"
+                                               type="password"
+                                               value="${account.getPassword()}" readonly disabled>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#passwordModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid">
+                                <div class="row row-cols-6 mt-5">
+                                    <div class="col-md-2">
+                                        <label for="fname" class="font-weight-bold col-md-12">First Name: </label>
+                                        <label for="lname" class="font-weight-bold col-md-12 mt-3">Last Name: </label>
+                                        <label for="gender" class="font-weight-bold col-md-12 mt-3">Gender: </label>
+                                        <label for="birthday" class="font-weight-bold col-md-12 mt-3">BirthDay: </label>
+                                        <label for="age" class="font-weight-bold col-md-12 mt-3">Age: </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="form-control" id="fname" value="${account.getFirstName()}"
+                                               type="text" readonly disabled>
+                                        <input class="form-control mt-2" id="lname" value="${account.getLastName()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="gender" value="${account.getGender()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="birthday" value="${account.getBirthday()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="age" value="${account.getAge()}"
+                                               type="text" readonly disabled>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#firstNameModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#lastNameModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#genderModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#birthdayModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="telephone" class="font-weight-bold col-md-12">Telephone: </label>
+                                        <label for="email" class="font-weight-bold col-md-12 mt-3">Email: </label>
+                                        <label for="country" class="font-weight-bold col-md-12 mt-3">Country: </label>
+                                        <label for="state" class="font-weight-bold col-md-12 mt-3">State: </label>
+                                        <label for="address" class="font-weight-bold col-md-12 mt-3">Address: </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input class="form-control" id="telephone" value="${account.getTelephone()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="email" value="${account.getEmail()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="country" value="${account.getCountry()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="state" value="${account.getState()}"
+                                               type="text" readonly
+                                               disabled>
+                                        <input class="form-control mt-2" id="address" value="${account.getAddress()}"
+                                               type="text" readonly disabled>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button class="btn" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#telephoneModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#emailModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#addressModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#addressModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                        <button class="btn mt-2" data-toggle="modal" data-dismiss="modal"
+                                                data-target="#addressModal">
+                                            <img src="../client/img/edit-black-48dp.svg" width="16" height="16">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger"
+                                    data-dismiss="modal">Close
+                            </button>
+                        </div>
+
                     </div>
                 </div>
-            </section>
+            </div>
         </c:forEach>
+        <!-- password modal -->
+        <div id="changePasswordModal"></div>
+        <!-- Image modal -->
+        <div id="changeUserPictureModal"></div>
+        <!-- fname modal -->
+        <div id="changeFNameModal"></div>
+        <!-- lname modal -->
+        <div id="changeLNameModal"></div>
+        <!-- gender modal -->
+        <div id="changeGenderModal"></div>
+        <!-- birthday modal -->
+        <div id="changeBirthdayModal"></div>
+        <!-- telephone modal -->
+        <div id="changeTelephoneModal"></div>
+        <!-- email modal -->
+        <div id="changeEmailModal"></div>
+        <!-- address modal -->
+        <div id="changeAddressModal"></div>
+    </div>
+</nav>
 
-    </article>
-
-</main>
-<footer style="padding-top: 32em">
-    <nav class="navbar"
-         style="background-color: #d3c7cd; height: 11em; width: 100%">
-        <p>Louay Amr © 2020</p>
+<footer>
+    <nav class="navbar navbar-light navbar-expand-md shadow"
+         style="background-color: #d3c7cd ; height: 10em;margin-top: 32em;">
+        <div class="navbar-nav">
+            <div class="navbar-text">
+                Louay Amr © 2020
+            </div>
+        </div>
     </nav>
 </footer>
-
 
 </body>
 </html>

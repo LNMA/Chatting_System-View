@@ -1,9 +1,7 @@
 package com.louay.projects.view.service.member;
 
-import com.louay.projects.controller.service.member.GetUserRequestController;
-import com.louay.projects.model.chains.accounts.Users;
-import com.louay.projects.model.chains.member.Request;
-import com.louay.projects.model.chains.member.account.FriendRequest;
+import com.louay.projects.controller.service.member.GetGroupInviteController;
+import com.louay.projects.model.chains.member.group.GroupInvite;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -14,9 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
-import java.util.TreeMap;
 
-public class GetRequestReceive extends HttpServlet {
+public class GetGroupInviteSent extends HttpServlet {
     private AnnotationConfigApplicationContext context;
 
     @Override
@@ -30,17 +27,16 @@ public class GetRequestReceive extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("username") == null) {
+        if (session.getAttribute("username") == null || session.getAttribute("idGroup") == null) {
             response.sendRedirect(request.getContextPath() + "\\signin\\login.jsp");
         }
 
-        GetUserRequestController requestController = (GetUserRequestController) this.context.getBean("userRequestCont");
+        GroupInvite invite = this.context.getBean(GroupInvite.class);
+        invite.getSourceGroup().setIdGroup((String) session.getAttribute("idGroup"));
 
-        FriendRequest friendRequest = this.context.getBean(FriendRequest.class);
-        friendRequest.getTargetAccount().setUsername((String) session.getAttribute("username"));
+        GetGroupInviteController inviteController = (GetGroupInviteController) this.context.getBean("groupInviteCont");
+        Map<Long, GroupInvite> groupInviteMap = inviteController.getGroupInviteAndTargetInfoByIdGroup(invite);
 
-        Map<Long, Request> requestMap = requestController.getSentRequestAndPicByReceiver(friendRequest);
-
-        request.setAttribute("requestMap", requestMap);
+        request.setAttribute("groupInviteMap", groupInviteMap);
     }
 }

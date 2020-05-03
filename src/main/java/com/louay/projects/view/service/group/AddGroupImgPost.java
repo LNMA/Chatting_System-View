@@ -1,7 +1,6 @@
 package com.louay.projects.view.service.group;
 
 import com.louay.projects.controller.service.group.AddGroupPostController;
-import com.louay.projects.view.service.post.AddUserImgPost;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.servlet.ServletConfig;
@@ -22,7 +21,7 @@ import java.util.logging.Logger;
         fileSizeThreshold = 1024 * 1024
 )
 public class AddGroupImgPost extends HttpServlet {
-    private final static Logger LOGGER = Logger.getLogger(AddUserImgPost.class.getCanonicalName());
+    private final static Logger LOGGER = Logger.getLogger(AddGroupImgPost.class.getCanonicalName());
 
     private AnnotationConfigApplicationContext context;
 
